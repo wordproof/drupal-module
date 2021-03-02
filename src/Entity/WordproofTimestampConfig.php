@@ -15,7 +15,7 @@ namespace Drupal\wordproof\Entity;
  *     plural = "@count Wordproof field configurations",
  *   ),
  *   handlers = {
- *     "list_builder" = "Drupal\jsonapi_extras\WebTimestampConfigListBuilder",
+ *     "list_builder" = "Drupal\wordproof\TimestampConfigListBuilder",
  *     "form" = {
  *       "add" = "Drupal\wordproof\Form\WebTimestampConfigForm",
  *       "edit" = "Drupal\wordproof\Form\WebTimestampConfigForm",

@@ -1,25 +1,25 @@
 <?php
 
-namespace Drupal\wordproof\HashInput\Annotation;
+namespace Drupal\wordproof\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines an hash input annotation object.
+ * Defines an blockchain backend for the Hashes.
  *
- * Plugin Namespace: Plugin\HashInput
+ * Plugin Namespace: Plugin\BlockchainBackend
  *
- * For a working example, see \Drupal\wordproof\Plugin\wordproof\HashInput\Serializer
+ * For a working example, see \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\Wordproof
  *
  * @see \Drupal\wordproof\HashInputManager
- * @see \Drupal\wordproof\HashInput\HashInputInterface
+ * @see \Drupal\wordproof\HashInput\StamperInterface
  * @see plugin_api
  *
  * @todo Do we use hooks?
  *
  * @Annotation
  */
-class HashInput extends Plugin {
+class BlockchainBackend extends Plugin {
 
   /**
    * The HashInput plugin ID.

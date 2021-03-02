@@ -1,0 +1,15 @@
+services:
+  plugin.manager.wordproof_stamper:
+    class: Drupal\wordproof\Plugin\StamperManager
+    parent: default_plugin_manager
+
+  # Event subscribers.
+  wordproof.entity_event_subscriber:
+    class: Drupal\wordproof\EventSubscriber\EntityTypeSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
+
+  wordproof.timestamp_builder_service:
+    class: Drupal\wordproof\TimestampBuilderService
+    arguments: ['@plugin.manager.wordproof_stamper']

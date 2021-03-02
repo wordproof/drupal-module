@@ -4,6 +4,7 @@ namespace Drupal\wordproof\Timestamp;
 
 
 final class ArticleTimestamp implements TimestampInterface {
+
   private $properties = [
     'type',
     'version',
@@ -17,4 +18,11 @@ final class ArticleTimestamp implements TimestampInterface {
     'previousVersion',
     'url',
   ];
+
+  private $hash;
+
+  public function getHash(): string {
+    return $this->hash;
+  }
+
 }

@@ -1,0 +1,19 @@
+{
+    "name": "drupal/wordproof",
+    "description": "Wordproof your content",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Björn Brala",
+            "email": "bjorn@swis.nl",
+            "homepage": "https://www.drupal.org/u/bbrala",
+            "role": "Maintainer"
+        }
+    ],
+    "homepage": "https://drupal.org/project/wordproof",
+    "support": {
+        "issues": "https://drupal.org/project/issues/wordproof",
+        "source": "https://git.drupalcode.org/project/wordproof"
+    }
+}

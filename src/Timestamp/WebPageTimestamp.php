@@ -4,6 +4,7 @@ namespace Drupal\wordproof\Timestamp;
 
 
 final class WebPageTimestamp implements TimestampInterface {
+
   private $properties = [
     'type',
     'version',
@@ -15,4 +16,6 @@ final class WebPageTimestamp implements TimestampInterface {
     'previousVersion',
     'url',
   ];
+
+  private $hash;
 }
