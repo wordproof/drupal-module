@@ -1,0 +1,7 @@
+wordproof.webhook:
+  path: '/wordproof/webhook'
+  defaults:
+    _controller: '\Drupal\wordproof\Controller\WebhookController::receive'
+    _title: 'Wordproof webhook receiver'
+  requirements:
+    _permission: 'any'
