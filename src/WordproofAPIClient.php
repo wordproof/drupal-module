@@ -4,19 +4,31 @@
 namespace Drupal\wordproof;
 
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
 class WordproofAPIClient implements WordproofAPIClientInterface {
 
-  const API_URL = 'https://api.wordproof.com';
+  /**
+   * @var \GuzzleHttp\Client
+   */
+  private $client;
+
+  /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  private $config;
 
   /**
    * WordproofAPIClient constructor.
    */
-  public function __construct() {
+  public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
     // @todo Load configuration/settings. Load HttpClient
+    $this->client = $client;
+    $this->config = $configFactory->get('wordproof.settings');
   }
 
   private function timestampRequestData(TimestampInterface $timestamp): array {
@@ -34,7 +46,7 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
 
   public function post(TimestampInterface $timestamp): ResponseInterface {
     $timestampRequestData = $this->timestampRequestData($timestamp);
-    return \Drupal::httpClient()->post(self::API_URL . '/timestamps', $timestampRequestData);
+    return $this->client->post($this->config->get('blockchain_backend_api') . '/timestamps', $timestampRequestData);
   }
 
   public function get(TimestampInterface $timestamp){
@@ -51,7 +63,7 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
     $responses = [];
     foreach($timestamps as $timestamp){
       $timestampRequestData = $this->timestampRequestData($timestamp);
-      $responses[] = \Drupal::httpClient()->post(self::API_URL . '/timestamps/bulk', $timestampRequestData);
+      $responses[] = $this->client->post($this->config->get('blockchain_backend_api') . '/timestamps/bulk', $timestampRequestData);
     }
     return $responses;
   }
@@ -60,7 +72,7 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
     return [
       "Accept" => "application/json",
       "Content-Type" => "application/json",
-      "Authentication" => "Bearer {token}",
+      "Authentication" => "Bearer " . $this->config->get('blockchain_backend_key'),
     ];
   }
 

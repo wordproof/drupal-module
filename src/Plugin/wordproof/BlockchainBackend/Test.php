@@ -14,12 +14,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines an blockchain backend implementation for Wordproof
  *
  * @BlockchainBackend(
- *   id = "wordproof_api_backend",
- *   title = @Translation("Blockchain backend for Wordproof API"),
- *   description = @Translation("Blockchain backend for Wordproof API create hashes on a blockchain")
+ *   id = "test_backend",
+ *   title = @Translation("Test backend for Wordproof API to check selections"),
+ *   description = @Translation("Test backend for Wordproof API create hashes on a blockchain")
  * )
  */
-class Wordproof implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
+class Test implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
    * @var \Drupal\wordproof\WordproofAPIClientInterface

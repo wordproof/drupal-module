@@ -13,9 +13,8 @@ services:
 
   wordproof.wordproof_api_client:
     class: Drupal\wordproof\WordproofAPIClient
-
-
-
+    arguments:
+      [ '@http_client', '@config.factory' ]
 
   # Event subscribers.
   wordproof.entity_event_subscriber:

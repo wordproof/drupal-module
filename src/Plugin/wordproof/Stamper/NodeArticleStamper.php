@@ -20,7 +20,9 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
 class NodeArticleStamper implements StamperInterface {
 
   public function timestamp(Node $node): TimestampInterface {
-    return new ArticleTimestamp();
+    $articleTimestamp = new ArticleTimestamp();
+    $articleTimestamp->setDate($node->getChangedTime());
+    return $articleTimestamp;
   }
 
 }

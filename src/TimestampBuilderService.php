@@ -60,7 +60,7 @@ class TimestampBuilderService {
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {
     // @todo Get from configuration
-    return $this->blockchainBackendManager->createInstance('blockchain_backend_wordproof_api');
+    return $this->blockchainBackendManager->createInstance('wordproof_api_backend');
   }
 
 }

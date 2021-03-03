@@ -1,0 +1,6 @@
+welcome.admin_settings_form:
+  title: 'Wordproof settings'
+  route_name: wordproof.admin_settings_form
+  description: 'Configure Wordproof by settings up API and node configuration.'
+  parent: system.admin_config_system
+  weight: 99
