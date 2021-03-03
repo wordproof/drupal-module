@@ -5,3 +5,11 @@ wordproof.webhook:
     _title: 'Wordproof webhook receiver'
   requirements:
     _permission: 'any'
+
+wordproof.hashinput:
+  path: '/wordproof/hashinput'
+  defaults:
+    _controller: '\Drupal\wordproof\Controller\HashInputController::get'
+    _title: 'Serve JSON-LD HashInput for Hash'
+  requirements:
+    _permission: 'any'

@@ -3,13 +3,23 @@ services:
     class: Drupal\wordproof\Plugin\StamperManager
     parent: default_plugin_manager
 
-  # Event subscribers.
-  wordproof.entity_event_subscriber:
-    class: Drupal\wordproof\EventSubscriber\EntityTypeSubscriber
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: event_subscriber }
+  plugin.manager.wordproof_blockchain_backend:
+    class: Drupal\wordproof\Plugin\BlockchainBackendManager
+    parent: default_plugin_manager
 
   wordproof.timestamp_builder_service:
     class: Drupal\wordproof\TimestampBuilderService
-    arguments: ['@plugin.manager.wordproof_stamper']
+    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend' ]
+
+  wordproof.wordproof_api_client:
+    class: Drupal\wordproof\WordproofAPIClient
+
+
+
+
+  # Event subscribers.
+  wordproof.entity_event_subscriber:
+    class: Drupal\wordproof\EventSubscriber\EntityTypeSubscriber
+    arguments: [ '@entity_type.manager' ]
+    tags:
+      - { name: event_subscriber }

@@ -3,9 +3,13 @@
 namespace Drupal\wordproof\Timestamp;
 
 
-final class ArticleTimestamp implements TimestampInterface {
+final class ArticleTimestamp extends TimestampBase implements TimestampInterface {
 
-  private $properties = [
+  protected $version;
+  protected $author;
+  protected $previousVersion;
+
+  protected $properties = [
     'type',
     'version',
     'title',
@@ -13,16 +17,52 @@ final class ArticleTimestamp implements TimestampInterface {
     'date',
   ];
 
-  private $attributes = [
+  protected $attributes = [
     'author',
     'previousVersion',
     'url',
   ];
 
-  private $hash;
+  /**
+   * @return mixed
+   */
+  public function getVersion() {
+    return $this->version;
+  }
 
-  public function getHash(): string {
-    return $this->hash;
+  /**
+   * @param mixed $version
+   */
+  public function setVersion($version) {
+    $this->version = $version;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getAuthor() {
+    return $this->author;
+  }
+
+  /**
+   * @param mixed $author
+   */
+  public function setAuthor($author) {
+    $this->author = $author;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getPreviousVersion() {
+    return $this->previousVersion;
+  }
+
+  /**
+   * @param mixed $previousVersion
+   */
+  public function setPreviousVersion($previousVersion) {
+    $this->previousVersion = $previousVersion;
   }
 
 }
