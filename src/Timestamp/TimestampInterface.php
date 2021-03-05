@@ -3,9 +3,9 @@
 namespace Drupal\wordproof\Timestamp;
 
 interface TimestampInterface {
-  public function getUid();
+  public function getId();
   public function getTitle();
-  public function getModified();
+  public function getModified(): int;
   public function getUrl();
   public function getContent();
 }

@@ -10,7 +10,7 @@ class Timestamp implements TimestampInterface {
 
   protected $title;
 
-  protected $uuid;
+  protected $id;
 
   protected $url;
 
@@ -26,7 +26,7 @@ class Timestamp implements TimestampInterface {
     return $this->content;
   }
 
-  public function getModified() {
+  public function getModified(): int {
     return $this->date;
   }
 
@@ -38,8 +38,8 @@ class Timestamp implements TimestampInterface {
     return $this->title;
   }
 
-  public function getUid() {
-    return $this->uuid;
+  public function getId() {
+    return $this->id;
   }
 
   public function setDate($date) {
@@ -50,8 +50,8 @@ class Timestamp implements TimestampInterface {
     $this->title = $title;
   }
 
-  public function setUuid($uuid) {
-    $this->uuid = $uuid;
+  public function setId(int $id) {
+    $this->id = $id;
   }
 
   public function setUrl($url) {

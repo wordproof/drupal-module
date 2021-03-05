@@ -13,13 +13,12 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  * Defines an Stamper implementation for Nodes
  *
  * @Stamper(
- *   id = "node_article_stamper",
+ *   id = "node_type_stamper",
  *   title = @Translation("Node ArticleTimestamp"),
  *   description = @Translation("Creates ArticleTimestamp from an Node")
- *   allowed_types = ['article']
  * )
  */
-class NodeArticleStamper implements StamperInterface {
+class NodeTypeStamper implements StamperInterface {
 
   public function timestamp(Node $node): TimestampInterface {
     $timestamp = new Timestamp();

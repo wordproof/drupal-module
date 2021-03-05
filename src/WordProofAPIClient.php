@@ -31,12 +31,15 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
   }
 
   private function timestampRequestData(TimestampInterface $timestamp): array {
+    $time = new \DateTime();
+    $time->setTimestamp($timestamp->getModified());
+
     return [
       'headers' => $this->headers(),
       'body' => json_encode([
-        'uid' => $timestamp->getUid(),
-        'date_modified' => $timestamp->getModified(),
-        'title' => $timestamp->getTitle(),
+        'uid' => $timestamp->getId(),
+        'date_modified' => $time->format('c'),
+        'meta_title' => $timestamp->getTitle(),
         'url' => $timestamp->getUrl(),
         'content' => $timestamp->getContent(),
       ]),
@@ -73,7 +76,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
     return [
       "Accept" => "application/json",
       "Content-Type" => "application/json",
-      "Authentication" => "Bearer " . $this->config->get('blockchain_backend_key'),
+      "Authorization" => "Bearer " . $this->config->get('blockchain_backend_key'),
     ];
   }
 
