@@ -17,7 +17,7 @@ class StamperManager extends DefaultPluginManager {
       'Drupal\wordproof\Annotation\Stamper'
     );
     $this->alterInfo('wordproof_info');
-    $this->setCacheBackend($cache_backend, 'wordproof_info_plugins');
+    $this->setCacheBackend($cache_backend, 'wordproof_info_stamper_plugins');
   }
 
 }

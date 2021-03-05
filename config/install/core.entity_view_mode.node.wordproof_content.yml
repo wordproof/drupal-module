@@ -1,0 +1,8 @@
+status: true
+dependencies:
+  module:
+    - node
+id: node.wordproof_content
+label: Wordproof HashInput
+targetEntityType: node
+cache: true

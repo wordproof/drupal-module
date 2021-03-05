@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class WordproofAPIClient implements WordproofAPIClientInterface {
+class WordProofAPIClient implements WordProofAPIClientInterface {
 
   /**
    * @var \GuzzleHttp\Client
@@ -26,7 +26,6 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
    * WordproofAPIClient constructor.
    */
   public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
-    // @todo Load configuration/settings. Load HttpClient
     $this->client = $client;
     $this->config = $configFactory->get('wordproof.settings');
   }
@@ -34,7 +33,7 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
   private function timestampRequestData(TimestampInterface $timestamp): array {
     return [
       'headers' => $this->headers(),
-      'body' => http_build_query([
+      'body' => json_encode([
         'uid' => $timestamp->getUid(),
         'date_modified' => $timestamp->getModified(),
         'title' => $timestamp->getTitle(),
@@ -46,11 +45,13 @@ class WordproofAPIClient implements WordproofAPIClientInterface {
 
   public function post(TimestampInterface $timestamp): ResponseInterface {
     $timestampRequestData = $this->timestampRequestData($timestamp);
-    return $this->client->post($this->config->get('blockchain_backend_api') . '/timestamps', $timestampRequestData);
+    $uri = $this->config->get('blockchain_backend_url') . '/timestamps';
+    return $this->client->post($uri, $timestampRequestData);
   }
 
   public function get(TimestampInterface $timestamp){
     // @todo Send timestamp GET request
+    // @todo Maybe eventually as extra backend? - This is only needed if you cannot receive Webhook
   }
 
   /**

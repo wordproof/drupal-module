@@ -16,9 +16,14 @@ services:
     arguments:
       [ '@http_client', '@config.factory' ]
 
-  # Event subscribers.
   wordproof.entity_event_subscriber:
     class: Drupal\wordproof\EventSubscriber\EntityTypeSubscriber
     arguments: [ '@entity_type.manager' ]
     tags:
       - { name: event_subscriber }
+
+  worfproof.repository:
+    class: Drupal\wordproof\TimestampRepository
+    arguments: ['@database']
+    tags:
+      - { name: backend_overridable }

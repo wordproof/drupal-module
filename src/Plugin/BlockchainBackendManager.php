@@ -17,7 +17,7 @@ class BlockchainBackendManager extends DefaultPluginManager {
       'Drupal\wordproof\Annotation\BlockchainBackend'
     );
     $this->alterInfo('wordproof_info');
-    $this->setCacheBackend($cache_backend, 'wordproof_info_plugins');
+    $this->setCacheBackend($cache_backend, 'wordproof_info_blockchain_backend_plugins');
   }
 
 }

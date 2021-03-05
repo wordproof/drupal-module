@@ -7,7 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\wordproof\Annotation\BlockchainBackend;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
-use Drupal\wordproof\WordproofAPIClientInterface;
+use Drupal\wordproof\WordProofAPIClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,11 +22,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Test implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
-   * @var \Drupal\wordproof\WordproofAPIClientInterface
+   * @var \Drupal\wordproof\WordProofAPIClientInterface
    */
   private $client;
 
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordproofAPIClientInterface $wordproofAPIClient) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofAPIClientInterface $wordproofAPIClient) {
     $this->client = $wordproofAPIClient;
   }
 

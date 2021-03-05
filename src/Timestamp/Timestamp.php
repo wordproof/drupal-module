@@ -4,13 +4,11 @@
 namespace Drupal\wordproof\Timestamp;
 
 
-class TimestampBase {
+class Timestamp implements TimestampInterface {
 
   protected $date;
 
   protected $title;
-
-  protected $type;
 
   protected $uuid;
 
@@ -44,20 +42,12 @@ class TimestampBase {
     return $this->uuid;
   }
 
-  public function getType() {
-    return $this->type;
-  }
-
   public function setDate($date) {
     $this->date = $date;
   }
 
   public function setTitle($title) {
     $this->title = $title;
-  }
-
-  public function setType($type) {
-    $this->type = $type;
   }
 
   public function setUuid($uuid) {
