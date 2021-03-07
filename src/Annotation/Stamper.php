@@ -46,4 +46,12 @@ class Stamper extends Plugin {
    */
   public $description;
 
+  /**
+   * An array of entity types that can be referenced by this plugin. Defaults to
+   * all entity types.
+   *
+   * @var array (optional)
+   */
+  public $entity_types = [];
+
 }

@@ -16,7 +16,7 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  *   id = "node_article_stamper",
  *   title = @Translation("Node ArticleTimestamp"),
  *   description = @Translation("Creates ArticleTimestamp from an Node")
- *   allowed_types = ['article']
+ *   entity_types = ['article']
  * )
  */
 class NodeArticleStamper implements StamperInterface {

@@ -30,7 +30,6 @@ class NodeTypeStamper implements StamperInterface {
     $timestamp->setDate($node->getChangedTime());
     $timestamp->setTitle($node->label());
     $timestamp->setUrl($node->toUrl()->setAbsolute(true)->toString());
-    $timestamp->setId($node->getRevisionId());
 
     return $timestamp;
   }

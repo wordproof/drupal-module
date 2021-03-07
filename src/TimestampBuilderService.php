@@ -45,8 +45,8 @@ class TimestampBuilderService {
     $bundle = $node->bundle();
     if ($bundle) {
       $plugin = $this->getStamperPlugin($bundle);
-
       $timestamp = $plugin->timestamp($node);
+
       \Drupal::logger('wordproof')->debug('Stamped ' . get_class($timestamp));
 
       $backendPlugin = $this->getBlockchainBackend();
