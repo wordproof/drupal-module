@@ -20,7 +20,13 @@ class TimestampBuilderService {
    */
   private $blockchainBackendManager;
 
-  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager) {
+  /**
+   * @var \Drupal\wordproof\TimestampRepositoryInterface
+   */
+  private $timestampRepository;
+
+  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository) {
+    $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
     $this->blockchainBackendManager = $blockchainBackendManager;
   }
@@ -46,8 +52,10 @@ class TimestampBuilderService {
     if ($bundle) {
       $plugin = $this->getStamperPlugin($bundle);
       $timestamp = $plugin->timestamp($node);
-
       \Drupal::logger('wordproof')->debug('Stamped ' . get_class($timestamp));
+
+      $this->timestampRepository->create($timestamp);
+      \Drupal::logger('wordproof')->debug('Saved ' . get_class($timestamp));
 
       $backendPlugin = $this->getBlockchainBackend();
       $backendPlugin->send($timestamp);

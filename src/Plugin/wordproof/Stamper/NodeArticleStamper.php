@@ -19,21 +19,6 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  *   entity_types = ['article']
  * )
  */
-class NodeArticleStamper implements StamperInterface {
-
-  public function timestamp(Node $node): TimestampInterface {
-    $timestamp = new Timestamp();
-
-    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $build = $view_builder->view($node, 'wordproof_content');
-
-    $timestamp->setContent(render($build));
-    $timestamp->setDate($node->getChangedTime());
-    $timestamp->setTitle($node->label());
-    $timestamp->setUrl($node->toUrl()->setAbsolute(true)->toString());
-    $timestamp->setId($node->getRevisionId());
-
-    return $timestamp;
-  }
+class NodeArticleStamper extends NodeTypeStamper implements StamperInterface {
 
 }

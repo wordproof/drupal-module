@@ -18,6 +18,8 @@ class Timestamp implements TimestampInterface {
 
   protected $content;
 
+  protected $vid;
+
   public function getHash(): string {
     return $this->hash;
   }
@@ -65,4 +67,19 @@ class Timestamp implements TimestampInterface {
   public function setContent($content) {
     $this->content = $content;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getVid() {
+    return $this->vid;
+  }
+
+  /**
+   * @param mixed $vid
+   */
+  public function setVid($vid) {
+    $this->vid = $vid;
+  }
+
 }

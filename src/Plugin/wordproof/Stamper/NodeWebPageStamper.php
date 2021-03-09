@@ -5,6 +5,7 @@ namespace Drupal\wordproof\Plugin\wordproof\Stamper;
 
 use Drupal\node\Entity\Node;
 use Drupal\wordproof\Plugin\StamperInterface;
+use Drupal\wordproof\Timestamp\Timestamp;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 use Drupal\wordproof\Timestamp\WebPageTimestamp;
 
@@ -18,10 +19,6 @@ use Drupal\wordproof\Timestamp\WebPageTimestamp;
  *   entity_types = ['page']
  * )
  */
-class NodeWebPageStamper implements StamperInterface {
-
-  public function timestamp(Node $node): TimestampInterface {
-    return new WebPageTimestamp();
-  }
+class NodeWebPageStamper extends NodeTypeStamper implements StamperInterface {
 
 }

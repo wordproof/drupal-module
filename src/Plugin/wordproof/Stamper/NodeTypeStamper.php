@@ -26,6 +26,7 @@ class NodeTypeStamper implements StamperInterface {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $view_builder->view($node, 'wordproof_content');
 
+    $timestamp->setId($node->id());
     $timestamp->setContent(render($build));
     $timestamp->setDate($node->getChangedTime());
     $timestamp->setTitle($node->label());

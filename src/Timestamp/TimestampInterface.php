@@ -8,4 +8,5 @@ interface TimestampInterface {
   public function getModified(): int;
   public function getUrl();
   public function getContent();
+  public function getVid();
 }
