@@ -20,12 +20,32 @@ class TimestampRepository implements TimestampRepositoryInterface {
 
   public function create(TimestampInterface $timestamp) {
     $id = $this->connection->insert('wordproof_node_timestamp')
-      ->fields([
-        'nid' => $timestamp->getId(),
-        'vid' => $timestamp->getVid(),
-        'hash' => $timestamp->getHash(),
-        'date_created' => $timestamp->getModified(),
-      ])->execute();
+      ->fields(
+        [
+          'nid' => $timestamp->getId(),
+          'vid' => $timestamp->getVid(),
+          'hash' => $timestamp->getHash(),
+          'hash_input' => $timestamp->getHashInput(),
+          'date_created' => $timestamp->getModified(),
+        ]
+      )->execute();
   }
+
+  public function update(TimestampInterface $timestamp) {
+    $this->connection->update('wordproof_node_timestamp')
+      ->fields(
+        [
+          'nid' => $timestamp->getId(),
+          'vid' => $timestamp->getVid(),
+          'hash' => $timestamp->getHash(),
+          'hash_input' => $timestamp->getHashInput(),
+          'date_created' => $timestamp->getModified(),
+        ]
+      )
+      ->where('nid = :nid', $timestamp->getId())
+      ->where('vid = :vid', $timestamp->getVid())
+      ->execute();
+  }
+
 
 }

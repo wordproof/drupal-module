@@ -30,13 +30,16 @@ class Wordproof implements ContainerFactoryPluginInterface, BlockchainBackendInt
     $this->client = $wordproofAPIClient;
   }
 
-  public function send(TimestampInterface $timestamp) {
+  public function send(TimestampInterface $timestamp): TimestampInterface {
     $response = $this->client->post($timestamp);
 
     \Drupal::logger('wordproof')->debug('Response: ' . $response->getBody()->getContents());
 
     if ($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
-      // @todo Save HashInput? Save Referred ID?
+      $response = json_decode($response->getBody());
+      $timestamp->setHashInput($response->hash_input);
+      $timestamp->setHash($response->hash);
+      return $timestamp;
     }
   }
 

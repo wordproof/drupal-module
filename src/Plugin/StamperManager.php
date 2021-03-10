@@ -20,4 +20,13 @@ class StamperManager extends DefaultPluginManager {
     $this->setCacheBackend($cache_backend, 'wordproof_info_stamper_plugins');
   }
 
+  /**
+   * {@inheritdoc}
+   *
+   * @return \Drupal\wordproof\Plugin\StamperInterface
+   */
+  public function createInstance($plugin_id, array $configuration = []) {
+    return parent::createInstance($plugin_id, $configuration);
+  }
+
 }

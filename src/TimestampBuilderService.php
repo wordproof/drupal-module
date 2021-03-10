@@ -45,6 +45,7 @@ class TimestampBuilderService {
       case 'page':
         return $this->stamperManager->createInstance('node_webpage_stamper');
     }
+    return $this->stamperManager->createInstance('node_type_stamper');
   }
 
   public function stamp(Node $node) {
@@ -54,13 +55,13 @@ class TimestampBuilderService {
       $timestamp = $plugin->timestamp($node);
       \Drupal::logger('wordproof')->debug('Stamped ' . get_class($timestamp));
 
+      $backendPlugin = $this->getBlockchainBackend();
+      $timestamp = $backendPlugin->send($timestamp);
+      \Drupal::logger('wordproof')->debug('Sent ' . get_class($timestamp));
+    }
       $this->timestampRepository->create($timestamp);
       \Drupal::logger('wordproof')->debug('Saved ' . get_class($timestamp));
 
-      $backendPlugin = $this->getBlockchainBackend();
-      $backendPlugin->send($timestamp);
-      \Drupal::logger('wordproof')->debug('Sent ' . get_class($timestamp));
-    }
   }
 
   /**

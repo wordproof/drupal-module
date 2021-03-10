@@ -20,4 +20,12 @@ class BlockchainBackendManager extends DefaultPluginManager {
     $this->setCacheBackend($cache_backend, 'wordproof_info_blockchain_backend_plugins');
   }
 
+  /**
+   * {@inheritdoc}
+   *
+   * @return \Drupal\wordproof\Plugin\BlockchainBackendInterface
+   */
+  public function createInstance($plugin_id, array $configuration = []) {
+    return parent::createInstance($plugin_id, $configuration);
+  }
 }

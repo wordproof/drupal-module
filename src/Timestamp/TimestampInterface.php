@@ -9,4 +9,5 @@ interface TimestampInterface {
   public function getUrl();
   public function getContent();
   public function getVid();
+  public function getHashInput();
 }

@@ -7,6 +7,6 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
 
 interface BlockchainBackendInterface {
 
-  public function send(TimestampInterface $timestamp);
+  public function send(TimestampInterface $timestamp): TimestampInterface;
 
 }

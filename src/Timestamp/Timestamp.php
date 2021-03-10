@@ -14,11 +14,13 @@ class Timestamp implements TimestampInterface {
 
   protected $url;
 
-  protected $hash;
+  protected $hash = '';
 
-  protected $content;
+  protected $content = '';
 
   protected $vid;
+
+  protected $hash_input = '';
 
   public function getHash(): string {
     return $this->hash;
@@ -80,6 +82,20 @@ class Timestamp implements TimestampInterface {
    */
   public function setVid($vid) {
     $this->vid = $vid;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getHashInput() {
+    return $this->hash_input;
+  }
+
+  /**
+   * @param mixed $hash_input
+   */
+  public function setHashInput($hash_input) {
+    $this->hash_input = $hash_input;
   }
 
 }
