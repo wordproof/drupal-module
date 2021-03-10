@@ -52,9 +52,9 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
     return $this->client->post($uri, $timestampRequestData);
   }
 
-  public function get(TimestampInterface $timestamp){
-    // @todo Send timestamp GET request
-    // @todo Maybe eventually as extra backend? - This is only needed if you cannot receive Webhook
+  public function get(int $id): ResponseInterface {
+    $uri = $this->config->get('blockchain_backend_url') . '/timestamps';
+    return $this->client->post($uri, ['id' => $id]);
   }
 
   /**

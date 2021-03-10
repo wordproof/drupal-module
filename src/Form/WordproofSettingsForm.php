@@ -63,7 +63,7 @@ class WordproofSettingsForm extends ConfigFormBase {
     $form['blockchain_backend_id'] = [
       '#type' => 'select',
       '#title' => $this->t('Blockchain backend'),
-      '#default_value' => 'wordproof_api_backend',
+      '#default_value' => 'wordproof_api_backend_queued',
       '#options' => $options,
     ];
     $form['blockchain_backend_key'] = [

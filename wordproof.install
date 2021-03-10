@@ -47,7 +47,21 @@ function wordproof_schema() {
         'default' => NULL,
         'description' => t('Hash of the HashInput of this content.'),
       ],
-      'hashinput_blockchain' => [
+      'transaction_blockchain' => [
+        'type' => 'char',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => t('Blockchain used to record the content.'),
+      ],
+      'transaction_id' => [
+        'type' => 'char',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => t('Blockchain used to record the content.'),
+      ],
+      'transaction_link' => [
         'type' => 'char',
         'length' => 128,
         'not null' => FALSE,

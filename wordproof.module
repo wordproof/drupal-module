@@ -2,26 +2,19 @@
 /**
  * @SEE hook_node_create()
  */
-function wordproof_node_create(\Drupal\node\NodeInterface $node){
+function wordproof_node_create(\Drupal\node\NodeInterface $node) {
   \Drupal::logger('wordproof')->debug(__FUNCTION__);
   \Drupal::logger('wordproof')->debug($node->bundle());
   \Drupal::logger('wordproof')->debug($node->label());
 
   \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
 }
-
-function wordproof_node_update(\Drupal\node\NodeInterface $node){
+/* Start with new node support only
+function wordproof_node_update(\Drupal\node\NodeInterface $node) {
   \Drupal::logger('wordproof')->debug(__FUNCTION__);
   \Drupal::logger('wordproof')->debug($node->bundle());
   \Drupal::logger('wordproof')->debug($node->label());
 
   \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
 }
-
-function wordproof_node_delete(\Drupal\node\NodeInterface $node){
-  \Drupal::logger('wordproof')->debug(__FUNCTION__);
-  \Drupal::logger('wordproof')->debug($node->bundle());
-  \Drupal::logger('wordproof')->debug($node->label());
-
-  \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
-}
+*/

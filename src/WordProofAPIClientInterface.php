@@ -9,7 +9,7 @@ interface WordProofAPIClientInterface {
 
   public function post(TimestampInterface $timestamp): ResponseInterface;
 
-  public function get(TimestampInterface $timestamp);
+  public function get(int $id): ResponseInterface;
 
   /**
    * @param TimestampInterface[] $timestamps

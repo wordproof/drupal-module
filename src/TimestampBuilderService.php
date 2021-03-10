@@ -2,6 +2,7 @@
 
 namespace Drupal\wordproof;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\node\Entity\Node;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Plugin\BlockchainBackendManager;
@@ -25,9 +26,15 @@ class TimestampBuilderService {
    */
   private $timestampRepository;
 
-  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository) {
+  /**
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  private $configFactory;
+
+  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
+    $this->configFactory = $configFactory;
     $this->blockchainBackendManager = $blockchainBackendManager;
   }
 
@@ -69,7 +76,7 @@ class TimestampBuilderService {
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {
     // @todo Get from configuration
-    return $this->blockchainBackendManager->createInstance('wordproof_api_backend');
+    return $this->blockchainBackendManager->createInstance('wordproof_api_backend_queued');
   }
 
 }

@@ -9,7 +9,7 @@ services:
 
   wordproof.timestamp_builder_service:
     class: Drupal\wordproof\TimestampBuilderService
-    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend' ]
+    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend', '@wordproof.repository', '@config.factory' ]
 
   wordproof.wordproof_api_client:
     class: Drupal\wordproof\WordproofAPIClient
@@ -22,7 +22,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  worfproof.repository:
+  wordproof.repository:
     class: Drupal\wordproof\TimestampRepository
     arguments: ['@database']
     tags:

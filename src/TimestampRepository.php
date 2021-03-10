@@ -47,5 +47,16 @@ class TimestampRepository implements TimestampRepositoryInterface {
       ->execute();
   }
 
-
+  public function updateBlockchainInfo(string $hash, string $blockchain, string $transactionId, string $transactionLink){
+    $this->connection->update('wordproof_node_timestamp')
+      ->fields(
+        [
+          'blockchain' => $blockchain,
+          'transaction_id' => $transactionId,
+          'transaction_link' => $transactionLink,
+        ]
+      )
+      ->where('hash = :hash', $hash)
+      ->execute();
+  }
 }
