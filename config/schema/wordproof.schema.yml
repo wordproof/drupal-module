@@ -1,6 +1,6 @@
 wordproof.settings:
   type: config_object
-  label: 'Wordproof base configuration'
+  label: 'WordProof base configuration'
   mapping:
     blockchainBackend:
       type: mapping

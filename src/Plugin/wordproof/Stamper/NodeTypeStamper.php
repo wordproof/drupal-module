@@ -27,6 +27,7 @@ class NodeTypeStamper implements StamperInterface {
     $build = $view_builder->view($node, 'wordproof_content');
 
     $timestamp->setId($node->id());
+    $timestamp->setVid($node->getRevisionId());
     $timestamp->setContent(render($build));
     $timestamp->setDate($node->getChangedTime());
     $timestamp->setTitle($node->label());

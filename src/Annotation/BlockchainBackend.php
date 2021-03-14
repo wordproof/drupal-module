@@ -9,7 +9,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * Plugin Namespace: Plugin\wordproof\BlockchainBackend
  *
- * For a working example, see \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\Wordproof
+ * For a working example, see \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\WordProof
  *
  * @see \Drupal\wordproof\Plugin\BlockchainBackendManager
  * @see \Drupal\wordproof\Plugin\BlockchainBackendInterface

@@ -1,15 +1,18 @@
 <?php
+
+use Drupal\Component\Render\MarkupInterface;
+
 /**
  * @SEE hook_node_create()
  */
-function wordproof_node_create(\Drupal\node\NodeInterface $node) {
-  \Drupal::logger('wordproof')->debug(__FUNCTION__);
-  \Drupal::logger('wordproof')->debug($node->bundle());
-  \Drupal::logger('wordproof')->debug($node->label());
+function wordproof_entity_insert(\Drupal\node\NodeInterface $node) {
+  \Drupal::logger('wordproof')->debug('function'  . __FUNCTION__);
+  \Drupal::logger('wordproof')->debug('bundje'  . $node->bundle());
+  \Drupal::logger('wordproof')->debug('label'  . $node->label());
 
   \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
 }
-/* Start with new node support only
+/* Start with new node support only */
 function wordproof_node_update(\Drupal\node\NodeInterface $node) {
   \Drupal::logger('wordproof')->debug(__FUNCTION__);
   \Drupal::logger('wordproof')->debug($node->bundle());
@@ -17,4 +20,80 @@ function wordproof_node_update(\Drupal\node\NodeInterface $node) {
 
   \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
 }
-*/
+
+
+/**
+ * @see hook_token_info().
+ */
+function wordproof_token_info() {
+  $type = [
+    'name' => t('WordProof timestamp'),
+    'description' => t('Token for the JSON-LD timestamp of an entity.'),
+    'needs-data' => 'node',
+  ];
+  $node['wordproof-timestamp-json-ld'] = [
+    'name' => t("JSON-LD timestamp"),
+    'description' => t('The node\'s JSON-LD timestamp'),
+  ];
+  return [
+    'tokens' => ['node' => $node],
+  ];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function wordproof_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+
+  if ($type == 'node' && !empty($data['node'])) {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'wordproof-timestamp-json-ld':
+          $id = $data['node']->id();
+          // Get all timetamps for entity that are available. This is all cache context.
+          $timestamps = \Drupal::service('wordproof.repository')->get($id);
+          foreach($timestamps as $timestamp){
+            $bubbleable_metadata->addCacheableDependency($timestamp);
+          }
+
+          class TimestampToken implements MarkupInterface {
+
+            public function __toString() {
+              return '
+  "@type": "BlockchainTransaction",
+  "identifier": "bb93587586f089f83526eb90f93f3951c11b328bf81c492e18ba162a84cea1b0",
+  "hash": "0d869841dccdabf8b25a727412023b3159c23c585e298b23317a0d05ad4164fa",
+  "hashLink": "https://www.nrc.nl/api/wordproof/hashinput?id=4339608",
+  "recordedIn": {
+    "@type": "Blockchain",
+    "name": "eosio_main"
+  }
+          ';
+            }
+
+            public function jsonSerialize() {
+              return [];
+            }
+
+          }
+
+          $array = [
+            "@type" => "BlockchainTransaction",
+            "identifier" => "bb93587586f089f83526eb90f93f3951c11b328bf81c492e18ba162a84cea1b0",
+            "hash" => "0d869841dccdabf8b25a727412023b3159c23c585e298b23317a0d05ad4164fa",
+            "hashLink" => "https =>//www.nrc.nl/api/wordproof/hashinput?id=4339608",
+            "recordedIn" => [
+              "@type" => "Blockchain",
+              "name" => "eosio_main"
+            ]
+          ];
+
+          $replacements[$original] = new TimestampToken();
+          $replacements[$original] = $array;
+          break;
+      }
+    }
+  }
+  return $replacements;
+}

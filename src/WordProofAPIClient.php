@@ -23,7 +23,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
   private $config;
 
   /**
-   * WordproofAPIClient constructor.
+   * WordProofAPIClient constructor.
    */
   public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
     $this->client = $client;
@@ -53,8 +53,8 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
   }
 
   public function get(int $id): ResponseInterface {
-    $uri = $this->config->get('blockchain_backend_url') . '/timestamps';
-    return $this->client->post($uri, ['id' => $id]);
+    $uri = $this->config->get('blockchain_backend_url') . '/timestamps/' . $id;
+    return $this->client->get($uri);
   }
 
   /**

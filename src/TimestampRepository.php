@@ -18,6 +18,15 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $this->connection = $connection;
   }
 
+  /**
+   * @param $entity_id
+   *
+   * @return array
+   */
+  public function get($entity_id) {
+    return [];
+  }
+
   public function create(TimestampInterface $timestamp) {
     $id = $this->connection->insert('wordproof_node_timestamp')
       ->fields(
@@ -47,7 +56,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
       ->execute();
   }
 
-  public function updateBlockchainInfo(string $hash, string $blockchain, string $transactionId, string $transactionLink){
+  public function updateBlockchainInfo(string $hash, string $blockchain, string $transactionId, string $transactionLink) {
     $this->connection->update('wordproof_node_timestamp')
       ->fields(
         [
@@ -59,4 +68,5 @@ class TimestampRepository implements TimestampRepositoryInterface {
       ->where('hash = :hash', $hash)
       ->execute();
   }
+
 }

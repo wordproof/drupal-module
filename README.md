@@ -7,6 +7,12 @@
 * Render WordProof elements with the element by WordProof
 * Validate Timestamp data to make sure it contains the needed information?
 * Possibly implement something like EntityReferenceSelection where you can set the valid entity types for a plugin. This makes installing a specific plugin for other modules easier.
+* Timestamp updates: Challenge is to know when a entity is updated, since it can contain referenced entities it should also make sure it updates when references are updated. Possible solution:
+  * Loop through all entity-type/entity-bundle where WordProof is activated.
+  * Loop through the fields in the view mode (or default) and collect all reference fields.
+  * Collect all possible types/bundles it can reference.
+  * Save the references (referenced entity -> parent type->bundle and cache that result.
+  * Use entity update hook to also check for existence in the array.
 * Tests? ;)
 
 * Create "timestamp" type for schema_metatag

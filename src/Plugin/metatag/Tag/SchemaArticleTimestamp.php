@@ -2,7 +2,7 @@
 
 namespace Drupal\wordproof\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
 
 /**
  * Provides a plugin for the 'schema_article_timestamp' meta tag.
@@ -24,6 +24,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   property_type = "text",
  * )
  */
-class SchemaArticleTimestamp extends SchemaNameBase {
+class SchemaArticleTimestamp extends SchemaTimestampBase {
 
 }

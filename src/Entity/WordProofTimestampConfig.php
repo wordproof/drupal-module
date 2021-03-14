@@ -2,17 +2,17 @@
 namespace Drupal\wordproof\Entity;
 
 /**
- * Defines the Wordproof Config entity.
+ * Defines the WordProof Config entity.
  *
  * @ConfigEntityType(
  *   id = "woordproof_timestamp_config",
- *   label = @Translation("Wordproof field configuration"),
- *   label_collection = @Translation("Wordproof field configurations"),
- *   label_singular = @Translation("Wordproof field configuration"),
- *   label_plural = @Translation("Wordproof field configurations"),
+ *   label = @Translation("WordProof field configuration"),
+ *   label_collection = @Translation("WordProof field configurations"),
+ *   label_singular = @Translation("WordProof field configuration"),
+ *   label_plural = @Translation("WordProof field configurations"),
  *   label_count = @PluralTranslation(
- *     singular = "@count Wordproof field configuration",
- *     plural = "@count Wordproof field configurations",
+ *     singular = "@count WordProof field configuration",
+ *     plural = "@count WordProof field configurations",
  *   ),
  *   handlers = {
  *     "list_builder" = "Drupal\wordproof\TimestampConfigListBuilder",
@@ -48,6 +48,6 @@ namespace Drupal\wordproof\Entity;
  *   }
  * )
  */
-class WordproofTimestampConfig {
+class WordProofTimestampConfig {
 
 }

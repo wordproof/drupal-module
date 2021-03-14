@@ -1,6 +1,6 @@
 {
     "name": "drupal/wordproof",
-    "description": "Wordproof your content",
+    "description": "WordProof your content",
     "type": "drupal-module",
     "license": "GPL-2.0-or-later",
     "authors": [

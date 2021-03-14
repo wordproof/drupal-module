@@ -24,7 +24,7 @@ function wordproof_schema() {
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        'size' => 'normal'
+        'size' => 'normal',
       ],
       'nid' => [
         'type' => 'int',
@@ -68,7 +68,13 @@ function wordproof_schema() {
         'default' => '',
         'description' => t('Blockchain used to record the content.'),
       ],
-      'hashinput_text' => [
+      'hash_input' => [
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => FALSE,
+        'description' => t('The input on which the hash is based. Could be text, html, json, json-ld'),
+      ],
+      'hash_input_text' => [
         'type' => 'text',
         'size' => 'medium',
         'not null' => FALSE,
@@ -92,8 +98,14 @@ function wordproof_schema() {
   return $schema;
 }
 
-function wordproof_uninstall(){
+function wordproof_uninstall() {
   $table = 'wordproof_node_timestamp';
   $schema = Database::getConnection()->schema();
-  $schema->dropTable($table);
+  if ($schema->tableExists($table)) {
+    $schema->dropTable($table);
+  } else {
+    \Drupal::logger('error')->error('Could not remove ' . $table);
+  }
+
+
 }

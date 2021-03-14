@@ -2,7 +2,7 @@
 
 namespace Drupal\wordproof\Plugin\metatag\Tag;
 
-use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
 
 /**
  * Provides a plugin for the 'schema_article_timestamp' meta tag.
@@ -12,18 +12,20 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * - 'group' should match the id of the group that defines the Schema.org type.
  *
  * @MetatagTag(
- *   id = "schema_webpage_timestamp",
+ *   id = "schema_product_timestamp",
  *   label = @Translation("timestamp"),
  *   description = @Translation("The timestamp of this product. Use: [node:wordproof-timestamp]."),
  *   name = "timestamp",
- *   group = "schema_webpage",
+ *   group = "schema_product",
  *   weight = 10,
  *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE,
  *   property_type = "text",
+ *   tree_parent = {},
+ *   tree_depth = -1,
  * )
  */
-class SchemaProductTimestamp extends SchemaNameBase {
+class SchemaProductTimestamp extends SchemaTimestampBase {
 
 }

@@ -9,7 +9,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\wordproof\Plugin\BlockchainBackendManager;
 
-class WordproofSettingsForm extends ConfigFormBase {
+class WordProofSettingsForm extends ConfigFormBase {
 
   const SETTINGS = 'wordproof.settings';
 
@@ -19,7 +19,7 @@ class WordproofSettingsForm extends ConfigFormBase {
   private $backendManager;
 
   /**
-   * WordproofSettingsForm constructor.
+   * WordProofSettingsForm constructor.
    */
   public function __construct(ConfigFactoryInterface $config_factory) {
     $this->backendManager = \Drupal::service('plugin.manager.wordproof_blockchain_backend');

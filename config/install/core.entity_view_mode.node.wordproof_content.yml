@@ -3,6 +3,6 @@ dependencies:
   module:
     - node
 id: node.wordproof_content
-label: Wordproof HashInput
+label: WordProof HashInput
 targetEntityType: node
 cache: true

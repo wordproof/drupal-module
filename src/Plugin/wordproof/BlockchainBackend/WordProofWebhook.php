@@ -11,15 +11,15 @@ use Drupal\wordproof\WordProofAPIClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines an blockchain backend implementation for Wordproof
+ * Defines an blockchain backend implementation for WordProof
  *
  * @BlockchainBackend(
- *   id = "wordproof_api_backend_queued",
- *   title = @Translation("Blockchain backend for Wordproof API"),
- *   description = @Translation("Blockchain backend for Wordproof API create hashes on a blockchain. Uses the queued checks to call the API for blockchain info instead of a WebHook")
+ *   id = "wordproof_api_backend_webhook",
+ *   title = @Translation("WordProof API Webhook Blockchain backend"),
+ *   description = @Translation("Blockchain backend for WordProof API create hashes on a blockchain. Uses the queued checks to call the API for blockchain info instead of a WebHook")
  * )
  */
-class WordproofQueued implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
+class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
    * @var \Drupal\wordproof\WordProofAPIClientInterface
@@ -33,13 +33,12 @@ class WordproofQueued implements ContainerFactoryPluginInterface, BlockchainBack
   public function send(TimestampInterface $timestamp): TimestampInterface {
     $response = $this->client->post($timestamp);
 
+    \Drupal::logger('wordproof')->debug('Response: ' . $response->getBody()->getContents());
+
     if ($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
       $response = json_decode($response->getBody());
       $timestamp->setHashInput($response->hash_input);
       $timestamp->setHash($response->hash);
-
-      $this->queueBlockchainInfoCron($response);
-
       return $timestamp;
     }
   }
@@ -53,10 +52,4 @@ class WordproofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $container->get('wordproof.wordproof_api_client')
     );
   }
-
-  private function queueBlockchainInfoCron($response) {
-    $queue = \Drupal::queue('wordproof_blockchain_backend_wordproof_queue');
-    $queue->createItem($response);
-  }
-
 }

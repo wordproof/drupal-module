@@ -27,7 +27,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *     "transaction_blockchain" = "transaction_blockchain",
  *     "transaction_id" = "transaction_id",
  *     "transaction_link" = "transaction_link",
- *     "hashinput_text" = "hashinput_text",
+ *     "hash_input_text" = "hash_input_text",
  *     "date_created" = "date_created",
  *   }
  * )
@@ -59,7 +59,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('The referred revision id for the referred entity.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['hash'] = BaseFieldDefinition::create('char')
+    $fields['hash'] = BaseFieldDefinition::create('string')
       ->setLabel(t('The revision id'))
       ->setSettings(
         [
@@ -69,7 +69,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('Hash of the HashInput of this content.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['transaction_blockchain'] = BaseFieldDefinition::create('char')
+    $fields['transaction_blockchain'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Blockchain used'))
       ->setSettings(
         [
@@ -79,7 +79,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('Blockchain used to record the content.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['transaction_id'] = BaseFieldDefinition::create('char')
+    $fields['transaction_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Blockchain transaction id'))
       ->setSettings(
         [
@@ -89,7 +89,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('Blockchain transaction to record the content.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['transaction_link'] = BaseFieldDefinition::create('char')
+    $fields['transaction_link'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Blockchain transaction link'))
       ->setSettings(
         [
@@ -99,7 +99,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('Link to blockchain transaction.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['hashinput_text'] = BaseFieldDefinition::create('text')
+    $fields['hash_input_text'] = BaseFieldDefinition::create('text')
       ->setLabel(t('HashInput '))
       ->setSettings(
         [

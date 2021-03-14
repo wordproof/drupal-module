@@ -12,9 +12,8 @@ services:
     arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend', '@wordproof.repository', '@config.factory' ]
 
   wordproof.wordproof_api_client:
-    class: Drupal\wordproof\WordproofAPIClient
-    arguments:
-      [ '@http_client', '@config.factory' ]
+    class: Drupal\wordproof\WordProofAPIClient
+    arguments: [ '@http_client', '@config.factory' ]
 
   wordproof.repository:
     class: Drupal\wordproof\TimestampRepository

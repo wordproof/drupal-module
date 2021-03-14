@@ -15,8 +15,8 @@ use Drupal\wordproof\Timestamp\WebPageTimestamp;
  * @Stamper(
  *   id = "node_webpage_stamper",
  *   title = @Translation("Node WebPageTimestamp"),
- *   description = @Translation("Creates WebPageTimestamp from an Node")
- *   entity_types = ['page']
+ *   description = @Translation("Creates WebPageTimestamp from an Node"),
+ *   entity_types = {"page"}
  * )
  */
 class NodeWebPageStamper extends NodeTypeStamper implements StamperInterface {
