@@ -16,12 +16,6 @@ services:
     arguments:
       [ '@http_client', '@config.factory' ]
 
-  wordproof.entity_event_subscriber:
-    class: Drupal\wordproof\EventSubscriber\EntityTypeSubscriber
-    arguments: [ '@entity_type.manager' ]
-    tags:
-      - { name: event_subscriber }
-
   wordproof.repository:
     class: Drupal\wordproof\TimestampRepository
     arguments: ['@database']
