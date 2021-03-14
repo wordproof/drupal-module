@@ -10,7 +10,9 @@
 * Tests? ;)
 
 * Create "timestamp" type for schema_metatag
-  * First implementation is a full list of fields. But perhaps
+  * First implementation is a full list of fields. Conclusion:
+     * Until schema.org schema is defined:
+        Create `SchemaXxxxxTimestamp.php` with a simple type (like text). Hint at the proper token ([node:wordproof-timestamp] or [entity:wordproof-timestamp]) and render the required json in the token hook based on the stored entity (remember cache tags ;)). This should be the most low tech solution for now.
 ```json
 {
   "timestamp": {

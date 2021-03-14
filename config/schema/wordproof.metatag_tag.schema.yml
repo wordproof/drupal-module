@@ -1,0 +1,25 @@
+# The 'type' should be "label" for short meta tags and "text" for ones which
+# could get longer, especially ones which use a textarea field instead of a
+# textfield.
+metatag.metatag_tag.schema_blockchain_name:
+  type: text
+  label: 'about'
+metatag.metatag_tag.schema_blockchain_type:
+  type: string
+  label: '@type'
+
+metatag.metatag_tag.schema_blockchain_transaction_hash:
+  type: string
+  label: 'hash'
+metatag.metatag_tag.schema_blockchain_transaction_hash_link:
+  type: string
+  label: 'hash_link'
+metatag.metatag_tag.schema_blockchain_transaction_identifier:
+  type: string
+  label: 'identifier'
+metatag.metatag_tag.schema_blockchain_transaction_recorded_in:
+  type: string
+  label: 'recorded_in'
+metatag.metatag_tag.schema_blockchain_transaction_type:
+  type: string
+  label: 'type'
