@@ -14,18 +14,14 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * @MetatagTag(
  *   id = "schema_article_timestamp",
  *   label = @Translation("timestamp"),
- *   description = @Translation("The timestamp of this article."),
+ *   description = @Translation("The timestamp of this article. Use: [node:wordproof-timestamp]."),
  *   name = "timestamp",
  *   group = "schema_article",
  *   weight = 10,
- *   type = "blockchain_transaction",
+ *   type = "string",
  *   secure = FALSE,
  *   multiple = FALSE,
- *   property_type = "blockchain_transaction",
- *   tree_parent = {
- *     "BlockchainTransaction"
- *   },
- *   tree_depth = -1,
+ *   property_type = "text",
  * )
  */
 class SchemaArticleTimestamp extends SchemaNameBase {
