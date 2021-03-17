@@ -2,6 +2,10 @@ status: true
 dependencies:
   module:
     - node
+    - wordproof
+  enforced:
+    module:
+      - wordproof
 id: node.wordproof_content
 label: WordProof HashInput
 targetEntityType: node
