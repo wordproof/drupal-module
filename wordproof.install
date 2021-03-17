@@ -42,9 +42,9 @@ function wordproof_schema() {
       ],
       'remote_id' => [
         'type' => 'char',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 128,
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => NULL,
         'description' => "The remote ID if needed by the backend",
       ],
       'hash' => [
@@ -115,5 +115,6 @@ function wordproof_uninstall() {
     \Drupal::logger('error')->error('Could not remove ' . $table);
   }
 
+  \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_content')->delete();
 
 }

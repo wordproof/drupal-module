@@ -1,24 +1,29 @@
 <?php
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * @SEE hook_node_create()
  */
-function wordproof_entity_insert(\Drupal\node\NodeInterface $node) {
+function wordproof_node_insert(NodeInterface $node) {
   \Drupal::logger('wordproof')->debug('function'  . __FUNCTION__);
   \Drupal::logger('wordproof')->debug('bundje'  . $node->bundle());
   \Drupal::logger('wordproof')->debug('label'  . $node->label());
 
-  \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+  if($node->isPublished()){
+    \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+  }
 }
 /* Start with new node support only */
-function wordproof_node_update(\Drupal\node\NodeInterface $node) {
+function wordproof_node_update(NodeInterface $node) {
   \Drupal::logger('wordproof')->debug(__FUNCTION__);
   \Drupal::logger('wordproof')->debug($node->bundle());
   \Drupal::logger('wordproof')->debug($node->label());
 
-  \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+  if($node->isPublished()) {
+    \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+  }
 }
 
 

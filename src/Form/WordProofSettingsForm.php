@@ -63,17 +63,19 @@ class WordProofSettingsForm extends ConfigFormBase {
     $form['blockchain_backend_id'] = [
       '#type' => 'select',
       '#title' => $this->t('Blockchain backend'),
-      '#default_value' => 'wordproof_api_backend_queued',
+      '#default_value' => $config->get('wordproof_api_backend_queued') ?: 'wordproof_api_backend_queued',
       '#options' => $options,
     ];
     $form['blockchain_backend_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Blockchain backend key'),
+      '#value' => $config->get('blockchain_backend_key') ?: null
     ];
     $form['blockchain_backend_url'] = [
       '#type' => 'url',
       '#default_value' => 'https://api.wordproof.com/',
       '#title' => $this->t('Blockchain backend url'),
+      '#value' => $config->get('blockchain_backend_url') ?: null
     ];
 
     return parent::buildForm($form, $form_state);

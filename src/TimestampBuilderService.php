@@ -31,11 +31,19 @@ class TimestampBuilderService {
    */
   private $configFactory;
 
+  /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  private $config;
+
+
   public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
     $this->configFactory = $configFactory;
     $this->blockchainBackendManager = $blockchainBackendManager;
+
+    $this->config = $configFactory->get('wordproof.settings');
   }
 
   /**
@@ -65,18 +73,17 @@ class TimestampBuilderService {
       $backendPlugin = $this->getBlockchainBackend();
       $timestamp = $backendPlugin->send($timestamp);
       \Drupal::logger('wordproof')->debug('Sent ' . get_class($timestamp));
-    }
+
       $this->timestampRepository->create($timestamp);
       \Drupal::logger('wordproof')->debug('Saved ' . get_class($timestamp));
-
+    }
   }
 
   /**
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {
-    // @todo Get from configuration
-    return $this->blockchainBackendManager->createInstance('wordproof_api_backend_queued');
+    return $this->blockchainBackendManager->createInstance($this->config->get('blockchain_backend_id'));
   }
 
 }

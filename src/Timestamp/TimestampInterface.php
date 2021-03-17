@@ -11,5 +11,4 @@ interface TimestampInterface {
   public function getVid();
   public function getHashInput();
   public function getRemoteId();
-
 }

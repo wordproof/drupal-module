@@ -19,15 +19,15 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   entity_keys = {
  *     "id" = "id",
  *     "uuid" = "uuid",
- *     "id" = "id",
- *     "uuid" = "uuid",
  *     "entity_id" = "entity_id",
  *     "revision_id" = "revision_id",
+ *     "remote_id" = "remote_id",
  *     "hash" = "hash",
  *     "transaction_blockchain" = "transaction_blockchain",
+ *     "transaction_address" = "transaction_address",
  *     "transaction_id" = "transaction_id",
  *     "transaction_link" = "transaction_link",
- *     "hash_input_text" = "hash_input_text",
+ *     "hash_input" = "hash_input",
  *     "date_created" = "date_created",
  *   }
  * )
@@ -59,6 +59,17 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('The referred revision id for the referred entity.'));
 
     // Standard field, unique outside of the scope of the current project.
+    $fields['remote_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('The remote id'))
+      ->setDefaultValue('')
+      ->setSettings(
+        [
+          'length' => 128,
+        ]
+      )
+      ->setDescription(t('The ID in the remote if needed.'));
+
+    // Standard field, unique outside of the scope of the current project.
     $fields['hash'] = BaseFieldDefinition::create('string')
       ->setLabel(t('The revision id'))
       ->setSettings(
@@ -77,6 +88,16 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
         ]
       )
       ->setDescription(t('Blockchain used to record the content.'));
+
+    // Standard field, unique outside of the scope of the current project.
+    $fields['transaction_address'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Blockchain address info'))
+      ->setSettings(
+        [
+          'length' => 128,
+        ]
+      )
+      ->setDescription(t('Blockchain address info.'));
 
     // Standard field, unique outside of the scope of the current project.
     $fields['transaction_id'] = BaseFieldDefinition::create('string')
@@ -99,8 +120,8 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface {
       ->setDescription(t('Link to blockchain transaction.'));
 
     // Standard field, unique outside of the scope of the current project.
-    $fields['hash_input_text'] = BaseFieldDefinition::create('text')
-      ->setLabel(t('HashInput '))
+    $fields['hash_input'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('HashInput'))
       ->setSettings(
         [
           'size' => 'medium',

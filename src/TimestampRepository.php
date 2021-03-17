@@ -5,6 +5,7 @@ namespace Drupal\wordproof;
 
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Url;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 class TimestampRepository implements TimestampRepositoryInterface {
@@ -18,13 +19,39 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $this->connection = $connection;
   }
 
+  public function getHashInput($id){
+    $query = $this->connection->select('wordproof_node_timestamp', 't')
+      ->fields('t', ['hash_input'])
+      ->condition('id', $id);
+
+    return $query->execute()->fetchField();
+  }
+
   /**
-   * @param $entity_id
+   * @param $nid
    *
    * @return array
    */
-  public function get($entity_id) {
-    return [];
+  public function getJson($nid) {
+    $query = $this->connection->select('wordproof_node_timestamp', 't')
+      ->fields('t')
+      ->condition('nid', $nid)
+      ->orderBy('vid', 'DESC');
+    $timestampData = $query
+      ->execute()
+      ->fetch();
+
+    $url = Url::fromRoute('wordproof.hashinput', ['id' => $timestampData->id])->setAbsolute()->toString();
+    return [
+      "@type" => "BlockchainTransaction",
+      "identifier" => $timestampData->transaction_id,
+      "hash" => $timestampData->hash,
+      "hashLink" => $url,
+      "recordedIn" => [
+        "@type" => "Blockchain",
+        "name" => $timestampData->transaction_blockchain,
+      ]
+    ];
   }
 
   public function create(TimestampInterface $timestamp) {
