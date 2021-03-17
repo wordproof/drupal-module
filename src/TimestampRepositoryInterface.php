@@ -10,6 +10,6 @@ interface TimestampRepositoryInterface {
 
   public function update(TimestampInterface $timestamp);
 
-  public function updateBlockchainInfo(string $hash, string $blockchain, string $transactionId, string $transactionLink);
+  public function updateBlockchainInfo(string $hash, string $blockchain, string $address, string $transactionId, string $transactionLink);
 
 }

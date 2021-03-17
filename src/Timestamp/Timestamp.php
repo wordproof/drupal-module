@@ -22,6 +22,8 @@ class Timestamp implements TimestampInterface {
 
   protected $hash_input = '';
 
+  protected $remote_id = '';
+
   public function getHash(): string {
     return $this->hash;
   }
@@ -96,6 +98,20 @@ class Timestamp implements TimestampInterface {
    */
   public function setHashInput($hash_input) {
     $this->hash_input = $hash_input;
+  }
+
+  /**
+   * @return string
+   */
+  public function getRemoteId(): string {
+    return $this->remote_id;
+  }
+
+  /**
+   * @param string $remote_id
+   */
+  public function setRemoteId(string $remote_id) {
+    $this->remote_id = $remote_id;
   }
 
 }

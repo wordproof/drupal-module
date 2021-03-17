@@ -40,6 +40,13 @@ function wordproof_schema() {
         'default' => 0,
         'description' => "The node revision.",
       ],
+      'remote_id' => [
+        'type' => 'char',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 128,
+        'description' => "The remote ID if needed by the backend",
+      ],
       'hash' => [
         'type' => 'char',
         'length' => 64,
@@ -74,7 +81,7 @@ function wordproof_schema() {
         'not null' => FALSE,
         'description' => t('The input on which the hash is based. Could be text, html, json, json-ld'),
       ],
-      'hash_input_text' => [
+      'transaction_address' => [
         'type' => 'text',
         'size' => 'medium',
         'not null' => FALSE,
@@ -91,6 +98,7 @@ function wordproof_schema() {
     'primary key' => ['id'],
     'indexes' => [
       'hash' => ['hash'],
+      'remote_id' => ['remote_id'],
       'node_revision' => ['nid', 'vid'],
     ],
   ];

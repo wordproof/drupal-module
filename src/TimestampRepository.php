@@ -33,6 +33,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
         [
           'nid' => $timestamp->getId(),
           'vid' => $timestamp->getVid(),
+          'remote_id' => $timestamp->getRemoteId(),
           'hash' => $timestamp->getHash(),
           'hash_input' => $timestamp->getHashInput(),
           'date_created' => $timestamp->getModified(),
@@ -46,6 +47,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
         [
           'nid' => $timestamp->getId(),
           'vid' => $timestamp->getVid(),
+          'remote_id' => $timestamp->getRemoteId(),
           'hash' => $timestamp->getHash(),
           'hash_input' => $timestamp->getHashInput(),
           'date_created' => $timestamp->getModified(),
@@ -56,16 +58,26 @@ class TimestampRepository implements TimestampRepositoryInterface {
       ->execute();
   }
 
-  public function updateBlockchainInfo(string $hash, string $blockchain, string $transactionId, string $transactionLink) {
+  public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink) {
+
+    var_dump([
+      'blockchain' => $blockchain,
+      'transaction_address' => $address,
+      'transaction_id' => $transactionId,
+      'transaction_link' => $transactionLink,
+      'remote_id' => $remote_id,
+    ]);
+
     $this->connection->update('wordproof_node_timestamp')
       ->fields(
         [
-          'blockchain' => $blockchain,
+          'transaction_blockchain' => $blockchain,
+          'transaction_address' => $address,
           'transaction_id' => $transactionId,
           'transaction_link' => $transactionLink,
         ]
       )
-      ->where('hash = :hash', $hash)
+      ->where('remote_id = :remote_id', ['remote_id' => (int) $remote_id])
       ->execute();
   }
 

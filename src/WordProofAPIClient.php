@@ -54,7 +54,8 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
 
   public function get(int $id): ResponseInterface {
     $uri = $this->config->get('blockchain_backend_url') . '/timestamps/' . $id;
-    return $this->client->get($uri);
+    \Drupal::logger('wordproof')->debug('Getting: ' . $uri);
+    return $this->client->get($uri, ['headers' => $this->headers()]);
   }
 
   /**

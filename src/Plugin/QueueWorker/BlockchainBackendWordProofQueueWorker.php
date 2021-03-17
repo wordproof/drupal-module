@@ -52,17 +52,18 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
   }
 
   public function processItem($data) {
-    \Drupal::logger('wordproof')->debug('Queue worker starting.');
+    \Drupal::logger('wordproof')->debug('Queue worker starting.... :D');
 
     $response = $this->apiClient->get($data->id);
     \Drupal::logger('wordproof')->debug('Queue response: ' . $response->getBody());
 
-    $responseObject = json_decode($response->getBody()->getContents());
-    if (!isset($responseObject->transaction) && !isset($responseObject->trnasaction->transactionId)) {
+    $responseObject = json_decode($response->getBody());
+
+    if (!isset($responseObject->transaction) && !isset($responseObject->transaction->transactionId)) {
       throw new DelayedRequeueException(static::API_CHECK_DELAY, 'Blockchain information not available yet.');
     }
 
-    $this->timestampRepository->updateBlockchainInfo($responseObject->hash, $responseObject->transaction->blockchain, $responseObject->transaction->transactionId, $responseObject->transaction->link);
+    $this->timestampRepository->updateBlockchainInfo($responseObject->id, $responseObject->transaction->address, $responseObject->transaction->blockchain, $responseObject->transaction->transactionId, $responseObject->transaction->link);
   }
 
 }

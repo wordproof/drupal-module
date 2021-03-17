@@ -11,6 +11,9 @@
             "role": "Maintainer"
         }
     ],
+    "require": {
+        "drupal/schema_metatag": "^2.1"
+    },
     "homepage": "https://drupal.org/project/wordproof",
     "support": {
         "issues": "https://drupal.org/project/issues/wordproof",

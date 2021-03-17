@@ -10,4 +10,6 @@ interface TimestampInterface {
   public function getContent();
   public function getVid();
   public function getHashInput();
+  public function getRemoteId();
+
 }
