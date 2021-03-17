@@ -33,12 +33,12 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
   public function send(TimestampInterface $timestamp): TimestampInterface {
     $response = $this->client->post($timestamp);
 
-    \Drupal::logger('wordproof')->debug('Response: ' . $response->getBody()->getContents());
-
     if ($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
       $response = json_decode($response->getBody());
       $timestamp->setHashInput($response->hash_input);
       $timestamp->setHash($response->hash);
+      $timestamp->setRemoteId($response->id);
+
       return $timestamp;
     }
   }

@@ -37,7 +37,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
     return [
       'headers' => $this->headers(),
       'body' => json_encode([
-        'uid' => $timestamp->getId(),
+        'uid' => $timestamp->getReferenceId(),
         'date_modified' => $time->format('c'),
         'meta_title' => $timestamp->getTitle(),
         'url' => $timestamp->getUrl(),

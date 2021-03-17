@@ -17,6 +17,6 @@ services:
 
   wordproof.repository:
     class: Drupal\wordproof\TimestampRepository
-    arguments: ['@database']
+    arguments: ['@entity_type.manager']
     tags:
       - { name: backend_overridable }

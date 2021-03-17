@@ -5,107 +5,72 @@ namespace Drupal\wordproof;
 
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Url;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 class TimestampRepository implements TimestampRepositoryInterface {
 
   /**
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $connection;
+  private $entityTypeManager;
 
-  public function __construct(Connection $connection) {
-    $this->connection = $connection;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityTypeManager = $entityTypeManager;
   }
 
-  public function getHashInput($id){
-    $query = $this->connection->select('wordproof_node_timestamp', 't')
-      ->fields('t', ['hash_input'])
-      ->condition('id', $id);
-
-    return $query->execute()->fetchField();
+  public function getHashInput($id) {
+    /** @var \Drupal\wordproof\Entity\Timestamp $entity */
+    $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
+    return $entity->getHashInput();
   }
 
-  /**
-   * @param $nid
-   *
-   * @return array
-   */
-  public function getJson($nid) {
-    $query = $this->connection->select('wordproof_node_timestamp', 't')
-      ->fields('t')
-      ->condition('nid', $nid)
-      ->orderBy('vid', 'DESC');
-    $timestampData = $query
-      ->execute()
-      ->fetch();
+  public function getJson($entity_id) {
+    /** @var \Drupal\wordproof\Entity\Timestamp[] $entities */
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
+    $timestamp = array_pop($entities);
 
-    $url = Url::fromRoute('wordproof.hashinput', ['id' => $timestampData->id])->setAbsolute()->toString();
+    if ($timestamp === NULL || $timestamp->getTransactionBlockchain() === NULL) {
+      return '';
+    }
+
+    $url = Url::fromRoute('wordproof.hashinput', ['id' => $timestamp->id()])->setAbsolute()->toString();
     return [
       "@type" => "BlockchainTransaction",
-      "identifier" => $timestampData->transaction_id,
-      "hash" => $timestampData->hash,
+      "identifier" => $timestamp->getTransactionId(),
+      "hash" => $timestamp->getHash(),
       "hashLink" => $url,
       "recordedIn" => [
         "@type" => "Blockchain",
-        "name" => $timestampData->transaction_blockchain,
-      ]
+        "name" => $timestamp->getTransactionBlockchain(),
+      ],
     ];
   }
 
   public function create(TimestampInterface $timestamp) {
-    $id = $this->connection->insert('wordproof_node_timestamp')
-      ->fields(
-        [
-          'nid' => $timestamp->getId(),
-          'vid' => $timestamp->getVid(),
-          'remote_id' => $timestamp->getRemoteId(),
-          'hash' => $timestamp->getHash(),
-          'hash_input' => $timestamp->getHashInput(),
-          'date_created' => $timestamp->getModified(),
-        ]
-      )->execute();
-  }
-
-  public function update(TimestampInterface $timestamp) {
-    $this->connection->update('wordproof_node_timestamp')
-      ->fields(
-        [
-          'nid' => $timestamp->getId(),
-          'vid' => $timestamp->getVid(),
-          'remote_id' => $timestamp->getRemoteId(),
-          'hash' => $timestamp->getHash(),
-          'hash_input' => $timestamp->getHashInput(),
-          'date_created' => $timestamp->getModified(),
-        ]
-      )
-      ->where('nid = :nid', $timestamp->getId())
-      ->where('vid = :vid', $timestamp->getVid())
-      ->execute();
+    $entity = $this->entityTypeManager->getStorage('timestamp')->create(
+      [
+        'entity_id' => $timestamp->getReferenceId(),
+        'revision_id' => $timestamp->getReferenceRevisionId(),
+        'remote_id' => $timestamp->getRemoteId(),
+        'hash' => $timestamp->getHash(),
+        'hash_input' => $timestamp->getHashInput(),
+        'date_created' => $timestamp->getModified(),
+      ]
+    );
+    $entity->save();
   }
 
   public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink) {
-
-    var_dump([
-      'blockchain' => $blockchain,
-      'transaction_address' => $address,
-      'transaction_id' => $transactionId,
-      'transaction_link' => $transactionLink,
-      'remote_id' => $remote_id,
-    ]);
-
-    $this->connection->update('wordproof_node_timestamp')
-      ->fields(
-        [
-          'transaction_blockchain' => $blockchain,
-          'transaction_address' => $address,
-          'transaction_id' => $transactionId,
-          'transaction_link' => $transactionLink,
-        ]
-      )
-      ->where('remote_id = :remote_id', ['remote_id' => (int) $remote_id])
-      ->execute();
+    /** @var \Drupal\wordproof\Entity\Timestamp $entity */
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['remote_id' => (int) $remote_id]);
+    $entity = array_shift($entities);
+    $entity->setTransactionAddress($address);
+    $entity->setTransactionBlockchain($blockchain);
+    $entity->setTransactionId($transactionId);
+    $entity->setTransactionLink($transactionLink);
+    $entity->save();
   }
 
 }

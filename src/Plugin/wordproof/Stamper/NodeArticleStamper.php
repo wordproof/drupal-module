@@ -3,11 +3,7 @@
 
 namespace Drupal\wordproof\Plugin\wordproof\Stamper;
 
-use Drupal\node\Entity\Node;
 use Drupal\wordproof\Plugin\StamperInterface;
-use Drupal\wordproof\Timestamp\ArticleTimestamp;
-use Drupal\wordproof\Timestamp\Timestamp;
-use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
  * Defines an Stamper implementation for Nodes

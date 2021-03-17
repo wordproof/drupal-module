@@ -5,8 +5,6 @@ namespace Drupal\wordproof\Plugin\wordproof\Stamper;
 
 use Drupal\node\Entity\Node;
 use Drupal\wordproof\Plugin\StamperInterface;
-use Drupal\wordproof\Timestamp\ArticleTimestamp;
-use Drupal\wordproof\Timestamp\Timestamp;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
@@ -21,15 +19,16 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
 class NodeTypeStamper implements StamperInterface {
 
   public function timestamp(Node $node): TimestampInterface {
-    $timestamp = new Timestamp();
+    /** @var \Drupal\wordproof\Entity\Timestamp $timestamp */
+    $timestamp = \Drupal::entityTypeManager()->getStorage('timestamp')->create();
 
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $view_builder->view($node, 'wordproof_content');
 
-    $timestamp->setId($node->id());
-    $timestamp->setVid($node->getRevisionId());
+    $timestamp->setReferenceId($node->id());
+    $timestamp->setReferenceRevisionId($node->getRevisionId());
     $timestamp->setContent(render($build));
-    $timestamp->setDate($node->getChangedTime());
+    $timestamp->setModified($node->getChangedTime());
     $timestamp->setTitle($node->label());
     $timestamp->setUrl($node->toUrl()->setAbsolute(true)->toString());
 
