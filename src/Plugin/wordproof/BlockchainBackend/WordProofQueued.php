@@ -41,8 +41,9 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
 
       $this->queueBlockchainInfoCron($response);
 
-      return $timestamp;
     }
+
+    return $timestamp;
   }
 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {

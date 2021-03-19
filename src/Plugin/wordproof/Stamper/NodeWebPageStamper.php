@@ -13,7 +13,7 @@ use Drupal\wordproof\Plugin\StamperInterface;
  *   id = "node_webpage_stamper",
  *   title = @Translation("Node WebPageTimestamp"),
  *   description = @Translation("Creates WebPageTimestamp from an Node"),
- *   entity_types = {"page"}
+ *   entity_types = {"node:page"}
  * )
  */
 class NodeWebPageStamper extends NodeTypeStamper implements StamperInterface {

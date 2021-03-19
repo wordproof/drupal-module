@@ -3,6 +3,7 @@
 
 namespace Drupal\wordproof\Plugin\wordproof\Stamper;
 
+use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\node\Entity\Node;
 use Drupal\wordproof\Plugin\StamperInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
@@ -18,6 +19,7 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  */
 class NodeTypeStamper implements StamperInterface {
 
+  /** @todo this could  */
   public function timestamp(Node $node): TimestampInterface {
     /** @var \Drupal\wordproof\Entity\Timestamp $timestamp */
     $timestamp = \Drupal::entityTypeManager()->getStorage('timestamp')->create();
@@ -25,6 +27,7 @@ class NodeTypeStamper implements StamperInterface {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = $view_builder->view($node, 'wordproof_content');
 
+    // @todo if RevisionableInterface then revision etc.
     $timestamp->setReferenceId($node->id());
     $timestamp->setReferenceRevisionId($node->getRevisionId());
     $timestamp->setContent(render($build));

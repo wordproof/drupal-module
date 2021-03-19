@@ -20,6 +20,17 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $this->entityTypeManager = $entityTypeManager;
   }
 
+  public function isStamped($entity_id): bool {
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
+    return (count($entities) > 0);
+  }
+
+  public function get($entity_id) {
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
+    $timestamp = array_pop($entities);
+    return $timestamp;
+  }
+
   public function getHashInput($id) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
@@ -27,9 +38,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function getJson($entity_id) {
-    /** @var \Drupal\wordproof\Entity\Timestamp[] $entities */
-    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
-    $timestamp = array_pop($entities);
+    $timestamp = $this->get($entity_id);
 
     if ($timestamp === NULL || $timestamp->getTransactionBlockchain() === NULL) {
       return '';

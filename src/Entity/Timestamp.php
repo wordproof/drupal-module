@@ -39,6 +39,17 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
       ->setLabel(t('The entity id'))
       ->setDescription(t('The referred entity id for the timestamp.'));
 
+    // @todo fix this all the way to the back?
+    $fields['entity_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('The entity type'))
+      ->setSettings(
+        [
+          'length' => 128,
+        ]
+      )
+      ->setDescription(t('Hash of the HashInput of this content.'));
+
+
     // Standard field, unique outside of the scope of the current project.
     $fields['revision_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('The revision id'))
@@ -144,6 +155,8 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
 
     return $fields;
   }
+
+
 
   public function getHash(): string {
     return $this->get('hash')->value;

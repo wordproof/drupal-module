@@ -30,7 +30,7 @@ interface TimestampInterface {
 
   public function getUrl(): string;
 
-  public function setContent(string $content);
+  public function setContent(string $content) : TimestampInterface;
 
   public function setReferenceId(int $entity_id);
 

@@ -7,7 +7,6 @@ namespace Drupal\wordproof;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
 class WordProofAPIClient implements WordProofAPIClientInterface {

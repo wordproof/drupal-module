@@ -1,0 +1,22 @@
+certificate_module:
+  remote: https://github.com/wordproof
+  licence:
+    name: GPL
+    gpl-compatible: true
+  js:
+    https://unpkg.com/@wordproof/uikit/dist/uikit/uikit.esm.js:
+      type: external,
+      minified: true,
+      attributes:
+        type: "module"
+certificate_nomodule:
+  remote: https://github.com/wordproof
+  licence:
+    name: GPL
+    gpl-compatible: true
+  js:
+    https://unpkg.com/@wordproof/uikit/dist/uikit/uikit.js:
+      type: external,
+      minified: true,
+      attributes:
+        nomodule: true

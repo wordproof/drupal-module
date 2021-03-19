@@ -12,7 +12,7 @@ use Drupal\wordproof\Plugin\StamperInterface;
  *   id = "node_article_stamper",
  *   title = @Translation("Node ArticleTimestamp"),
  *   description = @Translation("Creates ArticleTimestamp from an Node"),
- *   entity_types = {"article"}
+ *   entity_types = {"node:article"}
  * )
  */
 class NodeArticleStamper extends NodeTypeStamper implements StamperInterface {
