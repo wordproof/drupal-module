@@ -1,5 +1,6 @@
 # Todo
 
+* Should references in the Timestamp entity be true entity_reference fields?
 * Node type configuration: form for timestamp type vs node bundle.
 * WebHook endpoint: Receiving blockchain information.
 * Nested backend Settings: form nested for backend (in config form, use #state and get form from the backend. See jsonapi)
