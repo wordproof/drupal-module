@@ -9,7 +9,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * Plugin Namespace: Plugin\wordproof\Stamper
  *
- * For a working example, see \Drupal\wordproof\Plugin\wordproof\Stamper\NodeStamper
+ * For a working example, see \Drupal\wordproof\Plugin\wordproof\Stamper\ContentEntityStamper
  *
  * @see \Drupal\wordproof\Plugin\StamperManager
  * @see \Drupal\wordproof\Plugin\StamperInterface

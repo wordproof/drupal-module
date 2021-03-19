@@ -33,10 +33,11 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
     $time = new \DateTime();
     $time->setTimestamp($timestamp->getModified());
 
+    // @todo uid is unique id of referenced entity officially, but cannot do that since entities can live in different tables.
     return [
       'headers' => $this->headers(),
       'body' => json_encode([
-        'uid' => $timestamp->getReferenceId(),
+        'uid' =>(int)  $timestamp->id(),
         'date_modified' => $time->format('c'),
         'meta_title' => $timestamp->getTitle(),
         'url' => $timestamp->getUrl(),

@@ -15,6 +15,6 @@ use Drupal\wordproof\Plugin\StamperInterface;
  *   entity_types = {"node:article"}
  * )
  */
-class NodeArticleStamper extends NodeTypeStamper implements StamperInterface {
+class NodeArticleStamper extends ContentEntityStamper implements StamperInterface {
 
 }

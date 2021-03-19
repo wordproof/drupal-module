@@ -15,8 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "wordproof_timestamp_condition",
  *   label = @Translation("WordProof timestamp block condition"),
  *   context = {
- *     "node" = @ContextDefinition(
- *        "entity:node",
+ *     "entity" = @ContextDefinition(
+ *        "entity",
  *        required = TRUE ,
  *        label = @Translation("entity")
  *     )
@@ -46,12 +46,12 @@ class TimestampCondition extends ConditionPluginBase implements ContainerFactory
   }
 
   public function evaluate() {
-    $node = $this->getContextValue('node');
-    return $this->repository->isStamped($node->id());
+    $entity = $this->getContextValue('entity');
+    return $this->repository->isStamped($entity);
   }
 
   public function summary() {
-    return t('Evaluate if node had an available timestamp');
+    return t('Evaluate if entity had an available timestamp');
   }
 
 }

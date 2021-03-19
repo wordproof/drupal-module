@@ -1,27 +1,40 @@
 <?php
 
-use Drupal\Component\Render\MarkupInterface;
-use Drupal\node\NodeInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
- * @SEE hook_node_create()
+ * @SEE hook_entity_create()
  */
-function wordproof_node_insert(NodeInterface $node) {
-  \Drupal::logger('wordproof')->debug('function'  . __FUNCTION__);
-  \Drupal::logger('wordproof')->debug('bundje'  . $node->bundle());
-  \Drupal::logger('wordproof')->debug('label'  . $node->label());
-
-  if($node->isPublished()){
-    \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+function wordproof_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+  if (!$entity instanceof ContentEntityInterface) {
+    return FALSE;
   }
+  if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
+    return FALSE;
+  }
+
+  \Drupal::logger('wordproof')->debug('function' . __FUNCTION__);
+  \Drupal::logger('wordproof')->debug('type' . $entity->getEntityTypeId());
+  \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
+  \Drupal::logger('wordproof')->debug('label' . $entity->label());
+
+  \Drupal::service('wordproof.timestamp_builder_service')->stamp($entity);
 }
-/* Start with new node support only */
-function wordproof_node_update(NodeInterface $node) {
-  \Drupal::logger('wordproof')->debug(__FUNCTION__);
-  \Drupal::logger('wordproof')->debug($node->bundle());
-  \Drupal::logger('wordproof')->debug($node->label());
 
-  if($node->isPublished()) {
-    \Drupal::service('wordproof.timestamp_builder_service')->stamp($node);
+/* Start with new node support only */
+function wordproof_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+  if (!$entity instanceof ContentEntityInterface) {
+    return;
   }
+
+  if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
+    return;
+  }
+
+  \Drupal::logger('wordproof')->debug('function' . __FUNCTION__);
+  \Drupal::logger('wordproof')->debug('type' . $entity->getEntityTypeId());
+  \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
+  \Drupal::logger('wordproof')->debug('label' . $entity->label());
+
+  \Drupal::service('wordproof.timestamp_builder_service')->stamp($entity);
 }

@@ -5,6 +5,7 @@ namespace Drupal\wordproof;
 
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Url;
 use Drupal\wordproof\Timestamp\TimestampInterface;
@@ -20,15 +21,14 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $this->entityTypeManager = $entityTypeManager;
   }
 
-  public function isStamped($entity_id): bool {
-    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
+  public function isStamped(ContentEntityInterface $entity): bool {
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity->id(), 'stamped_entity_type' => $entity->getEntityTypeId()]);
     return (count($entities) > 0);
   }
 
-  public function get($entity_id) {
-    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id]);
-    $timestamp = array_pop($entities);
-    return $timestamp;
+  public function get(ContentEntityInterface $entity) {
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity->id(), 'stamped_entity_type' => $entity->getEntityTypeId()]);
+    return array_pop($entities);
   }
 
   public function getHashInput($id) {
@@ -61,6 +61,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $entity = $this->entityTypeManager->getStorage('timestamp')->create(
       [
         'entity_id' => $timestamp->getReferenceId(),
+        'stamped_entity_type' => $timestamp->getReferenceEntityType(),
         'revision_id' => $timestamp->getReferenceRevisionId(),
         'remote_id' => $timestamp->getRemoteId(),
         'hash' => $timestamp->getHash(),

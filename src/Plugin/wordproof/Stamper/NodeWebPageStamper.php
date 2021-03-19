@@ -16,6 +16,6 @@ use Drupal\wordproof\Plugin\StamperInterface;
  *   entity_types = {"node:page"}
  * )
  */
-class NodeWebPageStamper extends NodeTypeStamper implements StamperInterface {
+class NodeWebPageStamper extends ContentEntityStamper implements StamperInterface {
 
 }

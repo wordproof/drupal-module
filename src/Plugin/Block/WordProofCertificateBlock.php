@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  id = "wordproof_certificate_block",
  *  admin_label = @Translation("WordProof certificate block"),
  *  context = {
- *    "node" = @ContextDefinition("entity:node", label = @Translation("Node"))
+ *    "entity" = @ContextDefinition("entity", label = @Translation("Entity"))
  *  }
  * )
  */
@@ -53,9 +53,10 @@ class WordProofCertificateBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $node = $this->getContextValue('node');
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    $entity = $this->getContextValue('entity');
     /** @var \Drupal\wordproof\Timestamp\TimestampInterface $timestamp */
-    $timestamp = $this->repository->get($node->id());
+    $timestamp = $this->repository->get($entity->id(), $entity->bundle());
 
     if (!is_null($timestamp)) {
       return [

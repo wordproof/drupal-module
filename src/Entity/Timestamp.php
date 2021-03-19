@@ -19,7 +19,6 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  *   base_table = "timestamp",
  *   entity_keys = {
  *     "id" = "id",
- *     "remote_id" = "remote_id",
  *     "date_created" = "date_created",
  *   }
  * )
@@ -40,8 +39,8 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
       ->setDescription(t('The referred entity id for the timestamp.'));
 
     // @todo fix this all the way to the back?
-    $fields['entity_type'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('The entity type'))
+    $fields['stamped_entity_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('The stamped entity type'))
       ->setSettings(
         [
           'length' => 128,
@@ -157,7 +156,6 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
   }
 
 
-
   public function getHash(): string {
     return $this->get('hash')->value;
   }
@@ -210,56 +208,64 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     return $this->get('transaction_link')->value;
   }
 
-  public function setModified(int $date) {
-    $this->set('date_created', $date);
+  public function getReferenceEntityType(): string {
+    return $this->get('stamped_entity_type')->value;
   }
 
-  public function setTitle(string $title) {
-    $this->set('title', $title);
+  public function setModified(int $date): TimestampInterface {
+    return $this->set('date_created', $date);
   }
 
-  public function setReferenceId(int $entity_id) {
-    $this->set('entity_id', $entity_id);
+  public function setTitle(string $title): TimestampInterface {
+    return $this->set('title', $title);
   }
 
-  public function setUrl(string $url) {
-    $this->set('url', $url);
+  public function setReferenceId(int $entity_id): TimestampInterface {
+    return $this->set('entity_id', $entity_id);
   }
 
-  public function setHash(string $hash) {
-    $this->set('hash', $hash);
+  public function setUrl(string $url): TimestampInterface {
+    return $this->set('url', $url);
   }
 
-  public function setContent(string $content) {
-    $this->set('content', $content);
+  public function setHash(string $hash): TimestampInterface {
+    return $this->set('hash', $hash);
   }
 
-  public function setReferenceRevisionId(int $revision_id) {
-    $this->set('revision_id', $revision_id);
+  public function setContent(string $content): TimestampInterface {
+    return $this->set('content', $content);
   }
 
-  public function setHashInput(string $hash_input) {
-    $this->set('hash_input', $hash_input);
+  public function setReferenceRevisionId(int $revision_id): TimestampInterface {
+    return $this->set('revision_id', $revision_id);
   }
 
-  public function setRemoteId(string $remote_id) {
-    $this->set('remote_id', $remote_id);
+  public function setHashInput(string $hash_input): TimestampInterface {
+    return $this->set('hash_input', $hash_input);
   }
 
-  public function setTransactionBlockchain(string $transaction_blockchain) {
-    $this->set('transaction_blockchain', $transaction_blockchain);
+  public function setRemoteId(string $remote_id): TimestampInterface {
+    return $this->set('remote_id', $remote_id);
   }
 
-  public function setTransactionAddress(string $transaction_address) {
-    $this->set('transaction_address', $transaction_address);
+  public function setTransactionBlockchain(string $transaction_blockchain): TimestampInterface {
+    return $this->set('transaction_blockchain', $transaction_blockchain);
   }
 
-  public function setTransactionId(string $transaction_id) {
-    $this->set('transaction_id', $transaction_id);
+  public function setTransactionAddress(string $transaction_address): TimestampInterface {
+    return $this->set('transaction_address', $transaction_address);
   }
 
-  public function setTransactionLink(string $transaction_link) {
-    $this->set('transaction_link', $transaction_link);
+  public function setTransactionId(string $transaction_id): TimestampInterface {
+    return $this->set('transaction_id', $transaction_id);
+  }
+
+  public function setTransactionLink(string $transaction_link): TimestampInterface {
+    return $this->set('transaction_link', $transaction_link);
+  }
+
+  public function setReferenceEntityType(string $entity_type): TimestampInterface {
+    return $this->set('stamped_entity_type', $entity_type);
   }
 
 }

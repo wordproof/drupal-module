@@ -4,6 +4,8 @@ namespace Drupal\wordproof\Timestamp;
 
 interface TimestampInterface {
 
+  public function id();
+
   public function getContent(): string;
 
   public function getReferenceId(): int;
@@ -18,6 +20,8 @@ interface TimestampInterface {
 
   public function getReferenceRevisionId(): int;
 
+  public function getReferenceEntityType(): string;
+
   public function getTitle(): string;
 
   public function getTransactionBlockchain();
@@ -30,30 +34,32 @@ interface TimestampInterface {
 
   public function getUrl(): string;
 
-  public function setContent(string $content) : TimestampInterface;
+  public function setContent(string $content): TimestampInterface;
 
-  public function setReferenceId(int $entity_id);
+  public function setReferenceId(int $entity_id): TimestampInterface;
 
-  public function setHash(string$hash);
+  public function setHash(string$hash): TimestampInterface;
 
-  public function setHashInput(string$hash_input);
+  public function setHashInput(string$hash_input): TimestampInterface;
 
-  public function setModified(int $date);
+  public function setModified(int $date): TimestampInterface;
 
-  public function setRemoteId(string $remote_id);
+  public function setRemoteId(string $remote_id): TimestampInterface;
 
-  public function setReferenceRevisionId(int $revision_id);
+  public function setReferenceRevisionId(int $revision_id): TimestampInterface;
 
-  public function setTitle(string $title);
+  public function setTitle(string $title): TimestampInterface;
 
-  public function setUrl(string $url);
+  public function setUrl(string $url): TimestampInterface;
 
-  public function setTransactionBlockchain(string $transaction_blockchain);
+  public function setReferenceEntityType(string $entity_type): TimestampInterface;
 
-  public function setTransactionAddress(string $transaction_address);
+  public function setTransactionBlockchain(string $transaction_blockchain): TimestampInterface;
 
-  public function setTransactionId(string $transaction_id);
+  public function setTransactionAddress(string $transaction_address): TimestampInterface;
 
-  public function setTransactionLink(string $transaction_link);
+  public function setTransactionId(string $transaction_id): TimestampInterface;
+
+  public function setTransactionLink(string $transaction_link): TimestampInterface;
 
 }

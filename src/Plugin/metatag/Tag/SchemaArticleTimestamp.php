@@ -14,7 +14,7 @@ use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
  * @MetatagTag(
  *   id = "schema_article_timestamp",
  *   label = @Translation("timestamp"),
- *   description = @Translation("The timestamp of this article. Use: [node:nid]."),
+ *   description = @Translation("The timestamp of this article. Use: [node:nid]:."),
  *   name = "timestamp",
  *   group = "schema_article",
  *   weight = 10,
