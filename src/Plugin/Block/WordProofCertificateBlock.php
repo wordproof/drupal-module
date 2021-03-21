@@ -2,8 +2,10 @@
 
 namespace Drupal\wordproof\Plugin\Block;
 
+use Drupal\Core\Annotation\ContextDefinition;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\wordproof\TimestampRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,12 +15,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @Block(
  *  id = "wordproof_certificate_block",
  *  admin_label = @Translation("WordProof certificate block"),
- *  context = {
- *    "entity" = @ContextDefinition("entity", label = @Translation("Entity"))
+ *  context_definitions = {
+ *    "entity" = @ContextDefinition("entity"),
+ *    "timestamp" = @ContextDefinition("timestamp", required = FALSE)
  *  }
  * )
  */
-class WordProofCertificateBlock extends BlockBase {
+class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPluginInterface{
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -56,14 +59,16 @@ class WordProofCertificateBlock extends BlockBase {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->getContextValue('entity');
     /** @var \Drupal\wordproof\Timestamp\TimestampInterface $timestamp */
-    $timestamp = $this->repository->get($entity->id(), $entity->bundle());
+    $timestamp = $this->repository->get($entity);
 
     if (!is_null($timestamp)) {
+      $this->setContextValue('timestamp', $timestamp);
+
       return [
         '#theme' => 'wordproof_certificate',
         '#timestamp' => $timestamp,
         '#attached' => [
-          '#library' => [
+          'library' => [
             'wordproof/certificate_module',
             'wordproof/certificate_nomodule',
           ]

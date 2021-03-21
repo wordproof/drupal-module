@@ -37,24 +37,9 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return $entity->getHashInput();
   }
 
-  public function getJson($entity_id) {
-    $timestamp = $this->get($entity_id);
-
-    if ($timestamp === NULL || $timestamp->getTransactionBlockchain() === NULL) {
-      return '';
-    }
-
-    $url = Url::fromRoute('wordproof.hashinput', ['id' => $timestamp->id()])->setAbsolute()->toString();
-    return [
-      "@type" => "BlockchainTransaction",
-      "identifier" => $timestamp->getTransactionId(),
-      "hash" => $timestamp->getHash(),
-      "hashLink" => $url,
-      "recordedIn" => [
-        "@type" => "Blockchain",
-        "name" => $timestamp->getTransactionBlockchain(),
-      ],
-    ];
+  public function find($entity_type, $entity_id) {
+    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity_id, 'stamped_entity_type' => $entity_type]);
+    return array_pop($entities);
   }
 
   public function create(TimestampInterface $timestamp) {

@@ -1,6 +1,6 @@
 certificate_module:
   remote: https://github.com/wordproof
-  licence:
+  license:
     name: GPL
     gpl-compatible: true
   js:
@@ -11,7 +11,7 @@ certificate_module:
         type: "module"
 certificate_nomodule:
   remote: https://github.com/wordproof
-  licence:
+  license:
     name: GPL
     gpl-compatible: true
   js:

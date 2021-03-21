@@ -38,3 +38,14 @@ function wordproof_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
 
   \Drupal::service('wordproof.timestamp_builder_service')->stamp($entity);
 }
+
+/**
+ * Implements hook_theme().
+ */
+function wordproof_theme($existing, $type, $theme, $path) {
+  return [
+    'wordproof_certificate' => [
+      'variables' => ['timestamp' => NULL],
+    ],
+  ];
+}

@@ -14,7 +14,7 @@ use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
  * @MetatagTag(
  *   id = "schema_web_page_timestamp",
  *   label = @Translation("timestamp"),
- *   description = @Translation("The timestamp of this webpage. Use: [node:wordproof-timestamp]."),
+ *   description = @Translation("The timestamp of this webpage. Format: entity-type:entity-id. For example: 'node:[node:nid]'"),
  *   name = "timestamp",
  *   group = "schema_web_page",
  *   weight = 10,
