@@ -16,3 +16,30 @@ wordproof.settings:
     blockchainBackendUrl:
       type: uri
       description: 'Blockchain backend API url'
+    stampers:
+      type: sequence
+      label: 'Entity type configuration'
+      sequence:
+        type: wordproof.stamper.*
+
+wordproof.stamper.*:
+  type: wordproof.stamper
+
+wordproof.stamper:
+  type: mapping
+  label: 'WordProof entity type stamper configuration'
+  mapping:
+    entity_type:
+      type: mapping
+      label: 'Entity type'
+    entity_type_bundle:
+      type: mapping
+      label: 'Entity type bundle'
+    plugin_id:
+      type: string
+      label: 'Stamper plugin'
+    enabled:
+      type: boolean
+      label: 'Enable stamping'
+
+

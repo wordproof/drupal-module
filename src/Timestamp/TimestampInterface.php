@@ -6,6 +6,8 @@ interface TimestampInterface {
 
   public function id();
 
+  public function save();
+
   public function toJsonLdArray(): array;
 
   public function getContent(): string;

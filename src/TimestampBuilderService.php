@@ -28,11 +28,6 @@ class TimestampBuilderService {
   private $timestampRepository;
 
   /**
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  private $configFactory;
-
-  /**
    * @var \Drupal\Core\Config\ImmutableConfig
    */
   private $config;
@@ -41,31 +36,28 @@ class TimestampBuilderService {
   public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
-    $this->configFactory = $configFactory;
     $this->blockchainBackendManager = $blockchainBackendManager;
 
     $this->config = $configFactory->get('wordproof.settings');
   }
 
   /**
-   * @param $bundle
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *
    * @return \Drupal\wordproof\Plugin\StamperInterface
    * @throws \Drupal\Component\Plugin\Exception\PluginException
-   * @todo This is configuration, what stamper to use for an entity
    */
   private function getStamperPlugin(ContentEntityInterface $entity): StamperInterface {
-    if ($entity->getEntityTypeId() == 'node') {
-      switch ($entity->bundle()) {
-        case 'article':
-          return $this->stamperManager->createInstance('node_article_stamper');
-        case 'page':
-          return $this->stamperManager->createInstance('node_webpage_stamper');
-      }
-    }
-    return $this->stamperManager->createInstance('content_entity_stamper');
+    $pluginId = $this->config->get('stamper.' . $entity->getEntityTypeId() . '-' . $entity->bundle() . '.plugin_id');
+    return $this->stamperManager->createInstance($pluginId);
   }
 
+  /**
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *
+   * @return bool
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   */
   public function stamp(ContentEntityInterface $entity) {
     if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
       return FALSE;
@@ -74,40 +66,37 @@ class TimestampBuilderService {
       return FALSE;
     }
 
-    // Check if stampable from config normally.
-    $allowed = ['node'];
-    if (!in_array($entity->getEntityTypeId(), $allowed)) {
-      return;
+    if (!$this->isStampable($entity)) {
+      return FALSE;
     }
 
-    $bundle = $entity->bundle();
-    if ($bundle) {
-      $plugin = $this->getStamperPlugin($entity);
-      try {
-        $timestamp = $plugin->timestamp($entity);
-      } catch (InvalidEntityException $e) {
-        return FALSE;
-      }
-      $timestamp->save();
-
-      \Drupal::logger('wordproof')->debug('Stamped ' . get_class($timestamp));
-
-      $backendPlugin = $this->getBlockchainBackend();
-      $timestamp = $backendPlugin->send($timestamp);
-      \Drupal::logger('wordproof')->debug('Sent ' . get_class($timestamp));
-
-
-      // $this->timestampRepository->create($timestamp);
-      $timestamp->save();
-      \Drupal::logger('wordproof')->debug('Saved ' . get_class($timestamp));
+    $plugin = $this->getStamperPlugin($entity);
+    try {
+      $timestamp = $plugin->timestamp($entity);
+    } catch (InvalidEntityException $e) {
+      return FALSE;
     }
+
+    $timestamp->save();
+
+    $backendPlugin = $this->getBlockchainBackend();
+    $timestamp = $backendPlugin->send($timestamp);
+    $timestamp->save();
+
+    return TRUE;
   }
 
   /**
+   * @return \Drupal\wordproof\Plugin\BlockchainBackendInterface
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {
     return $this->blockchainBackendManager->createInstance($this->config->get('blockchain_backend_id'));
+  }
+
+  private function isStampable(ContentEntityInterface $entity): bool {
+    $isEnabled = $this->config->get('stamper.' . $entity->getEntityTypeId() . '-' . $entity->bundle() . '.enabled');
+    return $isEnabled === '1';
   }
 
 }

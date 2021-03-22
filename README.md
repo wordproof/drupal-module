@@ -1,6 +1,6 @@
 # Todo
 
-* Node type configuration: form for timestamp type vs node bundle.
+
 * WebHook endpoint: Receiving blockchain information.
 * Nested backend Settings: form nested for backend (in config form, use #state and get form from the backend. See jsonapi)
 * Possibly implement something like EntityReferenceSelection where you can set the valid entity types for a plugin. This makes installing a specific plugin for other modules easier.
@@ -18,6 +18,7 @@
 
 
 ## Done
+* Node type configuration: form for timestamp type vs node bundle.
 * Move getJson to model since it's a representation of itself.
 * id and type for schema_metatag field
 * Fix cache tags for Timestamp (at least i think done)
