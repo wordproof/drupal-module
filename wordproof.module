@@ -1,12 +1,13 @@
 <?php
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
  * @SEE hook_entity_create()
  */
 function wordproof_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
-  if (!$entity instanceof ContentEntityInterface) {
+  if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return FALSE;
   }
   if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
@@ -23,7 +24,7 @@ function wordproof_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
 
 /* Start with new node support only */
 function wordproof_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
-  if (!$entity instanceof ContentEntityInterface) {
+  if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return;
   }
 
