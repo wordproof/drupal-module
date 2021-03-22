@@ -142,7 +142,6 @@ class WordProofSettingsForm extends ConfigFormBase {
         $form['stamper_table'][$stamperFormId][$stamperFormId . '.enabled'] = [
           '#type' => 'checkbox',
           '#title' => $this->t('Enable stamping'),
-          '#return_value' => 1,
           '#default_value' => $config->get($stamperFormId . '.enabled')
         ];
         $form['stamper_table'][$stamperFormId][$stamperFormId . '.plugin_id'] = [
