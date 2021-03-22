@@ -10,6 +10,7 @@
   * Collect all possible types/bundles it can reference.
   * Save the references (referenced entity -> parent type->bundle and cache that result.
   * Use entity update hook to also check for existence in the array.
+* Create config for core.entity_view_mode.[ENTITY].wordproof_content.yml when timestamping is enabled.
 * Tests? ;)
 
 * Be explicit about ContentEntities only.
