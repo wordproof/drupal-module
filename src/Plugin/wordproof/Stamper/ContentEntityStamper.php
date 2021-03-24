@@ -4,6 +4,7 @@
 namespace Drupal\wordproof\Plugin\wordproof\Stamper;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\wordproof\Plugin\StamperInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
@@ -33,7 +34,7 @@ class ContentEntityStamper implements StamperInterface {
     $timestamp->setReferenceRevisionId($revisionId);
 
     $modified = time();
-    if (method_exists($entity, 'getChangedTime')) {
+    if ($entity instanceof EntityChangedInterface) {
       $modified = $entity->getChangedTime();
     }
     $timestamp->setModified($modified);

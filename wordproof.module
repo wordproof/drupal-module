@@ -1,16 +1,22 @@
 <?php
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
  * @SEE hook_entity_create()
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *
+ * @return false
  */
-function wordproof_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+function wordproof_entity_insert(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return FALSE;
   }
-  if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
+  if ($entity instanceof EntityPublishedInterface && $entity->isPublished() === FALSE) {
     return FALSE;
   }
 
@@ -23,12 +29,12 @@ function wordproof_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /* Start with new node support only */
-function wordproof_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+function wordproof_entity_update(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return;
   }
 
-  if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
+  if ($entity instanceof EntityPublishedInterface && $entity->isPublished() === FALSE) {
     return;
   }
 

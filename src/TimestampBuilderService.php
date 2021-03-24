@@ -4,6 +4,7 @@ namespace Drupal\wordproof;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\wordproof\Exception\InvalidEntityException;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Plugin\BlockchainBackendManager;
@@ -59,7 +60,7 @@ class TimestampBuilderService {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function stamp(ContentEntityInterface $entity) {
-    if (method_exists($entity, 'isPublished') && $entity->isPublished() === FALSE) {
+    if ($entity instanceof EntityPublishedInterface && $entity->isPublished() === FALSE) {
       return FALSE;
     }
     if ($this->config->get('blockchain_backend_id') === '') {
