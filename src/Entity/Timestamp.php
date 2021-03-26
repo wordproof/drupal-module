@@ -175,11 +175,13 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
   }
 
   public function getCacheTagsToInvalidate() {
-    $referencedEntity = [$this->getReferenceEntityType() . ':' . $this->getReferenceId()];
+    $cacheTagsToInvalidate = parent::getCacheTagsToInvalidate();
+    $cacheTagsToInvalidate[] = $this->getReferenceEntityType() . ':' . $this->getReferenceId();
     if ($this->isNew()) {
-      return [$referencedEntity];
+      return $cacheTagsToInvalidate;
     }
-    return [$this->entityTypeId . ':' . $this->id()] + $referencedEntity;
+    $cacheTagsToInvalidate[] = $this->entityTypeId . ':' . $this->id();
+    return $cacheTagsToInvalidate;
   }
 
 
