@@ -17,6 +17,7 @@ use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
  *   description = @Translation("The timestamp of this article. Format: [entity-type:wordproof-timestamp]. For example: [node:wordproof-timestamp]"),
  *   name = "timestamp",
  *   group = "schema_article",
+ *   provider = "schema_article",
  *   weight = 10,
  *   type = "string",
  *   secure = FALSE,

@@ -5,19 +5,19 @@ namespace Drupal\wordproof\Plugin\metatag\Tag;
 use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
 
 /**
- * Provides a plugin for the 'schema_article_timestamp' meta tag.
+ * Provides a plugin for the 'schema_recipe_timestamp' meta tag.
  *
  * - 'id' should be a globally unique id.
  * - 'name' should match the Schema.org element name.
  * - 'group' should match the id of the group that defines the Schema.org type.
  *
  * @MetatagTag(
- *   id = "schema_web_page_timestamp",
+ *   id = "schema_recipe_timestamp",
  *   label = @Translation("timestamp"),
- *   description = @Translation("The timestamp of this webpage. Format: [entity-type:wordproof-timestamp]. For example: [node:wordproof-timestamp]"),
+ *   description = @Translation("The timestamp of this recipe. Format: [entity-type:wordproof-timestamp]. For example: [recipe:wordproof-timestamp]"),
  *   name = "timestamp",
- *   group = "schema_web_page",
- *   provider = "schema_web_page",
+ *   group = "schema_recipe",
+ *   provider = "schema_recipe",
  *   weight = 10,
  *   type = "string",
  *   secure = FALSE,
@@ -25,6 +25,6 @@ use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
  *   property_type = "text",
  * )
  */
-class SchemaWebpageTimestamp extends SchemaTimestampBase {
+class SchemaRecipeTimestamp extends SchemaTimestampBase {
 
 }
