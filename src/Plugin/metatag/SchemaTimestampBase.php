@@ -2,7 +2,6 @@
 
 namespace Drupal\wordproof\Plugin\metatag;
 
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 class SchemaTimestampBase extends SchemaNameBase {
@@ -17,23 +16,14 @@ class SchemaTimestampBase extends SchemaNameBase {
     return $output;
   }
 
-
   public function outputValue($input_value) {
-    $values = explode(':', $input_value);
-    list($entity_type, $entity_id) = $values;
-    /** @var \Drupal\wordproof\Timestamp\TimestampInterface $timestamp */
-    $timestamp = \Drupal::service('wordproof.repository')->find($entity_type, $entity_id);
+    $jsonLd = json_decode($input_value, TRUE);
 
-    if (is_null($timestamp)) {
-      return '';
+    if (!is_null($jsonLd)) {
+      return $jsonLd;
     }
 
-    $jsonLd = $timestamp->toJsonLdArray();
-    if (count($jsonLd) === 0) {
-      return '';
-    }
-
-    return $jsonLd;
+    return '';
   }
 
 }

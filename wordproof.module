@@ -6,11 +6,7 @@ use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
- * @SEE hook_entity_create()
- *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *
- * @return false
+ * @see hook_entity_create()
  */
 function wordproof_entity_insert(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
@@ -47,7 +43,7 @@ function wordproof_entity_update(EntityInterface $entity) {
 }
 
 /**
- * Implements hook_theme().
+ * @see hook_theme().
  */
 function wordproof_theme($existing, $type, $theme, $path) {
   return [
@@ -56,3 +52,63 @@ function wordproof_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * @see hook_token_info_alter().
+ */
+function wordproof_token_info_alter(&$info) {
+  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+    if (!$entity_type->entityClassImplements(ContentEntityInterface::class) || $entity_type_id === 'timestamp') {
+      continue;
+    }
+
+    // Make sure a token type exists for this entity.
+    $token_type = \Drupal::service('token.entity_mapper')->getTokenTypeForEntityType($entity_type_id);
+    if (empty($token_type) || !isset($info['types'][$token_type])) {
+      continue;
+    }
+
+    $info['types'][$token_type]['wordproof-timestamp'] = [
+      'name' => t('WordProof timestamp'),
+      'description' => t('Token for the JSON-LD timestamp of an entity.'),
+      'needs-data' => [
+        $entity_type_id,
+        'timestamp',
+      ],
+    ];
+    $info['tokens'][$token_type]['wordproof-timestamp'] = [
+      'name' => t("Wordproof JSON-LD timestamp"),
+      'description' => t('The node\'s JSON-LD timestamp'),
+      'module' => 'token',
+    ];
+
+  }
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function wordproof_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+
+  if ($type == 'entity' && !empty($data['entity'])) {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'wordproof-timestamp':
+          /** @var TimestampInterface $timestamp */
+          $timestamp = \Drupal::service('wordproof.repository')->get($data['entity']);
+          if ($timestamp) {
+            $bubbleable_metadata->addCacheableDependency($timestamp);
+            $toJsonLdArray = $timestamp->toJsonLdArray();
+            if (count($toJsonLdArray) > 0) {
+              $replacements[$original] = json_encode($toJsonLdArray, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
+            }
+          }
+          break;
+      }
+    }
+  }
+  return $replacements;
+}
+
+
