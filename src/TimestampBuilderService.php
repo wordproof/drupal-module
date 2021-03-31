@@ -145,10 +145,10 @@ class TimestampBuilderService {
         $result = $query->execute();
 
         if (count($result) > 0) {
-          $entities = \Drupal::entityTypeManager()->getStorage($targetEntityTypeId)->loadMultiple($result);
-          foreach ($entities as $entity) {
-            if ($entity instanceof ContentEntityInterface) {
-              $this->stamp($entity);
+          $entitiesWithReference = \Drupal::entityTypeManager()->getStorage($targetEntityTypeId)->loadMultiple($result);
+          foreach ($entitiesWithReference as $entityWithReference) {
+            if ($entityWithReference instanceof ContentEntityInterface) {
+              $this->stamp($entityWithReference);
             }
           }
         }
