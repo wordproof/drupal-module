@@ -1,6 +1,6 @@
 # WordProof timestamp
 
-This module aims at buildind the truster web. It enabled sites to timestamp content and expose that timestamp through JSON-LD. For more information on the trusted web visit [thetrustedweb.org](https://thetrustedweb.org/).
+This module aims at building the trusted web. It enabled sites to timestamp content and expose that timestamp through JSON-LD. For more information on the trusted web visit [thetrustedweb.org](https://thetrustedweb.org/).
 
 ## Usage
 
@@ -10,6 +10,6 @@ Go to `/admin/config/wordproof/settings` and setup your API key and endpoint. Yo
 
 Configure the JSON-LD data in the MetaTag module (`admin/config/search/metatag`) and make sure you fill the `timestamp` field.
 
-After saving your entity the timestamp request will be submitten. The next cron run the blockchain information required is retrieved and the timestamp will be added to the page.
+After saving your entity the timestamp request will be submitted. The next cron run the blockchain information required is retrieved and the timestamp will be added to the page.
 
 To show the certificate on the page enable the `Wordproof timestamp certificate` block on the relevant entities or pages.

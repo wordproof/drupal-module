@@ -3,6 +3,7 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
@@ -21,7 +22,10 @@ function wordproof_entity_insert(EntityInterface $entity) {
   \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
   \Drupal::logger('wordproof')->debug('label' . $entity->label());
 
-  \Drupal::service('wordproof.timestamp_builder_service')->stamp($entity);
+  $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
+  $timestampBuilder->stamp($entity);
+  $timestampBuilder->stampWatchedEntities($entity);
+
 }
 
 /* Start with new node support only */
@@ -39,7 +43,9 @@ function wordproof_entity_update(EntityInterface $entity) {
   \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
   \Drupal::logger('wordproof')->debug('label' . $entity->label());
 
-  \Drupal::service('wordproof.timestamp_builder_service')->stamp($entity);
+  $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
+  $timestampBuilder->stamp($entity);
+  $timestampBuilder->stampWatchedEntities($entity);
 }
 
 /**
