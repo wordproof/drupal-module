@@ -5,7 +5,6 @@ namespace Drupal\wordproof;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\wordproof\Exception\InvalidEntityException;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Plugin\BlockchainBackendManager;
@@ -39,13 +38,19 @@ class TimestampBuilderService {
    */
   private $watchList;
 
+  /**
+   * @var \Drupal\wordproof\EntityWatchListService
+   */
+  private $entityWatchListService;
 
-  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory) {
+
+  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory, EntityWatchListService $entityWatchListService) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
     $this->blockchainBackendManager = $blockchainBackendManager;
 
     $this->config = $configFactory->get('wordproof.settings');
+    $this->entityWatchListService = $entityWatchListService;
   }
 
   /**
@@ -107,33 +112,8 @@ class TimestampBuilderService {
   }
 
 
-  private function buildWatchList(): array {
-    if (isset($this->watchList)) {
-      return $this->watchList;
-    }
-
-    /** @var FieldStorageConfig[] $entityReferenceFields */
-    $entityReferenceFields = \Drupal::service('entity_type.manager')
-      ->getStorage('field_storage_config')
-      ->loadByProperties(['type' => 'entity_reference']);
-    $watchList = [];
-    foreach ($entityReferenceFields as $field) {
-      $target_type = $field->getSetting('target_type');
-      if (!isset($watchList[$target_type])) {
-        $watchList[$target_type] = [];
-      }
-      $targetEntityTypeId = $field->getTargetEntityTypeId();
-      if (!isset($watchList[$target_type])) {
-        $watchList[$target_type][$targetEntityTypeId] = [];
-      }
-
-      $watchList[$target_type][$targetEntityTypeId][] = $field->getName();
-    }
-    return $this->watchList = $watchList;
-  }
-
   public function stampWatchedEntities(ContentEntityInterface $entity) {
-    $watchList = $this->buildWatchList();
+    $watchList = $this->entityWatchListService->getWatchList();
     $entityTypeId = $entity->getEntityTypeId();
 
     if (isset($watchList[$entityTypeId])) {
@@ -155,5 +135,4 @@ class TimestampBuilderService {
       }
     }
   }
-
 }

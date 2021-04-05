@@ -9,7 +9,7 @@ services:
 
   wordproof.timestamp_builder_service:
     class: Drupal\wordproof\TimestampBuilderService
-    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend', '@wordproof.repository', '@config.factory' ]
+    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend', '@wordproof.repository', '@config.factory', '@wordproof.entity_watch_list' ]
 
   wordproof.wordproof_api_client:
     class: Drupal\wordproof\WordProofAPIClient
@@ -18,5 +18,11 @@ services:
   wordproof.repository:
     class: Drupal\wordproof\TimestampRepository
     arguments: ['@entity_type.manager']
+    tags:
+      - { name: backend_overridable }
+
+  wordproof.entity_watch_list:
+    class: Drupal\wordproof\EntityWatchListService
+    arguments: ['@entity_type.manager', '@entity_field.manager']
     tags:
       - { name: backend_overridable }
