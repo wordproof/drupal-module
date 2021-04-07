@@ -51,7 +51,7 @@ class EntityWatchListService {
     /** @var FieldStorageDefinitionInterface[] $entityReferenceFields */
     $entityReferenceFields = $this->entityTypeManager
       ->getStorage('field_storage_config')
-      ->loadByProperties(['type' => 'entity_reference']);
+      ->loadByProperties(['type' => ['entity_reference', 'entity_reference_revision']]);
 
     foreach ($entityReferenceFields as $field) {
       $this->addField($field);
