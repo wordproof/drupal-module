@@ -27,8 +27,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function get(ContentEntityInterface $entity) {
-    $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['entity_id' => $entity->id(), 'stamped_entity_type' => $entity->getEntityTypeId()]);
-    return array_pop($entities);
+    return $this->find($entity->getEntityTypeId(), $entity->id());
   }
 
   public function getHashInput($id) {
