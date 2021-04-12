@@ -18,6 +18,9 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  *   id = "timestamp",
  *   label = @Translation("Timestamp"),
  *   base_table = "timestamp",
+ *   handlers = {
+ *    "storage_schema" = "Drupal\wordproof\Entity\TimestampStorageSchema"
+ *   },
  *   entity_keys = {
  *     "id" = "id",
  *     "date_created" = "date_created",
