@@ -30,10 +30,34 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return $this->find($entity->getEntityTypeId(), $entity->id());
   }
 
-  public function getHashInput($id) {
+  public function getHashInput($id, $revisions = FALSE) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
-    return $entity->getHashInput();
+
+    if($revisions === false){
+      return $entity->getHashInput();
+    }
+
+
+    $query = $this->entityTypeManager->getStorage('timestamp')->getQuery()
+      ->condition('entity_id', $entity->getReferenceId())
+      ->condition('date_created', $entity->getModified(), '<')
+      ->sort('date_created', 'DESC');
+
+    $ids = $query->execute();
+    if(count($ids) <= 0){
+      return $entity->getHashInput();
+    }
+
+    /** @var \Drupal\wordproof\Entity\Timestamp[] $timestampRevisions */
+    $timestampRevisions =  $this->entityTypeManager->getStorage('timestamp')->loadMultiple($ids);
+    $hashInputData = $entity->getHashInputObject();
+    $hashInputData->revisions = [];
+    foreach ($timestampRevisions as $revision){
+      $hashInputData->revisions[] = $revision->getHashInputObject();
+    }
+
+    return json_encode($hashInputData, JSON_UNESCAPED_SLASHES);
   }
 
   public function find($entity_type, $entity_id) {

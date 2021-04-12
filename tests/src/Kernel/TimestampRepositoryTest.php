@@ -129,4 +129,35 @@ class TimestampRepositoryTest extends KernelTestBase {
 
     $this->assertEquals('hash_input_data', $repository->getHashInput($timestamp->id()));
   }
+
+  public function testGetHashInputWithRevision() {
+    $timestamp = Timestamp::create(
+      [
+        'entity_id' => 1,
+        'revision_id' => 1,
+        'url' => 'https://wordproof.dev/node/1',
+        'content' => 'some content',
+        'date_created' => 1617709090,
+        'stamped_entity_type' => 'node',
+      ]
+    );
+    $timestamp->save();
+
+    $timestampRevision2 = Timestamp::create(
+      [
+        'entity_id' => 1,
+        'revision_id' => 2,
+        'url' => 'https://wordproof.dev/node/1',
+        'content' => 'some contents',
+        'date_created' => 1617709090 - 3600,
+        'stamped_entity_type' => 'node',
+      ]
+    );
+    $timestampRevision2->save();
+
+    /** @var \Drupal\wordproof\TimestampRepository $repository */
+    $repository = $this->container->get('wordproof.repository');
+
+    $this->assertEquals('{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T21:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some content","revisions":[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]}', $repository->getHashInput($timestamp->id(), TRUE));
+  }
 }

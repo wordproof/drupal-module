@@ -174,6 +174,21 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     ];
   }
 
+  /**
+   * Array with HashInput data. Encoding note: json_encode([], JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES);
+   *
+   * @return object
+   */
+  public function getHashInputObject(){
+    return (object) [
+      "@context"    => "https://schema.org",
+      "@type"       => "HashInput",
+      "dateCreated" => date('c', $this->getModified()),
+      "isBasedOn"   => $this->getUrl(),
+      "text"        => trim($this->getContent()),
+    ];
+  }
+
   public function getCacheTagsToInvalidate() {
     $cacheTagsToInvalidate = parent::getCacheTagsToInvalidate();
     $cacheTagsToInvalidate[] = $this->getReferenceEntityType() . ':' . $this->getReferenceId();

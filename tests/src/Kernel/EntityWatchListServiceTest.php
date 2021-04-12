@@ -4,7 +4,6 @@ namespace Drupal\Tests\wordproof\Kernel;
 
 use Drupal\Tests\token\Kernel\KernelTestBase;
 use Drupal\wordproof\EntityWatchListService;
-use PHPUnit\Framework\TestCase;
 
 
 /**

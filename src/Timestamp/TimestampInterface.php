@@ -4,6 +4,8 @@ namespace Drupal\wordproof\Timestamp;
 
 interface TimestampInterface {
 
+  public function getHashInputObject();
+
   public function id();
 
   public function save();
