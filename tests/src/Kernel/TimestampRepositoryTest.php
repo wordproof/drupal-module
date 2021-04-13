@@ -68,6 +68,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     $timestamp = Timestamp::create(
       [
         'entity_id' => $nodeStamped->id(),
+        'remote_id' => 1,
+        'revision_id' => 1,
         'stamped_entity_type' => 'node',
       ]
     );
@@ -102,6 +104,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     $timestamp = Timestamp::create(
       [
         'entity_id' => $nodeStamped->id(),
+        'remote_id' => 1,
+        'revision_id' => 1,
         'stamped_entity_type' => 'node',
       ]
     );
@@ -118,6 +122,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     $timestamp = Timestamp::create(
       [
         'entity_id' => 1,
+        'remote_id' => 1,
+        'revision_id' => 1,
         'stamped_entity_type' => 'node',
         'hash_input' => 'hash_input_data',
       ]
@@ -135,6 +141,7 @@ class TimestampRepositoryTest extends KernelTestBase {
       [
         'entity_id' => 1,
         'revision_id' => 1,
+        'remote_id' => 1,
         'url' => 'https://wordproof.dev/node/1',
         'content' => 'some content',
         'date_created' => 1617709090,
@@ -147,6 +154,7 @@ class TimestampRepositoryTest extends KernelTestBase {
       [
         'entity_id' => 1,
         'revision_id' => 2,
+        'remote_id' => 1,
         'url' => 'https://wordproof.dev/node/1',
         'content' => 'some contents',
         'date_created' => 1617709090 - 3600,
