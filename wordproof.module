@@ -17,6 +17,8 @@ function wordproof_entity_insert(EntityInterface $entity) {
     return FALSE;
   }
 
+  \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
+
   \Drupal::logger('wordproof')->debug('function' . __FUNCTION__);
   \Drupal::logger('wordproof')->debug('type' . $entity->getEntityTypeId());
   \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
@@ -37,11 +39,7 @@ function wordproof_entity_update(EntityInterface $entity) {
   if ($entity instanceof EntityPublishedInterface && $entity->isPublished() === FALSE) {
     return;
   }
-
-  \Drupal::logger('wordproof')->debug('function' . __FUNCTION__);
-  \Drupal::logger('wordproof')->debug('type' . $entity->getEntityTypeId());
-  \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
-  \Drupal::logger('wordproof')->debug('label' . $entity->label());
+  \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
 
   $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
   $timestampBuilder->stamp($entity);
