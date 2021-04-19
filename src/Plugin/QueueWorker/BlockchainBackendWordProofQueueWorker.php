@@ -60,7 +60,8 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
     $responseObject = json_decode($response->getBody());
 
     if (!isset($responseObject->transaction) && !isset($responseObject->transaction->transactionId)) {
-      throw new DelayedRequeueException(static::API_CHECK_DELAY, 'Blockchain information not available yet.');
+      // @todo In Drupal 9.1 there is a DelayedRequeueException.
+      throw new \Exception('Blockchain information not available yet.');
     }
 
     $this->timestampRepository->updateBlockchainInfo($responseObject->id, $responseObject->transaction->address, $responseObject->transaction->blockchain, $responseObject->transaction->transactionId, $responseObject->transaction->link);
