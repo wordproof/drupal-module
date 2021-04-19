@@ -10,7 +10,7 @@ class StamperManager extends DefaultPluginManager {
 
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     parent::__construct(
-      'Plugin/wordproof/Stamper',
+      'Plugin/wordproof_timestamp/Stamper',
       $namespaces,
       $module_handler,
       'Drupal\wordproof_timestamp\Plugin\StamperInterface',

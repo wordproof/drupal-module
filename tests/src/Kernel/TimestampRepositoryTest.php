@@ -13,7 +13,7 @@ use Drupal\wordproof_timestamp\Entity\Timestamp;
  *
  * @coversDefaultClass \Drupal\wordproof_timestamp\TimestampRepository
  * @covers \Drupal\wordproof_timestamp\TimestampRepository
- * @group wordproof
+ * @group wordproof_timestamp
  *
  * @internal
  */

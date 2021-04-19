@@ -10,7 +10,7 @@ class BlockchainBackendManager extends DefaultPluginManager {
 
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     parent::__construct(
-      'Plugin/wordproof/BlockchainBackend',
+      'Plugin/wordproof_timestamp/BlockchainBackend',
       $namespaces,
       $module_handler,
       'Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface',

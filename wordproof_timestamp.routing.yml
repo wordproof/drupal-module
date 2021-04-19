@@ -1,5 +1,5 @@
 wordproof_timestamp.webhook:
-  path: '/wordproof/webhook'
+  path: '/wordproof_timestamp/webhook'
   defaults:
     _controller: '\Drupal\wordproof_timestamp\Controller\WebhookController::receive'
     _title: 'WordProof timestamp webhook receiver'

@@ -9,7 +9,7 @@ use Drupal\wordproof_timestamp\EntityWatchListService;
 /**
  * Class EntityWatchListServiceTest
  *
- * @group wordproof
+ * @group wordproof_timestamp
  * @coversDefaultClass \Drupal\wordproof_timestamp\EntityWatchListService
  * @covers \Drupal\wordproof_timestamp\EntityWatchListService
  *
