@@ -20,10 +20,11 @@ class TimestampStorageSchema extends SqlContentEntityStorageSchema {
       case 'entity_id':
       case 'stamped_entity_type':
       case 'revision_id':
-      case 'remote_id':
       case 'date_created':
         $this->addSharedTableFieldIndex($storage_definition, $schema, TRUE);
         break;
+      case 'remote_id':
+        $this->addSharedTableFieldIndex($storage_definition, $schema, FALSE);
     }
 
     return $schema;
