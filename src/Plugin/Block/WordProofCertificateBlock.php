@@ -69,8 +69,8 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
         '#timestamp' => $timestamp,
         '#attached' => [
           'library' => [
-            'wordproof/certificate_module',
-            'wordproof/certificate_nomodule',
+            'wordproof_timestamp/certificate_module',
+            'wordproof_timestamp/certificate_nomodule',
           ]
         ]
       ];
