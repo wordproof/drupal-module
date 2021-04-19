@@ -41,7 +41,10 @@ class ContentEntityStamper implements StamperInterface {
 
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId());
     $build = $view_builder->view($entity, 'wordproof_timestamp_content');
-    $timestamp->setContent(render($build));
+    /** @var \Drupal\Core\Render\Renderer $service */
+    $service = \Drupal::service('renderer');
+    $content = $service->renderPlain($build);
+    $timestamp->setContent($content);
 
     $timestamp->setTitle($entity->label());
     $timestamp->setUrl($entity->toUrl()->setAbsolute(TRUE)->toString());
