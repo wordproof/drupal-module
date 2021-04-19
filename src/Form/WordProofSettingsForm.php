@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Drupal\wordproof\Form;
+namespace Drupal\wordproof_timestamp\Form;
 
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -9,19 +9,19 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wordproof\Plugin\BlockchainBackendManager;
+use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
 
 class WordProofSettingsForm extends ConfigFormBase {
 
-  const SETTINGS = 'wordproof.settings';
+  const SETTINGS = 'wordproof_timestamp.settings';
 
   /**
-   * @var \Drupal\wordproof\Plugin\BlockchainBackendManager
+   * @var \Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager
    */
   private $backendManager;
 
   /**
-   * @var \Drupal\wordproof\Plugin\StamperManager
+   * @var \Drupal\wordproof_timestamp\Plugin\StamperManager
    */
   private $stamperManager;
 

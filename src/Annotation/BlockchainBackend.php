@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\wordproof\Annotation;
+namespace Drupal\wordproof_timestamp\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
  * Defines an blockchain backend for the Hashes.
  *
- * Plugin Namespace: Plugin\wordproof\BlockchainBackend
+ * Plugin Namespace: Plugin\wordproof_timestamp\BlockchainBackend
  *
- * For a working example, see \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\WordProof
+ * For a working example, see \Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend\WordProof
  *
- * @see \Drupal\wordproof\Plugin\BlockchainBackendManager
- * @see \Drupal\wordproof\Plugin\BlockchainBackendInterface
+ * @see \Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager
+ * @see \Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface
  * @see plugin_api
  *
  * @Annotation

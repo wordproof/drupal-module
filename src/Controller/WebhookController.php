@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\wordproof\Controller;
+namespace Drupal\wordproof_timestamp\Controller;
 
 class WebhookController {
   public function receive() {

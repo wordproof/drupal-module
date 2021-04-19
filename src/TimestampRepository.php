@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Url;
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 class TimestampRepository implements TimestampRepositoryInterface {
 
@@ -31,7 +31,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function getHashInput($id, $revisions = FALSE) {
-    /** @var \Drupal\wordproof\Entity\Timestamp $entity */
+    /** @var \Drupal\wordproof_timestamp\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
 
     if($revisions === false){
@@ -49,7 +49,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
       return $entity->getHashInput();
     }
 
-    /** @var \Drupal\wordproof\Entity\Timestamp[] $timestampRevisions */
+    /** @var \Drupal\wordproof_timestamp\Entity\Timestamp[] $timestampRevisions */
     $timestampRevisions =  $this->entityTypeManager->getStorage('timestamp')->loadMultiple($ids);
     $hashInputData = $entity->getHashInputObject();
     $hashInputData->revisions = [];
@@ -81,7 +81,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink) {
-    /** @var \Drupal\wordproof\Entity\Timestamp $entity */
+    /** @var \Drupal\wordproof_timestamp\Entity\Timestamp $entity */
     $entities = $this->entityTypeManager->getStorage('timestamp')->loadByProperties(['remote_id' => (int) $remote_id]);
     $entity = array_shift($entities);
     $entity->setTransactionAddress($address);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof\Plugin;
+namespace Drupal\wordproof_timestamp\Plugin;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -13,8 +13,8 @@ class StamperManager extends DefaultPluginManager {
       'Plugin/wordproof/Stamper',
       $namespaces,
       $module_handler,
-      'Drupal\wordproof\Plugin\StamperInterface',
-      'Drupal\wordproof\Annotation\Stamper'
+      'Drupal\wordproof_timestamp\Plugin\StamperInterface',
+      'Drupal\wordproof_timestamp\Annotation\Stamper'
     );
     $this->alterInfo('wordproof_info');
     $this->setCacheBackend($cache_backend, 'wordproof_info_stamper_plugins');
@@ -23,7 +23,7 @@ class StamperManager extends DefaultPluginManager {
   /**
    * {@inheritdoc}
    *
-   * @return \Drupal\wordproof\Plugin\StamperInterface
+   * @return \Drupal\wordproof_timestamp\Plugin\StamperInterface
    */
   public function createInstance($plugin_id, array $configuration = []) {
     return parent::createInstance($plugin_id, $configuration);

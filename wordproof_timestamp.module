@@ -4,12 +4,12 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 /**
  * @see hook_entity_create()
  */
-function wordproof_entity_insert(EntityInterface $entity) {
+function wordproof_timestamp_entity_insert(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return FALSE;
   }
@@ -19,19 +19,19 @@ function wordproof_entity_insert(EntityInterface $entity) {
 
   \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
 
-  \Drupal::logger('wordproof')->debug('function' . __FUNCTION__);
-  \Drupal::logger('wordproof')->debug('type' . $entity->getEntityTypeId());
-  \Drupal::logger('wordproof')->debug('bundle' . $entity->bundle());
-  \Drupal::logger('wordproof')->debug('label' . $entity->label());
+  \Drupal::logger('wordproof_timestamp')->debug('function' . __FUNCTION__);
+  \Drupal::logger('wordproof_timestamp')->debug('type' . $entity->getEntityTypeId());
+  \Drupal::logger('wordproof_timestamp')->debug('bundle' . $entity->bundle());
+  \Drupal::logger('wordproof_timestamp')->debug('label' . $entity->label());
 
-  $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
+  $timestampBuilder = \Drupal::service('wordproof_timestamp.timestamp_builder_service');
   $timestampBuilder->stamp($entity);
   $timestampBuilder->stampWatchedEntities($entity);
 
 }
 
 /* Start with new node support only */
-function wordproof_entity_update(EntityInterface $entity) {
+function wordproof_timestamp_entity_update(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return;
   }
@@ -41,7 +41,7 @@ function wordproof_entity_update(EntityInterface $entity) {
   }
   \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
 
-  $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
+  $timestampBuilder = \Drupal::service('wordproof_timestamp.timestamp_builder_service');
   $timestampBuilder->stamp($entity);
   $timestampBuilder->stampWatchedEntities($entity);
 }
@@ -49,7 +49,7 @@ function wordproof_entity_update(EntityInterface $entity) {
 /**
  * @see hook_theme().
  */
-function wordproof_theme($existing, $type, $theme, $path) {
+function wordproof_timestamp_theme($existing, $type, $theme, $path) {
   return [
     'wordproof_certificate' => [
       'variables' => ['timestamp' => NULL],
@@ -60,7 +60,7 @@ function wordproof_theme($existing, $type, $theme, $path) {
 /**
  * @see hook_token_info_alter().
  */
-function wordproof_token_info_alter(&$info) {
+function wordproof_timestamp_token_info_alter(&$info) {
   foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
     if (!$entity_type->entityClassImplements(ContentEntityInterface::class) || $entity_type_id === 'timestamp') {
       continue;
@@ -92,7 +92,7 @@ function wordproof_token_info_alter(&$info) {
 /**
  * Implements hook_tokens().
  */
-function wordproof_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+function wordproof_timestamp_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
   $replacements = [];
 
   if ($type == 'entity' && !empty($data['entity'])) {
@@ -100,7 +100,7 @@ function wordproof_tokens($type, $tokens, array $data, array $options, \Drupal\C
       switch ($name) {
         case 'wordproof-timestamp':
           /** @var TimestampInterface $timestamp */
-          $timestamp = \Drupal::service('wordproof.repository')->get($data['entity']);
+          $timestamp = \Drupal::service('wordproof_timestamp.repository')->get($data['entity']);
           if ($timestamp) {
             $bubbleable_metadata->addCacheableDependency($timestamp);
             $toJsonLdArray = $timestamp->toJsonLdArray();

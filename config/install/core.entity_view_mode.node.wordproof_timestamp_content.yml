@@ -1,0 +1,12 @@
+status: true
+dependencies:
+  module:
+    - node
+    - wordproof_timestamp_timestamp
+  enforced:
+    module:
+      - wordproof_timestamp
+id: node.wordproof_timestamp_content
+label: WordProof timestamp HashInput
+targetEntityType: node
+cache: true

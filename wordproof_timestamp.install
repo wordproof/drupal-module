@@ -15,7 +15,7 @@
 
 use Drupal\Core\Database\Database;
 
-function wordproof_schema() {
+function wordproof_timestamp_schema() {
   $schema['wordproof_node_timestamp'] = [
     'description' => t('Table of timestamps for nodes.'),
     'fields' => [
@@ -106,7 +106,7 @@ function wordproof_schema() {
   return $schema;
 }
 
-function wordproof_uninstall() {
+function wordproof_timestamp_uninstall() {
   $table = 'wordproof_node_timestamp';
   $schema = Database::getConnection()->schema();
   if ($schema->tableExists($table)) {
@@ -115,6 +115,6 @@ function wordproof_uninstall() {
     \Drupal::logger('error')->error('Could not remove ' . $table);
   }
 
-  \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_content')->delete();
+  \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_timestamp_content')->delete();
 
 }

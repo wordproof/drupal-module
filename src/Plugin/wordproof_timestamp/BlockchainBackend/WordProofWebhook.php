@@ -1,28 +1,28 @@
 <?php
 
 
-namespace Drupal\wordproof\Plugin\wordproof\BlockchainBackend;
+namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\wordproof\Annotation\BlockchainBackend;
-use Drupal\wordproof\Plugin\BlockchainBackendInterface;
-use Drupal\wordproof\Timestamp\TimestampInterface;
-use Drupal\wordproof\WordProofAPIClientInterface;
+use Drupal\wordproof_timestamp\Annotation\BlockchainBackend;
+use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\WordProofAPIClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines an blockchain backend implementation for WordProof
  *
  * @BlockchainBackend(
- *   id = "wordproof_api_backend_queued",
- *   title = @Translation("WordProof API Queued Blockchain backend"),
+ *   id = "wordproof_api_backend_webhook",
+ *   title = @Translation("WordProof API Webhook Blockchain backend"),
  *   description = @Translation("Blockchain backend for WordProof API create hashes on a blockchain. Uses the queued checks to call the API for blockchain info instead of a WebHook")
  * )
  */
-class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
+class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
-   * @var \Drupal\wordproof\WordProofAPIClientInterface
+   * @var \Drupal\wordproof_timestamp\WordProofAPIClientInterface
    */
   private $client;
 
@@ -38,10 +38,9 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $timestamp->setHashInput($response->hash_input);
       $timestamp->setHash($response->hash);
       $timestamp->setRemoteId($response->id);
-      $this->queueBlockchainInfoCron($response);
-    }
 
-    return $timestamp;
+      return $timestamp;
+    }
   }
 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -50,13 +49,7 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof.wordproof_api_client')
+      $container->get('wordproof_timestamp.wordproof_api_client')
     );
   }
-
-  private function queueBlockchainInfoCron($response) {
-    $queue = \Drupal::queue('wordproof_blockchain_backend_wordproof_queue');
-    $queue->createItem($response);
-  }
-
 }

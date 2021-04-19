@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Drupal\wordproof\Plugin\wordproof\Stamper;
+namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\Stamper;
 
 
-use Drupal\wordproof\Plugin\StamperInterface;
+use Drupal\wordproof_timestamp\Plugin\StamperInterface;
 
 /**
  * Defines an Stamper implementation for Nodes

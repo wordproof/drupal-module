@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof\Plugin;
+namespace Drupal\wordproof_timestamp\Plugin;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -13,8 +13,8 @@ class BlockchainBackendManager extends DefaultPluginManager {
       'Plugin/wordproof/BlockchainBackend',
       $namespaces,
       $module_handler,
-      'Drupal\wordproof\Plugin\BlockchainBackendInterface',
-      'Drupal\wordproof\Annotation\BlockchainBackend'
+      'Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface',
+      'Drupal\wordproof_timestamp\Annotation\BlockchainBackend'
     );
     $this->alterInfo('wordproof_info');
     $this->setCacheBackend($cache_backend, 'wordproof_info_blockchain_backend_plugins');
@@ -23,7 +23,7 @@ class BlockchainBackendManager extends DefaultPluginManager {
   /**
    * {@inheritdoc}
    *
-   * @return \Drupal\wordproof\Plugin\BlockchainBackendInterface
+   * @return \Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface
    */
   public function createInstance($plugin_id, array $configuration = []) {
     return parent::createInstance($plugin_id, $configuration);

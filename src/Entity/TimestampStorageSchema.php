@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\wordproof\Entity;
+namespace Drupal\wordproof_timestamp\Entity;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorageSchema;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;

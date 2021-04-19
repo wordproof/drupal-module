@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\wordproof\Entity;
+namespace Drupal\wordproof_timestamp\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Url;
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 /**
  * Defines the Timestamp entity.
@@ -19,7 +19,7 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  *   label = @Translation("Timestamp"),
  *   base_table = "timestamp",
  *   handlers = {
- *    "storage_schema" = "Drupal\wordproof\Entity\TimestampStorageSchema"
+ *    "storage_schema" = "Drupal\wordproof_timestamp\Entity\TimestampStorageSchema"
  *   },
  *   entity_keys = {
  *     "id" = "id",
@@ -164,7 +164,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
       return [];
     }
 
-    $url = Url::fromRoute('wordproof.hashinput', ['id' => $this->id()])->setAbsolute()->toString();
+    $url = Url::fromRoute('wordproof_timestamp.hashinput', ['id' => $this->id()])->setAbsolute()->toString();
     return [
       "@type" => "BlockchainTransaction",
       "identifier" => $this->getTransactionId(),

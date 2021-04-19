@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 use Psr\Http\Message\ResponseInterface;
 
 interface WordProofAPIClientInterface {

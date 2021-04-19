@@ -1,25 +1,25 @@
 <?php
 
-namespace Drupal\Tests\wordproof\Kernel;
+namespace Drupal\Tests\wordproof_timestamp\Kernel;
 
 use Drupal\Tests\token\Kernel\KernelTestBase;
-use Drupal\wordproof\EntityWatchListService;
+use Drupal\wordproof_timestamp\EntityWatchListService;
 
 
 /**
  * Class EntityWatchListServiceTest
  *
  * @group wordproof
- * @coversDefaultClass \Drupal\wordproof\EntityWatchListService
- * @covers \Drupal\wordproof\EntityWatchListService
+ * @coversDefaultClass \Drupal\wordproof_timestamp\EntityWatchListService
+ * @covers \Drupal\wordproof_timestamp\EntityWatchListService
  *
  * @internal
- * @package Drupal\Tests\wordproof\Kernel
+ * @package Drupal\Tests\wordproof_timestamp\Kernel
  */
 class EntityWatchListServiceTest extends KernelTestBase {
 
   public static $modules = [
-    'wordproof',
+    'wordproof_timestamp',
     'node',
     'field',
     'system',
@@ -28,8 +28,8 @@ class EntityWatchListServiceTest extends KernelTestBase {
 
 
   public function testGetWatchList() {
-    /** @var \Drupal\wordproof\EntityWatchListService $watchListService */
-    $watchListService = $this->container->get('wordproof.entity_watch_list');
+    /** @var \Drupal\wordproof_timestamp\EntityWatchListService $watchListService */
+    $watchListService = $this->container->get('wordproof_timestamp.entity_watch_list');
     $result = $watchListService->getWatchList();
 
     $this->assertEquals([

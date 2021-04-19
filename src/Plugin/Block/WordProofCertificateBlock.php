@@ -1,12 +1,12 @@
 <?php
 
-namespace Drupal\wordproof\Plugin\Block;
+namespace Drupal\wordproof_timestamp\Plugin\Block;
 
 use Drupal\Core\Annotation\ContextDefinition;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\wordproof\TimestampRepositoryInterface;
+use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,7 +29,7 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
   protected $entityTypeManager;
 
   /**
-   * @var \Drupal\wordproof\TimestampRepositoryInterface
+   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
    */
   private $repository;
 
@@ -48,7 +48,7 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
-      $container->get('wordproof.repository')
+      $container->get('wordproof_timestamp.repository')
     );
   }
 
@@ -58,7 +58,7 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
   public function build() {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->getContextValue('entity');
-    /** @var \Drupal\wordproof\Timestamp\TimestampInterface $timestamp */
+    /** @var \Drupal\wordproof_timestamp\Timestamp\TimestampInterface $timestamp */
     $timestamp = $this->repository->get($entity);
 
     if (!is_null($timestamp)) {

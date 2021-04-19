@@ -1,4 +1,4 @@
-wordproof.settings:
+wordproof_timestamp.settings:
   type: config_object
   label: 'WordProof base configuration'
   mapping:
@@ -20,12 +20,12 @@ wordproof.settings:
       type: sequence
       label: 'Entity type configuration'
       sequence:
-        type: wordproof.stamper.*
+        type: wordproof_timestamp.stamper.*
 
-wordproof.stamper.*:
-  type: wordproof.stamper
+wordproof_timestamp.stamper.*:
+  type: wordproof_timestamp.stamper
 
-wordproof.stamper:
+wordproof_timestamp.stamper:
   type: mapping
   label: 'WordProof entity type stamper configuration'
   mapping:

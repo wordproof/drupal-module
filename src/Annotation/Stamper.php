@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\wordproof\Annotation;
+namespace Drupal\wordproof_timestamp\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
  * Defines an hash input annotation object.
  *
- * Plugin Namespace: Plugin\wordproof\Stamper
+ * Plugin Namespace: Plugin\wordproof_timestamp\Stamper
  *
- * For a working example, see \Drupal\wordproof\Plugin\wordproof\Stamper\ContentEntityStamper
+ * For a working example, see \Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\Stamper\ContentEntityStamper
  *
- * @see \Drupal\wordproof\Plugin\StamperManager
- * @see \Drupal\wordproof\Plugin\StamperInterface
+ * @see \Drupal\wordproof_timestamp\Plugin\StamperManager
+ * @see \Drupal\wordproof_timestamp\Plugin\StamperInterface
  * @see plugin_api
  *
  * @todo Do we use hooks?

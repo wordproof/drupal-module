@@ -5,7 +5,7 @@
 * WebHook endpoint: Receiving blockchain information.
 * Nested backend Settings: form nested for backend (in config form, use #state and get form from the backend. See jsonapi)
 * Possibly implement something like EntityReferenceSelection where you can set the valid entity types for a plugin. This makes installing a specific plugin for other modules easier.
-* Create config for core.entity_view_mode.[ENTITY].wordproof_content.yml when timestamping is enabled.
+* Create config for core.entity_view_mode.[ENTITY].wordproof_timestamp_content.yml when timestamping is enabled.
   * See https://api.drupal.org/api/drupal/core!includes!entity.inc/function/entity_get_display/8.2.x for creating it in code.
 * Tests? ;)
 * Be explicit about ContentEntities only.
@@ -13,7 +13,6 @@
   * Cache?
   * Optimize which entities should be in the watchlist
 * Use cache for invalidation/check if timestamp is needed? How do we check if a new timestamp is needed when a referenced entity is updatet. Perhaps local hashing? Perhaps using cache tags of the content (which would also invalidate on config changes).
-
 
 ## Done
 * Timestamp updates: Challenge is to know when a entity is updated, since it can contain referenced entities it should also make sure it updates when references are updated. Possible solution:

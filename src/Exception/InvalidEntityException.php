@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof\Exception;
+namespace Drupal\wordproof_timestamp\Exception;
 
 use Drupal\Component\Plugin\Exception\PluginException;
 

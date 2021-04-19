@@ -1,5 +1,5 @@
 {
-    "name": "drupal/wordproof",
+    "name": "drupal/wordproof_timestamp",
     "description": "WordProof your content",
     "type": "drupal-module",
     "license": "GPL-2.0-or-later",
@@ -14,9 +14,9 @@
     "require": {
         "drupal/schema_metatag": "^2.1"
     },
-    "homepage": "https://drupal.org/project/wordproof",
+    "homepage": "https://drupal.org/project/wordproof-timestamp",
     "support": {
-        "issues": "https://drupal.org/project/issues/wordproof",
-        "source": "https://git.drupalcode.org/project/wordproof"
+        "issues": "https://drupal.org/project/issues/wordproof-timestamp",
+        "source": "https://git.drupalcode.org/project/wordproof-timestamp"
     }
 }

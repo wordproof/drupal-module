@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\wordproof\Plugin\Condition;
+namespace Drupal\wordproof_timestamp\Plugin\Condition;
 
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\wordproof\TimestampRepositoryInterface;
+use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class TimestampCondition extends ConditionPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var \Drupal\wordproof\TimestampRepositoryInterface
+   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
    */
   private $repository;
 
@@ -41,7 +41,7 @@ class TimestampCondition extends ConditionPluginBase implements ContainerFactory
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof.repository')
+      $container->get('wordproof_timestamp.repository')
     );
   }
 

@@ -1,30 +1,30 @@
 <?php
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\wordproof\Exception\InvalidEntityException;
-use Drupal\wordproof\Plugin\BlockchainBackendInterface;
-use Drupal\wordproof\Plugin\BlockchainBackendManager;
-use Drupal\wordproof\Plugin\StamperInterface;
-use Drupal\wordproof\Plugin\StamperManager;
+use Drupal\wordproof_timestamp\Exception\InvalidEntityException;
+use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
+use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
+use Drupal\wordproof_timestamp\Plugin\StamperInterface;
+use Drupal\wordproof_timestamp\Plugin\StamperManager;
 
 class TimestampBuilderService {
 
   /**
-   * @var \Drupal\wordproof\Plugin\StamperManager
+   * @var \Drupal\wordproof_timestamp\Plugin\StamperManager
    */
   private $stamperManager;
 
   /**
-   * @var \Drupal\wordproof\Plugin\BlockchainBackendManager
+   * @var \Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager
    */
   private $blockchainBackendManager;
 
   /**
-   * @var \Drupal\wordproof\TimestampRepositoryInterface
+   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
    */
   private $timestampRepository;
 
@@ -39,7 +39,7 @@ class TimestampBuilderService {
   private $watchList;
 
   /**
-   * @var \Drupal\wordproof\EntityWatchListService
+   * @var \Drupal\wordproof_timestamp\EntityWatchListService
    */
   private $entityWatchListService;
 
@@ -49,14 +49,14 @@ class TimestampBuilderService {
     $this->stamperManager = $stamperManager;
     $this->blockchainBackendManager = $blockchainBackendManager;
 
-    $this->config = $configFactory->get('wordproof.settings');
+    $this->config = $configFactory->get('wordproof_timestamp.settings');
     $this->entityWatchListService = $entityWatchListService;
   }
 
   /**
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *
-   * @return \Drupal\wordproof\Plugin\StamperInterface
+   * @return \Drupal\wordproof_timestamp\Plugin\StamperInterface
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   private function getStamperPlugin(ContentEntityInterface $entity): StamperInterface {
@@ -99,7 +99,7 @@ class TimestampBuilderService {
   }
 
   /**
-   * @return \Drupal\wordproof\Plugin\BlockchainBackendInterface
+   * @return \Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\wordproof\Plugin\QueueWorker;
+namespace Drupal\wordproof_timestamp\Plugin\QueueWorker;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\Core\Queue\RequeueException;
-use Drupal\wordproof\TimestampRepositoryInterface;
-use Drupal\wordproof\WordProofAPIClientInterface;
+use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
+use Drupal\wordproof_timestamp\WordProofAPIClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,14 +22,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var \Drupal\wordproof\WordProofAPIClientInterface
+   * @var \Drupal\wordproof_timestamp\WordProofAPIClientInterface
    */
   private $apiClient;
 
   const API_CHECK_DELAY = 60;
 
   /**
-   * @var \Drupal\wordproof\TimestampRepositoryInterface
+   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
    */
   private $timestampRepository;
 
@@ -46,16 +46,16 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof.wordproof_api_client'),
-      $container->get('wordproof.repository')
+      $container->get('wordproof_timestamp.wordproof_api_client'),
+      $container->get('wordproof_timestamp.repository')
     );
   }
 
   public function processItem($data) {
-    \Drupal::logger('wordproof')->debug('Queue worker starting.... :D');
+    \Drupal::logger('wordproof_timestamp')->debug('Queue worker starting.... :D');
 
     $response = $this->apiClient->get($data->id);
-    \Drupal::logger('wordproof')->debug('Queue response: ' . $response->getBody());
+    \Drupal::logger('wordproof_timestamp')->debug('Queue response: ' . $response->getBody());
 
     $responseObject = json_decode($response->getBody());
 

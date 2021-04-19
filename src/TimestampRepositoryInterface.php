@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 interface TimestampRepositoryInterface {
 

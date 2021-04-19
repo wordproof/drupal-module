@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -26,7 +26,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
    */
   public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
     $this->client = $client;
-    $this->config = $configFactory->get('wordproof.settings');
+    $this->config = $configFactory->get('wordproof_timestamp.settings');
   }
 
   private function timestampRequestData(TimestampInterface $timestamp): array {
@@ -54,7 +54,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
 
   public function get(int $id): ResponseInterface {
     $uri = $this->config->get('blockchain_backend_url') . '/timestamps/' . $id;
-    \Drupal::logger('wordproof')->debug('Getting: ' . $uri);
+    \Drupal::logger('wordproof_timestamp')->debug('Getting: ' . $uri);
     return $this->client->get($uri, ['headers' => $this->headers()]);
   }
 

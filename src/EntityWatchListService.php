@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Drupal\wordproof;
+namespace Drupal\wordproof_timestamp;
 
 
 use Drupal\Core\Entity\ContentEntityTypeInterface;
