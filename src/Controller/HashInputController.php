@@ -29,6 +29,6 @@ class HashInputController extends ControllerBase {
   public function get($id) {
     $enable_revisions = $this->config('wordproof_timestamp.settings')->get('enable_revisions');
     $hashInput = $this->repository->getHashInput($id, $enable_revisions);
-    return new JsonResponse($hashInput, 200, [], TRUE);
+    return new JsonResponse($hashInput, 200, ['Content-Type' => 'application/json; charset=utf-8'], TRUE);
   }
 }
