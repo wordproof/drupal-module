@@ -34,7 +34,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
     /** @var \Drupal\wordproof_timestamp\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
 
-    if($revisions === false){
+    if($revisions == false){
       return $entity->getHashInput();
     }
 

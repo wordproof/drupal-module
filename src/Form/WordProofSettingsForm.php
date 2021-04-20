@@ -81,6 +81,13 @@ class WordProofSettingsForm extends ConfigFormBase {
     );
     ksort($blockchainBackendOptions);
 
+    $form['enable_revisions'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show revisions in HasInput'),
+      '#default_value' => $config->get('enable_revisions') ?: 0,
+      '#required' => FALSE,
+    ];
+
     $form['blockchain_backend_id'] = [
       '#type' => 'select',
       '#title' => $this->t('Blockchain backend'),
@@ -179,7 +186,8 @@ class WordProofSettingsForm extends ConfigFormBase {
     $config
       ->set('blockchain_backend_id', $form_state->getValue('blockchain_backend_id'))
       ->set('blockchain_backend_key', $form_state->getValue('blockchain_backend_key'))
-      ->set('blockchain_backend_url', $form_state->getValue('blockchain_backend_url'));
+      ->set('blockchain_backend_url', $form_state->getValue('blockchain_backend_url'))
+      ->set('enable_revisions', $form_state->getValue('enable_revisions'));
 
     $values = $form_state->getValues();
     $stampers = $form_state->getValue('stamper_table');

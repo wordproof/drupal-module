@@ -2,6 +2,9 @@ wordproof_timestamp.settings:
   type: config_object
   label: 'WordProof base configuration'
   mapping:
+    enableRevisions:
+      type: boolean
+      label: 'Show revisions in HasInput'
     blockchainBackend:
       type: mapping
       label: 'Blockchain backend'
