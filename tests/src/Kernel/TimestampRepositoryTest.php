@@ -47,7 +47,6 @@ class TimestampRepositoryTest extends KernelTestBase {
 
   }
 
-
   public function testGet() {
     $node = Node::create(
       [
@@ -165,7 +164,7 @@ class TimestampRepositoryTest extends KernelTestBase {
 
     /** @var \Drupal\wordproof_timestamp\TimestampRepository $repository */
     $repository = $this->container->get('wordproof_timestamp.repository');
-
-    $this->assertEquals('{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T21:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some content","revisions":[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]}', $repository->getHashInput($timestamp->id(), TRUE));
+    $encoded = json_encode($repository->getHashInputRevisions($timestamp), JSON_UNESCAPED_SLASHES);
+    $this->assertEquals('[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]', $encoded);
   }
 }

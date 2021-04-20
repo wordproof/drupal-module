@@ -15,4 +15,5 @@ interface TimestampRepositoryInterface {
 
   public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink);
 
+  public function getHashInputRevisions(TimestampInterface $timestamp): array;
 }

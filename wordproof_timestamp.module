@@ -100,10 +100,16 @@ function wordproof_timestamp_tokens($type, $tokens, array $data, array $options,
       switch ($name) {
         case 'wordproof-timestamp':
           /** @var TimestampInterface $timestamp */
-          $timestamp = \Drupal::service('wordproof_timestamp.repository')->get($data['entity']);
+          $timestampRepository = \Drupal::service('wordproof_timestamp.repository');
+          $timestamp = $timestampRepository->get($data['entity']);
           if ($timestamp) {
             $bubbleable_metadata->addCacheableDependency($timestamp);
             $toJsonLdArray = $timestamp->toJsonLdArray();
+
+            $enable_revisions = \Drupal::config('wordproof_timestamp.settings')->get('enable_revisions');
+            if ($enable_revisions) {
+              $toJsonLdArray['revisions'] = $timestampRepository->getHashInputRevisions($timestamp);
+            }
             if (count($toJsonLdArray) > 0) {
               $replacements[$original] = json_encode($toJsonLdArray, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE);
             }

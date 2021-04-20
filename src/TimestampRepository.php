@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp;
-
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -30,34 +28,32 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return $this->find($entity->getEntityTypeId(), $entity->id());
   }
 
-  public function getHashInput($id, $revisions = FALSE) {
+  public function getHashInput($id) {
     /** @var \Drupal\wordproof_timestamp\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('timestamp')->load($id);
 
-    if($revisions == false){
-      return $entity->getHashInput();
-    }
+    return $entity->getHashInput();
+  }
 
-
+  public function getHashInputRevisions(TimestampInterface $timestamp): array {
     $query = $this->entityTypeManager->getStorage('timestamp')->getQuery()
-      ->condition('entity_id', $entity->getReferenceId())
-      ->condition('date_created', $entity->getModified(), '<')
+      ->condition('entity_id', $timestamp->getReferenceId())
+      ->condition('date_created', $timestamp->getModified(), '<')
       ->sort('date_created', 'DESC');
 
     $ids = $query->execute();
-    if(count($ids) <= 0){
-      return $entity->getHashInput();
+    if (count($ids) <= 0) {
+      return [];
     }
 
     /** @var \Drupal\wordproof_timestamp\Entity\Timestamp[] $timestampRevisions */
-    $timestampRevisions =  $this->entityTypeManager->getStorage('timestamp')->loadMultiple($ids);
-    $hashInputData = $entity->getHashInputObject();
-    $hashInputData->revisions = [];
-    foreach ($timestampRevisions as $revision){
-      $hashInputData->revisions[] = $revision->getHashInputObject();
+    $timestampRevisions = $this->entityTypeManager->getStorage('timestamp')->loadMultiple($ids);
+    $revisions = [];
+    foreach ($timestampRevisions as $revision) {
+      $revisions[] = $revision->getHashInputObject();
     }
 
-    return json_encode($hashInputData, JSON_UNESCAPED_SLASHES);
+    return $revisions;
   }
 
   public function find($entity_type, $entity_id) {
