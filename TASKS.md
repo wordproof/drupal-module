@@ -13,6 +13,7 @@
   * Cache?
   * Optimize which entities should be in the watchlist
 * Use cache for invalidation/check if timestamp is needed? How do we check if a new timestamp is needed when a referenced entity is updatet. Perhaps local hashing? Perhaps using cache tags of the content (which would also invalidate on config changes).
+* Make HashInputController a CacheableJsonReponse
 
 ## Done
 * Timestamp updates: Challenge is to know when a entity is updated, since it can contain referenced entities it should also make sure it updates when references are updated. Possible solution:
