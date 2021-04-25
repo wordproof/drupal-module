@@ -4,9 +4,6 @@ namespace Drupal\wordproof_timestamp\Entity;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorageSchema;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
-/**
- * Defines the node schema handler.
- */
 class TimestampStorageSchema extends SqlContentEntityStorageSchema {
 
   /**

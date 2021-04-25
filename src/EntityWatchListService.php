@@ -65,7 +65,7 @@ class EntityWatchListService {
       $entityTypeDefinitions,
       function ($definition, $key) {
         $isContentEntity = $definition instanceof ContentEntityTypeInterface;
-        $isNoTimestamp = $key !== 'timestamp';
+        $isNoTimestamp = $key !== 'wordproof_timestamp';
         $isFieldable = $definition->entityClassImplements(FieldableEntityInterface::class);
         return $isContentEntity && $isNoTimestamp && $isFieldable;
       },

@@ -15,7 +15,7 @@ use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
  * @ingroup timestamp
  *
  * @ContentEntityType(
- *   id = "timestamp",
+ *   id = "wordproof_timestamp",
  *   label = @Translation("Timestamp"),
  *   base_table = "timestamp",
  *   handlers = {

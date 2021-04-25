@@ -62,7 +62,7 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
     $timestamp = $this->repository->get($entity);
 
     if (!is_null($timestamp)) {
-      $this->setContextValue('timestamp', $timestamp);
+      $this->setContextValue('wordproof_timestamp', $timestamp);
 
       return [
         '#theme' => 'wordproof_certificate',

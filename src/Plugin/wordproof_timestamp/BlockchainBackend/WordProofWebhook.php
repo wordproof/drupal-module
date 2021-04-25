@@ -7,7 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\wordproof_timestamp\Annotation\BlockchainBackend;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
-use Drupal\wordproof_timestamp\WordProofAPIClientInterface;
+use Drupal\wordproof_timestamp\WordProofApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,11 +22,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
-   * @var \Drupal\wordproof_timestamp\WordProofAPIClientInterface
+   * @var \Drupal\wordproof_timestamp\WordProofApiClientInterface
    */
   private $client;
 
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofAPIClientInterface $wordproofAPIClient) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient) {
     $this->client = $wordproofAPIClient;
   }
 

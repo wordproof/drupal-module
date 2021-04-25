@@ -22,7 +22,7 @@ class ContentEntityStamper implements StamperInterface {
 
   public function timestamp(ContentEntityInterface $entity): TimestampInterface {
     /** @var \Drupal\wordproof_timestamp\Timestamp\TimestampInterface $timestamp */
-    $timestamp = \Drupal::entityTypeManager()->getStorage('timestamp')->create();
+    $timestamp = \Drupal::entityTypeManager()->getStorage('wordproof_timestamp')->create();
 
     $timestamp->setReferenceId($entity->id());
     $timestamp->setReferenceEntityType($entity->getEntityTypeId());

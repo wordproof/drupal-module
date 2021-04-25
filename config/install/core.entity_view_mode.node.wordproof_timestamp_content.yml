@@ -2,7 +2,7 @@ status: true
 dependencies:
   module:
     - node
-    - wordproof_timestamp_timestamp
+    - wordproof_timestamp
   enforced:
     module:
       - wordproof_timestamp

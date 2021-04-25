@@ -5,7 +5,7 @@ namespace Drupal\wordproof_timestamp;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 use Psr\Http\Message\ResponseInterface;
 
-interface WordProofAPIClientInterface {
+interface WordProofApiClientInterface {
 
   public function post(TimestampInterface $timestamp): ResponseInterface;
 

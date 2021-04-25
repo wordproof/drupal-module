@@ -9,7 +9,7 @@ use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
-class WordProofAPIClient implements WordProofAPIClientInterface {
+class WordProofApiClient implements WordProofApiClientInterface {
 
   /**
    * @var \GuzzleHttp\Client
@@ -22,7 +22,7 @@ class WordProofAPIClient implements WordProofAPIClientInterface {
   private $config;
 
   /**
-   * WordProofAPIClient constructor.
+   * WordProofApiClient constructor.
    */
   public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
     $this->client = $client;

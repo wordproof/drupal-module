@@ -5,11 +5,9 @@ namespace Drupal\wordproof_timestamp\Form;
 
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
 
 class WordProofSettingsForm extends ConfigFormBase {
 
@@ -125,7 +123,7 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
     $contentEntityBundleInfo = array_filter($this->entityTypeBundleInfo->getAllBundleInfo(), function($key) use ($entityTypeDefinitions){
-      return $entityTypeDefinitions[$key] instanceof ContentEntityTypeInterface && $key !== 'timestamp';
+      return $entityTypeDefinitions[$key] instanceof ContentEntityTypeInterface && $key !== 'wordproof_timestamp';
     }, ARRAY_FILTER_USE_KEY);
 
     foreach($contentEntityBundleInfo as $entity_type => $bundleInfo){
@@ -169,9 +167,6 @@ class WordProofSettingsForm extends ConfigFormBase {
             ],
           ],
         ];
-
-
-
       }
     }
 

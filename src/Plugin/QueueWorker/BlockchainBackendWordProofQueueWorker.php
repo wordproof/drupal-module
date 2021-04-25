@@ -7,7 +7,7 @@ use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\Core\Queue\RequeueException;
 use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
-use Drupal\wordproof_timestamp\WordProofAPIClientInterface;
+use Drupal\wordproof_timestamp\WordProofApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var \Drupal\wordproof_timestamp\WordProofAPIClientInterface
+   * @var \Drupal\wordproof_timestamp\WordProofApiClientInterface
    */
   private $apiClient;
 
@@ -33,7 +33,7 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
    */
   private $timestampRepository;
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, WordProofAPIClientInterface $wordProofAPIClient, TimestampRepositoryInterface $timestampRepository) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordProofAPIClient, TimestampRepositoryInterface $timestampRepository) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->apiClient = $wordProofAPIClient;

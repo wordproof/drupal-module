@@ -15,8 +15,6 @@ use Drupal\Component\Annotation\Plugin;
  * @see \Drupal\wordproof_timestamp\Plugin\StamperInterface
  * @see plugin_api
  *
- * @todo Do we use hooks?
- *
  * @Annotation
  */
 class Stamper extends Plugin {

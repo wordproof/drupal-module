@@ -32,7 +32,7 @@ class TimestampRepositoryTest extends KernelTestBase {
 
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
-    $this->installEntitySchema('timestamp');
+    $this->installEntitySchema('wordproof_timestamp');
 
     $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
