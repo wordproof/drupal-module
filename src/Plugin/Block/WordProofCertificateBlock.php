@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  admin_label = @Translation("WordProof certificate block"),
  *  context_definitions = {
  *    "entity" = @ContextDefinition("entity"),
- *    "wordproof_timestamp" = @ContextDefinition("wordproof_timestamp", required = FALSE)
+ *    "wordproof_timestamp" = @ContextDefinition("entity:wordproof_timestamp", required = FALSE)
  *  }
  * )
  */
