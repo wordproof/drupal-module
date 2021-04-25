@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp;
-
 
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\field\Entity\FieldStorageConfig;
 
 class EntityWatchListService {
 
@@ -48,7 +45,7 @@ class EntityWatchListService {
   }
 
   private function fromFieldStorageConfig() {
-    /** @var FieldStorageDefinitionInterface[] $entityReferenceFields */
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface[] $entityReferenceFields */
     $entityReferenceFields = $this->entityTypeManager
       ->getStorage('field_storage_config')
       ->loadByProperties(['type' => ['entity_reference', 'entity_reference_revision']]);
@@ -60,7 +57,7 @@ class EntityWatchListService {
 
   private function fromBaseFields() {
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
-    /** @var ContentEntityTypeInterface[] $fieldableEntityTypeDefinitions */
+    /** @var \Drupal\Core\Entity\ContentEntityTypeInterface[] $fieldableEntityTypeDefinitions */
     $fieldableEntityTypeDefinitions = array_filter(
       $entityTypeDefinitions,
       function ($definition, $key) {

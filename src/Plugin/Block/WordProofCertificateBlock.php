@@ -2,7 +2,6 @@
 
 namespace Drupal\wordproof_timestamp\Plugin\Block;
 
-use Drupal\Core\Annotation\ContextDefinition;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -21,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  }
  * )
  */
-class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPluginInterface{
+class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -71,8 +70,8 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
           'library' => [
             'wordproof_timestamp/certificate_module',
             'wordproof_timestamp/certificate_nomodule',
-          ]
-        ]
+          ],
+        ],
       ];
     }
     return [];

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\Stamper;
 
 use Drupal\Core\Entity\ContentEntityInterface;
@@ -10,7 +9,7 @@ use Drupal\wordproof_timestamp\Plugin\StamperInterface;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 /**
- * Defines an Stamper implementation for content entities
+ * Defines an Stamper implementation for content entities.
  *
  * @Stamper(
  *   id = "content_entity_stamper",

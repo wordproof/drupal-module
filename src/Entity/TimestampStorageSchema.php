@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\wordproof_timestamp\Entity;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorageSchema;
@@ -20,6 +21,7 @@ class TimestampStorageSchema extends SqlContentEntityStorageSchema {
       case 'date_created':
         $this->addSharedTableFieldIndex($storage_definition, $schema, TRUE);
         break;
+
       case 'remote_id':
         $this->addSharedTableFieldIndex($storage_definition, $schema, FALSE);
     }

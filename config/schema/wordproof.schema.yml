@@ -44,5 +44,3 @@ wordproof_timestamp.stamper:
     enabled:
       type: boolean
       label: 'Enable stamping'
-
-

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp\Form;
-
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
@@ -44,7 +42,6 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     parent::__construct($config_factory);
   }
-
 
   /**
    * {@inheritdoc}
@@ -95,7 +92,7 @@ class WordProofSettingsForm extends ConfigFormBase {
     $form['blockchain_backend_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Blockchain backend key'),
-      '#default_value' => $config->get('blockchain_backend_key') ?: null,
+      '#default_value' => $config->get('blockchain_backend_key') ?: NULL,
     ];
     $form['blockchain_backend_url'] = [
       '#type' => 'url',
@@ -114,25 +111,24 @@ class WordProofSettingsForm extends ConfigFormBase {
     );
     ksort($stamperOptions);
 
-
-    $form['stamper_table'] = array(
+    $form['stamper_table'] = [
       '#type' => 'table',
       '#caption' => t('Configure entity timestamps'),
-      '#header' => array(t('Entity'), t('Enable'), t('Stamper plugin'))
-    );
+      '#header' => [t('Entity'), t('Enable'), t('Stamper plugin')],
+    ];
 
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
-    $contentEntityBundleInfo = array_filter($this->entityTypeBundleInfo->getAllBundleInfo(), function($key) use ($entityTypeDefinitions){
+    $contentEntityBundleInfo = array_filter($this->entityTypeBundleInfo->getAllBundleInfo(), function ($key) use ($entityTypeDefinitions) {
       return $entityTypeDefinitions[$key] instanceof ContentEntityTypeInterface && $key !== 'wordproof_timestamp';
     }, ARRAY_FILTER_USE_KEY);
 
-    foreach($contentEntityBundleInfo as $entity_type => $bundleInfo){
-      foreach($bundleInfo as $bundle => $label){
+    foreach ($contentEntityBundleInfo as $entity_type => $bundleInfo) {
+      foreach ($bundleInfo as $bundle => $label) {
         $stamperFormId = 'stamper.' . $entity_type . '-' . $bundle;
 
         $entity_type_obj = $entityTypeDefinitions[$entity_type];
 
-        $form['stamper_table'][$stamperFormId][$stamperFormId . '_entity_label']['#plain_text'] = $label['label'] . ' ('. $entity_type . '-' . $bundle. ')';
+        $form['stamper_table'][$stamperFormId][$stamperFormId . '_entity_label']['#plain_text'] = $label['label'] . ' (' . $entity_type . '-' . $bundle . ')';
 
         $form[$stamperFormId . '.entity_type'] = [
           '#type' => 'hidden',
@@ -147,7 +143,7 @@ class WordProofSettingsForm extends ConfigFormBase {
         $form['stamper_table'][$stamperFormId][$stamperFormId . '.enabled'] = [
           '#type' => 'checkbox',
           '#title' => $this->t('Enable stamping'),
-          '#default_value' => $config->get($stamperFormId . '.enabled')
+          '#default_value' => $config->get($stamperFormId . '.enabled'),
         ];
         $form['stamper_table'][$stamperFormId][$stamperFormId . '.plugin_id'] = [
           '#type' => 'select',
@@ -158,11 +154,11 @@ class WordProofSettingsForm extends ConfigFormBase {
             'id' => $stamperFormId . '.plugin_id',
           ],
           '#states' => [
-            //show this textfield only if the radio 'other' is selected above
+            // Show this textfield only if the radio 'other' is selected above.
             'visible' => [
-              //don't mistake :input for the type of field. You'll always use
-              //:input here, no matter whether your source is a select, radio or checkbox element.
-              // ':input[name="' . $stamperFormId . '_enabled"]' => ['checked' => TRUE],
+              // don't mistake :input for the type of field. You'll always use
+              // :input here, no matter whether your source is a select, radio or checkbox element.
+              // ':input[name="' . $stamperFormId . '_enabled"]' => ['checked' => TRUE],.
               ':input[name="stamper_table[' . $stamperFormId . '][' . $stamperFormId . '.enabled]"]' => ['checked' => TRUE],
             ],
           ],
@@ -186,9 +182,9 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     $values = $form_state->getValues();
     $stampers = $form_state->getValue('stamper_table');
-    foreach($stampers as $stamperId => $values){
+    foreach ($stampers as $stamperId => $values) {
       $config->set($stamperId . '.enabled', $values[$stamperId . '.enabled']);
-      if($values[$stamperId . '.enabled']){
+      if ($values[$stamperId . '.enabled']) {
         $config->set($stamperId . '.plugin_id', $values[$stamperId . '.plugin_id']);
         $config->set($stamperId . '.entity_type', $form_state->getValue($stamperId . '.entity_type'));
         $config->set($stamperId . '.entity_type_bundle', $form_state->getValue($stamperId . '.entity_type_bundle'));

@@ -28,4 +28,5 @@ class BlockchainBackendManager extends DefaultPluginManager {
   public function createInstance($plugin_id, array $configuration = []) {
     return parent::createInstance($plugin_id, $configuration);
   }
+
 }

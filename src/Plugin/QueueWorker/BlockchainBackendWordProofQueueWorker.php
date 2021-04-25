@@ -3,9 +3,7 @@
 namespace Drupal\wordproof_timestamp\Plugin\QueueWorker;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Queue\DelayedRequeueException;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\Core\Queue\RequeueException;
 use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
 use Drupal\wordproof_timestamp\WordProofApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,7 +37,6 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
     $this->apiClient = $wordProofAPIClient;
     $this->timestampRepository = $timestampRepository;
   }
-
 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(

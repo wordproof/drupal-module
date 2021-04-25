@@ -12,9 +12,9 @@ interface WordProofApiClientInterface {
   public function get(int $id): ResponseInterface;
 
   /**
-   * @param TimestampInterface[] $timestamps
+   * @param \Drupal\wordproof_timestamp\Timestamp\TimestampInterface[] $timestamps
    *
-   * @return ResponseInterface[]
+   * @return \Psr\Http\Message\ResponseInterface[]
    */
   public function bulk(array $timestamps): array;
 

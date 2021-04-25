@@ -44,9 +44,9 @@ interface TimestampInterface {
 
   public function setReferenceId(int $entity_id): TimestampInterface;
 
-  public function setHash(string$hash): TimestampInterface;
+  public function setHash(string $hash): TimestampInterface;
 
-  public function setHashInput(string$hash_input): TimestampInterface;
+  public function setHashInput(string $hash_input): TimestampInterface;
 
   public function setModified(int $date): TimestampInterface;
 

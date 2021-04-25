@@ -30,4 +30,5 @@ class HashInputController extends ControllerBase {
     $hashInput = $this->repository->getHashInput($id);
     return new JsonResponse($hashInput, 200, ['Content-Type' => 'application/json; charset=utf-8'], TRUE);
   }
+
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp;
-
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
@@ -37,7 +35,7 @@ class WordProofApiClient implements WordProofApiClientInterface {
     return [
       'headers' => $this->headers(),
       'body' => json_encode([
-        'uid' =>(int)  $timestamp->id(),
+        'uid' => (int) $timestamp->id(),
         'date_modified' => $time->format('c'),
         'meta_title' => $timestamp->getTitle(),
         'url' => $timestamp->getUrl(),
@@ -59,14 +57,14 @@ class WordProofApiClient implements WordProofApiClientInterface {
   }
 
   /**
-   * @param TimestampInterface[] $timestamps
+   * @param \Drupal\wordproof_timestamp\Timestamp\TimestampInterface[] $timestamps
    *
-   * @return ResponseInterface[]
+   * @return \Psr\Http\Message\ResponseInterface[]
    */
   public function bulk(array $timestamps): array {
     // @todo Send bulk timestamps, @see self::get() but slower responses
     $responses = [];
-    foreach($timestamps as $timestamp){
+    foreach ($timestamps as $timestamp) {
       $timestampRequestData = $this->timestampRequestData($timestamp);
       $responses[] = $this->client->post($this->config->get('blockchain_backend_api') . '/timestamps/bulk', $timestampRequestData);
     }

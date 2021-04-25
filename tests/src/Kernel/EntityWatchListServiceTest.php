@@ -3,11 +3,9 @@
 namespace Drupal\Tests\wordproof_timestamp\Kernel;
 
 use Drupal\Tests\token\Kernel\KernelTestBase;
-use Drupal\wordproof_timestamp\EntityWatchListService;
-
 
 /**
- * Class EntityWatchListServiceTest
+ * Class EntityWatchListServiceTest.
  *
  * @group wordproof_timestamp
  * @coversDefaultClass \Drupal\wordproof_timestamp\EntityWatchListService
@@ -26,23 +24,22 @@ class EntityWatchListServiceTest extends KernelTestBase {
     'user',
   ];
 
-
   public function testGetWatchList() {
     /** @var \Drupal\wordproof_timestamp\EntityWatchListService $watchListService */
     $watchListService = $this->container->get('wordproof_timestamp.entity_watch_list');
     $result = $watchListService->getWatchList();
 
     $this->assertEquals([
-        "user_role" => [
-          "user" => ["roles"],
-        ],
-        "node_type" => [
-          "node" => ['type'],
-        ],
-        "user" => [
-          "node" => ["revision_uid", "uid"],
-        ],
+      "user_role" => [
+        "user" => ["roles"],
       ],
+      "node_type" => [
+        "node" => ['type'],
+      ],
+      "user" => [
+        "node" => ["revision_uid", "uid"],
+      ],
+    ],
       $result
     );
   }

@@ -43,7 +43,6 @@ class TimestampBuilderService {
    */
   private $entityWatchListService;
 
-
   public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory, EntityWatchListService $entityWatchListService) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
@@ -85,7 +84,8 @@ class TimestampBuilderService {
     $plugin = $this->getStamperPlugin($entity);
     try {
       $timestamp = $plugin->timestamp($entity);
-    } catch (InvalidEntityException $e) {
+    }
+    catch (InvalidEntityException $e) {
       return FALSE;
     }
 
@@ -111,7 +111,6 @@ class TimestampBuilderService {
     return $isEnabled === '1';
   }
 
-
   public function stampWatchedEntities(ContentEntityInterface $entity) {
     $watchList = $this->entityWatchListService->getWatchList();
     $entityTypeId = $entity->getEntityTypeId();
@@ -135,4 +134,5 @@ class TimestampBuilderService {
       }
     }
   }
+
 }

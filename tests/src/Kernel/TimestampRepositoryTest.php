@@ -5,11 +5,10 @@ namespace Drupal\Tests\wordproof_timestamp\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\Tests\BrowserTestBase;
 use Drupal\wordproof_timestamp\Entity\Timestamp;
 
 /**
- * Class TimestampRepositoryTest
+ * Class TimestampRepositoryTest.
  *
  * @coversDefaultClass \Drupal\wordproof_timestamp\TimestampRepository
  * @covers \Drupal\wordproof_timestamp\TimestampRepository
@@ -167,4 +166,5 @@ class TimestampRepositoryTest extends KernelTestBase {
     $encoded = json_encode($repository->getHashInputRevisions($timestamp), JSON_UNESCAPED_SLASHES);
     $this->assertEquals('[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]', $encoded);
   }
+
 }

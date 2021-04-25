@@ -1,9 +1,9 @@
 <?php
 
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 /**
@@ -92,14 +92,14 @@ function wordproof_timestamp_token_info_alter(&$info) {
 /**
  * Implements hook_tokens().
  */
-function wordproof_timestamp_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+function wordproof_timestamp_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = [];
 
   if ($type == 'entity' && !empty($data['entity'])) {
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'wordproof-timestamp':
-          /** @var TimestampInterface $timestamp */
+          /** @var \Drupal\wordproof_timestamp\Timestamp\TimestampInterface $timestamp */
           $timestampRepository = \Drupal::service('wordproof_timestamp.repository');
           $timestamp = $timestampRepository->get($data['entity']);
           if ($timestamp) {
@@ -123,5 +123,3 @@ function wordproof_timestamp_tokens($type, $tokens, array $data, array $options,
   }
   return $replacements;
 }
-
-

@@ -2,10 +2,8 @@
 
 namespace Drupal\wordproof_timestamp;
 
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Url;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 
 class TimestampRepository implements TimestampRepositoryInterface {

@@ -7,7 +7,7 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines an hash input annotation object.
  *
- * Plugin Namespace: Plugin\wordproof_timestamp\Stamper
+ * Plugin Namespace: Plugin\wordproof_timestamp\Stamper.
  *
  * For a working example, see \Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\Stamper\ContentEntityStamper
  *
@@ -48,7 +48,9 @@ class Stamper extends Plugin {
    * An array of entity types that can be referenced by this plugin. Defaults to
    * all entity types.
    *
-   * @var array (optional)
+   * @todo Implement filtering on entity types
+   *
+   * @var array
    */
   public $entity_types = [];
 

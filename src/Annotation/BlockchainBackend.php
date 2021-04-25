@@ -7,7 +7,7 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines an blockchain backend for the Hashes.
  *
- * Plugin Namespace: Plugin\wordproof_timestamp\BlockchainBackend
+ * Plugin Namespace: Plugin\wordproof_timestamp\BlockchainBackend.
  *
  * For a working example, see \Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend\WordProof
  *

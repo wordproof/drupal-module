@@ -52,7 +52,6 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
       )
       ->setDescription(t('Hash of the HashInput of this content.'));
 
-
     // Standard field, unique outside of the scope of the current project.
     $fields['revision_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('The revision id'))
@@ -182,7 +181,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
    *
    * @return object
    */
-  public function getHashInputObject(){
+  public function getHashInputObject() {
     return (object) [
       "@context"    => "https://schema.org",
       "@type"       => "HashInput",
@@ -201,7 +200,6 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     $cacheTagsToInvalidate[] = $this->entityTypeId . ':' . $this->id();
     return $cacheTagsToInvalidate;
   }
-
 
   public function getHash(): string {
     return $this->get('hash')->value;

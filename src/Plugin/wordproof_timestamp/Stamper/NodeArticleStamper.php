@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\Stamper;
 
 use Drupal\wordproof_timestamp\Plugin\StamperInterface;
 
 /**
- * Defines an Stamper implementation for Nodes
+ * Defines an Stamper implementation for Nodes.
  *
  * @Stamper(
  *   id = "node_article_stamper",
