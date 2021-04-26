@@ -78,7 +78,7 @@ function wordproof_timestamp_token_info_alter(&$info) {
     ];
     $info['tokens'][$token_type]['wordproof-timestamp'] = [
       'name' => t("Wordproof JSON-LD timestamp"),
-      'description' => t('The node\'s JSON-LD timestamp'),
+      'description' => t("The node's JSON-LD timestamp"),
       'module' => 'token',
     ];
 

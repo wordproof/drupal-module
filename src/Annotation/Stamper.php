@@ -29,28 +29,27 @@ class Stamper extends Plugin {
   /**
    * The human-readable name of the plugin.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $title;
 
   /**
    * The description of the plugin.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $description;
 
   /**
-   * An array of entity types that can be referenced by this plugin. Defaults to
-   * all entity types.
-   *
-   * @todo Implement filtering on entity types
+   * An array of entity types that can be referenced by this plugin. Defaults to all entity types.
    *
    * @var array
+   *
+   * @todo Implement filtering on entity types
    */
   public $entity_types = [];
 

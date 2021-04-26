@@ -151,7 +151,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
 
     // Standard field, unique outside of the scope of the current project.
     $fields['date_created'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Unix timestamp '))
+      ->setLabel(t('Unix timestamp'))
       ->setDefaultValue(0)
       ->setDescription(t('The HashInput on which the hash is based.'));
 
@@ -177,7 +177,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
   }
 
   /**
-   * Array with HashInput data. Encoding note: json_encode([], JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES);
+   * Array with HashInput data. Encoding note: json_encode([], JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES).
    *
    * @return object
    */

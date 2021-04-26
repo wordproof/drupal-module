@@ -4,8 +4,13 @@ namespace Drupal\wordproof_timestamp\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
+use Drupal\wordproof_timestamp\Plugin\StamperManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WordProofSettingsForm extends ConfigFormBase {
 
@@ -14,33 +19,43 @@ class WordProofSettingsForm extends ConfigFormBase {
   /**
    * @var \Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager
    */
-  private $backendManager;
+  protected $backendManager;
 
   /**
    * @var \Drupal\wordproof_timestamp\Plugin\StamperManager
    */
-  private $stamperManager;
+  protected $stamperManager;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
    */
-  private $entityTypeBundleInfo;
+  protected $entityTypeBundleInfo;
 
   /**
    * WordProofSettingsForm constructor.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->backendManager = \Drupal::service('plugin.manager.wordproof_blockchain_backend');
-    $this->stamperManager = \Drupal::service('plugin.manager.wordproof_stamper');
-    $this->entityTypeManager = \Drupal::service('entity_type.manager');
-    $this->entityTypeBundleInfo = \Drupal::service('entity_type.bundle.info');
-
+  public function __construct(ConfigFactoryInterface $config_factory, BlockchainBackendManager $backendManager, StamperManager $stamperManager, EntityTypeManagerInterface $entityTypeManager, EntityTypeBundleInfoInterface $entityTypeBundleInfo) {
     parent::__construct($config_factory);
+
+    $this->backendManager = $backendManager;
+    $this->stamperManager = $stamperManager;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->entityTypeBundleInfo = $entityTypeBundleInfo;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('plugin.manager.wordproof_blockchain_backend'),
+      $container->get('plugin.manager.wordproof_stamper'),
+      $container->get('entity_type.manager'),
+      $container->get('entity_type.bundle.info')
+    );
   }
 
   /**
@@ -113,8 +128,8 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     $form['stamper_table'] = [
       '#type' => 'table',
-      '#caption' => t('Configure entity timestamps'),
-      '#header' => [t('Entity'), t('Enable'), t('Stamper plugin')],
+      '#caption' => $this->t('Configure entity timestamps'),
+      '#header' => [$this->t('Entity'), $this->t('Enable'), $this->t('Stamper plugin')],
     ];
 
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
@@ -125,8 +140,6 @@ class WordProofSettingsForm extends ConfigFormBase {
     foreach ($contentEntityBundleInfo as $entity_type => $bundleInfo) {
       foreach ($bundleInfo as $bundle => $label) {
         $stamperFormId = 'stamper.' . $entity_type . '-' . $bundle;
-
-        $entity_type_obj = $entityTypeDefinitions[$entity_type];
 
         $form['stamper_table'][$stamperFormId][$stamperFormId . '_entity_label']['#plain_text'] = $label['label'] . ' (' . $entity_type . '-' . $bundle . ')';
 

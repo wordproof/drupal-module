@@ -12,6 +12,7 @@ wordproof_timestamp.hashinput:
     _controller: '\Drupal\wordproof_timestamp\Controller\HashInputController::get'
     _title: 'Serve JSON-LD HashInput for Hash'
   requirements:
+    # This route is the public verification url for the HashInput that generated the timestamp
     _access: 'TRUE'
 
 wordproof_timestamp.admin_settings_form:
@@ -20,6 +21,6 @@ wordproof_timestamp.admin_settings_form:
     _form: '\Drupal\wordproof_timestamp\Form\WordProofSettingsForm'
     _title: 'WordProof timestamp settings'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'administer site configuration'
   options:
     _admin_route: TRUE

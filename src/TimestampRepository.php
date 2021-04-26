@@ -18,7 +18,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function isStamped(ContentEntityInterface $entity): bool {
-    $entities = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadByProperties(['entity_id' => $entity->id(), 'stamped_entity_type' => $entity->getEntityTypeId()]);
+    $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
+    $entities = $entityStorage->loadByProperties([
+      'entity_id' => $entity->id(),
+      'stamped_entity_type' => $entity->getEntityTypeId(),
+    ]);
     return (count($entities) > 0);
   }
 
@@ -55,7 +59,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function find($entity_type, $entity_id) {
-    $entities = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadByProperties(['entity_id' => $entity_id, 'stamped_entity_type' => $entity_type]);
+    $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
+    $entities = $entityStorage->loadByProperties([
+      'entity_id' => $entity_id,
+      'stamped_entity_type' => $entity_type,
+    ]);
     return array_pop($entities);
   }
 
