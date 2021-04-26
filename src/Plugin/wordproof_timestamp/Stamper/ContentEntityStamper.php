@@ -20,8 +20,10 @@ use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
 class ContentEntityStamper implements StamperInterface {
 
   public function timestamp(ContentEntityInterface $entity): TimestampInterface {
+    $entityTypeManager = \Drupal::entityTypeManager();
+
     /** @var \Drupal\wordproof_timestamp\Timestamp\TimestampInterface $timestamp */
-    $timestamp = \Drupal::entityTypeManager()->getStorage('wordproof_timestamp')->create();
+    $timestamp = $entityTypeManager->getStorage('wordproof_timestamp')->create();
 
     $timestamp->setReferenceId($entity->id());
     $timestamp->setReferenceEntityType($entity->getEntityTypeId());
@@ -38,11 +40,11 @@ class ContentEntityStamper implements StamperInterface {
     }
     $timestamp->setModified($modified);
 
-    $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId());
+    $view_builder = $entityTypeManager->getViewBuilder($entity->getEntityTypeId());
     $build = $view_builder->view($entity, 'wordproof_timestamp_content');
-    /** @var \Drupal\Core\Render\Renderer $service */
-    $service = \Drupal::service('renderer');
-    $content = $service->renderPlain($build);
+    /** @var \Drupal\Core\Render\Renderer $renderer */
+    $renderer = \Drupal::service('renderer');
+    $content = $renderer->renderPlain($build);
     $timestamp->setContent($content);
 
     $timestamp->setTitle($entity->label());

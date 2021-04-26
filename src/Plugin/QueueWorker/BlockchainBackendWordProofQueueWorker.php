@@ -49,11 +49,7 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
   }
 
   public function processItem($data) {
-    \Drupal::logger('wordproof_timestamp')->debug('Queue worker starting.... :D');
-
     $response = $this->apiClient->get($data->id);
-    \Drupal::logger('wordproof_timestamp')->debug('Queue response: ' . $response->getBody());
-
     $responseObject = json_decode($response->getBody());
 
     if (!isset($responseObject->transaction) && !isset($responseObject->transaction->transactionId)) {

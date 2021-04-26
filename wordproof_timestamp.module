@@ -19,11 +19,6 @@ function wordproof_timestamp_entity_insert(EntityInterface $entity) {
 
   \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
 
-  \Drupal::logger('wordproof_timestamp')->debug('function' . __FUNCTION__);
-  \Drupal::logger('wordproof_timestamp')->debug('type' . $entity->getEntityTypeId());
-  \Drupal::logger('wordproof_timestamp')->debug('bundle' . $entity->bundle());
-  \Drupal::logger('wordproof_timestamp')->debug('label' . $entity->label());
-
   $timestampBuilder = \Drupal::service('wordproof_timestamp.timestamp_builder_service');
   $timestampBuilder->stamp($entity);
   $timestampBuilder->stampWatchedEntities($entity);
@@ -61,7 +56,8 @@ function wordproof_timestamp_theme($existing, $type, $theme, $path) {
  * @see hook_token_info_alter().
  */
 function wordproof_timestamp_token_info_alter(&$info) {
-  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+  $definitions = \Drupal::entityTypeManager()->getDefinitions();
+  foreach ($definitions as $entity_type_id => $entity_type) {
     if (!$entity_type->entityClassImplements(ContentEntityInterface::class) || $entity_type_id === 'timestamp') {
       continue;
     }

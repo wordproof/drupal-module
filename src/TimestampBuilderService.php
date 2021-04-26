@@ -5,6 +5,7 @@ namespace Drupal\wordproof_timestamp;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\wordproof_timestamp\Exception\InvalidEntityException;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
@@ -42,14 +43,19 @@ class TimestampBuilderService {
    * @var \Drupal\wordproof_timestamp\EntityWatchListService
    */
   private $entityWatchListService;
+  /**
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  private $entityTypeManager;
 
-  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory, EntityWatchListService $entityWatchListService) {
+  public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory, EntityWatchListService $entityWatchListService, EntityTypeManagerInterface $entityTypeManager) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
     $this->blockchainBackendManager = $blockchainBackendManager;
 
     $this->config = $configFactory->get('wordproof_timestamp.settings');
     $this->entityWatchListService = $entityWatchListService;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -117,14 +123,15 @@ class TimestampBuilderService {
 
     if (isset($watchList[$entityTypeId])) {
       foreach ($watchList[$entityTypeId] as $targetEntityTypeId => $fields) {
-        $query = \Drupal::entityQuery($targetEntityTypeId, 'OR');
+        $entityStorage = $this->entityTypeManager->getStorage($targetEntityTypeId);
+        $query = $entityStorage->getQuery('OR');
         foreach ($fields as $field_name) {
           $query->condition($field_name, $entity->id(), 'IN');
         }
         $result = $query->execute();
 
         if (count($result) > 0) {
-          $entitiesWithReference = \Drupal::entityTypeManager()->getStorage($targetEntityTypeId)->loadMultiple($result);
+          $entitiesWithReference = $entityStorage->loadMultiple($result);
           foreach ($entitiesWithReference as $entityWithReference) {
             if ($entityWithReference instanceof ContentEntityInterface) {
               $this->stamp($entityWithReference);
