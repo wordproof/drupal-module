@@ -14,9 +14,9 @@
     "require": {
         "drupal/schema_metatag": "^2.1"
     },
-    "homepage": "https://drupal.org/project/wordproof-timestamp",
+    "homepage": "https://drupal.org/project/wordproof_timestamp",
     "support": {
-        "issues": "https://drupal.org/project/issues/wordproof-timestamp",
-        "source": "https://git.drupalcode.org/project/wordproof-timestamp"
+        "issues": "https://drupal.org/project/issues/wordproof_timestamp",
+        "source": "https://git.drupalcode.org/project/wordproof_timestamp"
     }
 }
