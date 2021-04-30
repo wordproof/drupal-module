@@ -9,7 +9,7 @@ class SchemaTimestampBase extends SchemaNameBase {
   public function output() {
     $output = parent::output();
 
-    if ($output['#attributes']['content'] === '') {
+    if (isset($output['#attributes']['content']) && $output['#attributes']['content'] === '') {
       return '';
     }
 
