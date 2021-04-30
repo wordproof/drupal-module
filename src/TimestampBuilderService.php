@@ -5,8 +5,8 @@ namespace Drupal\wordproof_timestamp;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryException;
 use Drupal\wordproof_timestamp\Exception\InvalidEntityException;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
@@ -133,7 +133,7 @@ class TimestampBuilderService {
         try {
           $result = $query->execute();
         }
-        catch (EntityStorageException $e) {
+        catch (QueryException $e) {
           // Failed to query on related field.
           continue;
         }
