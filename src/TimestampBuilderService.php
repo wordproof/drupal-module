@@ -5,6 +5,7 @@ namespace Drupal\wordproof_timestamp;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\wordproof_timestamp\Exception\InvalidEntityException;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
@@ -128,7 +129,14 @@ class TimestampBuilderService {
         foreach ($fields as $field_name) {
           $query->condition($field_name, $entity->id(), 'IN');
         }
-        $result = $query->execute();
+
+        try {
+          $result = $query->execute();
+        }
+        catch (EntityStorageException $e) {
+          // Failed to query on related field.
+          continue;
+        }
 
         if (count($result) > 0) {
           $entitiesWithReference = $entityStorage->loadMultiple($result);

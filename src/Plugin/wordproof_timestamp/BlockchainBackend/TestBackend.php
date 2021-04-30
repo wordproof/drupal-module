@@ -2,12 +2,8 @@
 
 namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend;
 
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Queue\QueueFactory;
 use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
-use Drupal\wordproof_timestamp\WordProofApiClientInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines an blockchain backend implementation for WordProof.
