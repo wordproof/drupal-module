@@ -2,6 +2,7 @@
 
 # Todo
 
+* Allow choosing of version for WordProof certificate component
 * WebHook endpoint: Receiving blockchain information.
 * Nested backend Settings: form nested for backend (in config form, use #state and get form from the backend. See jsonapi)
 * Possibly implement something like EntityReferenceSelection where you can set the valid entity types for a plugin. This makes installing a specific plugin for other modules easier.
