@@ -4,7 +4,7 @@ certificate_module:
     name: GPL
     gpl-compatible: true
   js:
-    https://unpkg.com/@wordproof/uikit@0.0.68/dist/uikit/uikit.esm.js:
+    https://unpkg.com/@wordproof/uikit/dist/uikit/uikit.esm.js:
       type: external,
       minified: true,
       attributes:
@@ -15,7 +15,7 @@ certificate_nomodule:
     name: GPL
     gpl-compatible: true
   js:
-    https://unpkg.com/@wordproof/uikit@0.0.68/dist/uikit/uikit.js:
+    https://unpkg.com/@wordproof/uikit/dist/uikit/uikit.js:
       type: external,
       minified: true,
       attributes:
