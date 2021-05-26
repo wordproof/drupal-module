@@ -18,7 +18,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function isStamped(ContentEntityInterface $entity): bool {
-    $entityStorage = $this->entityTypeManager->getStorage('wordproof');
+    $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
     $entities = $entityStorage->loadByProperties([
       'entity_id' => $entity->id(),
       'stamped_entity_type' => $entity->getEntityTypeId(),
@@ -32,13 +32,13 @@ class TimestampRepository implements TimestampRepositoryInterface {
 
   public function getHashInput($id) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
-    $entity = $this->entityTypeManager->getStorage('wordproof')->load($id);
+    $entity = $this->entityTypeManager->getStorage('wordproof_timestamp')->load($id);
 
     return $entity->getHashInput();
   }
 
   public function getHashInputRevisions(TimestampInterface $timestamp): array {
-    $query = $this->entityTypeManager->getStorage('wordproof')->getQuery()
+    $query = $this->entityTypeManager->getStorage('wordproof_timestamp')->getQuery()
       ->condition('entity_id', $timestamp->getReferenceId())
       ->condition('date_created', $timestamp->getModified(), '<')
       ->sort('date_created', 'DESC');
@@ -49,7 +49,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
     }
 
     /** @var \Drupal\wordproof\Entity\Timestamp[] $timestampRevisions */
-    $timestampRevisions = $this->entityTypeManager->getStorage('wordproof')->loadMultiple($ids);
+    $timestampRevisions = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadMultiple($ids);
     $revisions = [];
     foreach ($timestampRevisions as $revision) {
       $revisions[] = $revision->getHashInputObject();
@@ -59,7 +59,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function find($entity_type, $entity_id) {
-    $entityStorage = $this->entityTypeManager->getStorage('wordproof');
+    $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
     $entities = $entityStorage->loadByProperties([
       'entity_id' => $entity_id,
       'stamped_entity_type' => $entity_type,
@@ -68,7 +68,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
   }
 
   public function create(TimestampInterface $timestamp) {
-    $entity = $this->entityTypeManager->getStorage('wordproof')->create(
+    $entity = $this->entityTypeManager->getStorage('wordproof_timestamp')->create(
       [
         'entity_id' => $timestamp->getReferenceId(),
         'stamped_entity_type' => $timestamp->getReferenceEntityType(),
@@ -84,7 +84,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
 
   public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
-    $entities = $this->entityTypeManager->getStorage('wordproof')->loadByProperties(['remote_id' => (int) $remote_id]);
+    $entities = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadByProperties(['remote_id' => (int) $remote_id]);
     $entity = array_shift($entities);
     $entity->setTransactionAddress($address);
     $entity->setTransactionBlockchain($blockchain);
