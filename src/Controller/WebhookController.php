@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Controller;
+namespace Drupal\wordproof\Controller;
 
 class WebhookController {
 

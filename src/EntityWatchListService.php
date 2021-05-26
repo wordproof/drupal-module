@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp;
+namespace Drupal\wordproof;
 
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
@@ -62,7 +62,7 @@ class EntityWatchListService {
       $entityTypeDefinitions,
       function ($definition, $key) {
         $isContentEntity = $definition instanceof ContentEntityTypeInterface;
-        $isNoTimestamp = $key !== 'wordproof_timestamp';
+        $isNoTimestamp = $key !== 'wordproof';
         $isFieldable = $definition->entityClassImplements(FieldableEntityInterface::class);
         return $isContentEntity && $isNoTimestamp && $isFieldable;
       },

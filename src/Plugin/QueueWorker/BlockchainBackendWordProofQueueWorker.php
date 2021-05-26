@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin\QueueWorker;
+namespace Drupal\wordproof\Plugin\QueueWorker;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
-use Drupal\wordproof_timestamp\WordProofApiClientInterface;
+use Drupal\wordproof\TimestampRepositoryInterface;
+use Drupal\wordproof\WordProofApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,14 +20,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var \Drupal\wordproof_timestamp\WordProofApiClientInterface
+   * @var \Drupal\wordproof\WordProofApiClientInterface
    */
   private $apiClient;
 
   const API_CHECK_DELAY = 60;
 
   /**
-   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
+   * @var \Drupal\wordproof\TimestampRepositoryInterface
    */
   private $timestampRepository;
 
@@ -43,8 +43,8 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof_timestamp.wordproof_api_client'),
-      $container->get('wordproof_timestamp.repository')
+      $container->get('wordproof.wordproof_api_client'),
+      $container->get('wordproof.repository')
     );
   }
 

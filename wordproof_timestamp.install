@@ -1,5 +1,0 @@
-<?php
-
-function wordproof_timestamp_uninstall() {
-  \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_timestamp_content')->delete();
-}

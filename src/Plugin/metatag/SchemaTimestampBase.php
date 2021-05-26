@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin\metatag;
+namespace Drupal\wordproof\Plugin\metatag;
 
 use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 

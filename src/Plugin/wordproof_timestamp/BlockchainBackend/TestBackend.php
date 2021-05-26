@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend;
+namespace Drupal\wordproof\Plugin\wordproof\BlockchainBackend;
 
-use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
-use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
+use Drupal\wordproof\Plugin\BlockchainBackendInterface;
+use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
  * Defines an blockchain backend implementation for WordProof.

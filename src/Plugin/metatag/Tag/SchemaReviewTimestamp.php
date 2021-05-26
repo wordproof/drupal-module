@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin\metatag\Tag;
+namespace Drupal\wordproof\Plugin\metatag\Tag;
 
-use Drupal\wordproof_timestamp\Plugin\metatag\SchemaTimestampBase;
+use Drupal\wordproof\Plugin\metatag\SchemaTimestampBase;
 
 /**
  * Provides a plugin for the 'schema_review_timestamp' meta tag.

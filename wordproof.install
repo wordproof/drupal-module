@@ -1,0 +1,5 @@
+<?php
+
+function wordproof_uninstall() {
+  \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_content')->delete();
+}

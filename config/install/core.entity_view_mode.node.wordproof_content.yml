@@ -2,11 +2,11 @@ status: true
 dependencies:
   module:
     - node
-    - wordproof_timestamp
+    - wordproof
   enforced:
     module:
-      - wordproof_timestamp
-id: node.wordproof_timestamp_content
+      - wordproof
+id: node.wordproof_content
 label: WordProof timestamp HashInput
 targetEntityType: node
 cache: true

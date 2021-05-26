@@ -1,6 +1,6 @@
-wordproof_timestamp.admin_settings_form:
+wordproof.admin_settings_form:
   title: 'WordProof timestamp settings'
-  route_name: wordproof_timestamp.admin_settings_form
+  route_name: wordproof.admin_settings_form
   description: 'Configure WordProof timestamps by settings up API and node configuration.'
   parent: system.admin_config_system
   weight: 99

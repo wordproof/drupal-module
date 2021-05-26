@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Timestamp;
+namespace Drupal\wordproof\Timestamp;
 
 interface TimestampInterface {
 

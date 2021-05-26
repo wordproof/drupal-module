@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\wordproof_timestamp;
+namespace Drupal\wordproof;
 
-use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
+use Drupal\wordproof\Timestamp\TimestampInterface;
 use Psr\Http\Message\ResponseInterface;
 
 interface WordProofApiClientInterface {
@@ -12,7 +12,7 @@ interface WordProofApiClientInterface {
   public function get(int $id): ResponseInterface;
 
   /**
-   * @param \Drupal\wordproof_timestamp\Timestamp\TimestampInterface[] $timestamps
+   * @param \Drupal\wordproof\Timestamp\TimestampInterface[] $timestamps
    *
    * @return \Psr\Http\Message\ResponseInterface[]
    */

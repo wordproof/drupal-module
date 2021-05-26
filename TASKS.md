@@ -6,7 +6,7 @@
 * WebHook endpoint: Receiving blockchain information.
 * Nested backend Settings: form nested for backend (in config form, use #state and get form from the backend. See jsonapi)
 * Possibly implement something like EntityReferenceSelection where you can set the valid entity types for a plugin. This makes installing a specific plugin for other modules easier.
-* Create config for core.entity_view_mode.[ENTITY].wordproof_timestamp_content.yml when timestamping is enabled.
+* Create config for core.entity_view_mode.[ENTITY].wordproof_content.yml when timestamping is enabled.
   * See https://api.drupal.org/api/drupal/core!includes!entity.inc/function/entity_get_display/8.2.x for creating it in code.
 * Tests? ;)
 * Be explicit about ContentEntities only.

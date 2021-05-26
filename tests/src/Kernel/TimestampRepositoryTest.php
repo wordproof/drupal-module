@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\Tests\wordproof_timestamp\Kernel;
+namespace Drupal\Tests\wordproof\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\wordproof_timestamp\Entity\Timestamp;
+use Drupal\wordproof\Entity\Timestamp;
 
 /**
  * Class TimestampRepositoryTest.
  *
- * @coversDefaultClass \Drupal\wordproof_timestamp\TimestampRepository
- * @covers \Drupal\wordproof_timestamp\TimestampRepository
- * @group wordproof_timestamp
+ * @coversDefaultClass \Drupal\wordproof\TimestampRepository
+ * @covers \Drupal\wordproof\TimestampRepository
+ * @group wordproof
  *
  * @internal
  */
@@ -23,7 +23,7 @@ class TimestampRepositoryTest extends KernelTestBase {
     'field',
     'user',
     'node',
-    'wordproof_timestamp',
+    'wordproof',
   ];
 
   protected function setUp(): void {
@@ -31,7 +31,7 @@ class TimestampRepositoryTest extends KernelTestBase {
 
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
-    $this->installEntitySchema('wordproof_timestamp');
+    $this->installEntitySchema('wordproof');
 
     $this->installSchema('system', ['sequences']);
     $this->installSchema('node', ['node_access']);
@@ -73,8 +73,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     );
     $timestamp->save();
 
-    /** @var \Drupal\wordproof_timestamp\TimestampRepository $repository */
-    $repository = $this->container->get('wordproof_timestamp.repository');
+    /** @var \Drupal\wordproof\TimestampRepository $repository */
+    $repository = $this->container->get('wordproof.repository');
 
     $this->assertEquals(NULL, $repository->get($node));
     $foundTimestamp = $repository->get($nodeStamped);
@@ -109,8 +109,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     );
     $timestamp->save();
 
-    /** @var \Drupal\wordproof_timestamp\TimestampRepository $repository */
-    $repository = $this->container->get('wordproof_timestamp.repository');
+    /** @var \Drupal\wordproof\TimestampRepository $repository */
+    $repository = $this->container->get('wordproof.repository');
 
     $this->assertEquals(FALSE, $repository->isStamped($node));
     $this->assertEquals(TRUE, $repository->isStamped($nodeStamped));
@@ -128,8 +128,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     );
     $timestamp->save();
 
-    /** @var \Drupal\wordproof_timestamp\TimestampRepository $repository */
-    $repository = $this->container->get('wordproof_timestamp.repository');
+    /** @var \Drupal\wordproof\TimestampRepository $repository */
+    $repository = $this->container->get('wordproof.repository');
 
     $this->assertEquals('hash_input_data', $repository->getHashInput($timestamp->id()));
   }
@@ -161,8 +161,8 @@ class TimestampRepositoryTest extends KernelTestBase {
     );
     $timestampRevision2->save();
 
-    /** @var \Drupal\wordproof_timestamp\TimestampRepository $repository */
-    $repository = $this->container->get('wordproof_timestamp.repository');
+    /** @var \Drupal\wordproof\TimestampRepository $repository */
+    $repository = $this->container->get('wordproof.repository');
     $encoded = json_encode($repository->getHashInputRevisions($timestamp), JSON_UNESCAPED_SLASHES);
     $this->assertEquals('[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]', $encoded);
   }

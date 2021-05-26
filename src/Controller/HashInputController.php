@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Controller;
+namespace Drupal\wordproof\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\wordproof_timestamp\TimestampRepositoryInterface;
+use Drupal\wordproof\TimestampRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HashInputController extends ControllerBase {
 
   /**
-   * @var \Drupal\wordproof_timestamp\TimestampRepositoryInterface
+   * @var \Drupal\wordproof\TimestampRepositoryInterface
    */
   private $repository;
 
@@ -22,7 +22,7 @@ class HashInputController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $repository = $container->get('wordproof_timestamp.repository');
+    $repository = $container->get('wordproof.repository');
     return new static($repository);
   }
 

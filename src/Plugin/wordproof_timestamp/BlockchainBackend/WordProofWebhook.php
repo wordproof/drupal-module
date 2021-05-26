@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin\wordproof_timestamp\BlockchainBackend;
+namespace Drupal\wordproof\Plugin\wordproof\BlockchainBackend;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\wordproof_timestamp\Plugin\BlockchainBackendInterface;
-use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
-use Drupal\wordproof_timestamp\WordProofApiClientInterface;
+use Drupal\wordproof\Plugin\BlockchainBackendInterface;
+use Drupal\wordproof\Timestamp\TimestampInterface;
+use Drupal\wordproof\WordProofApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBackendInterface {
 
   /**
-   * @var \Drupal\wordproof_timestamp\WordProofApiClientInterface
+   * @var \Drupal\wordproof\WordProofApiClientInterface
    */
   private $client;
 
@@ -47,7 +47,7 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof_timestamp.wordproof_api_client')
+      $container->get('wordproof.wordproof_api_client')
     );
   }
 

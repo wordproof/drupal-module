@@ -2,7 +2,7 @@
 
 <phpunit colors="true">
   <testsuites>
-    <testsuite name="wordproof_timestamp">
+    <testsuite name="wordproof">
       <directory>./src/</directory>
     </testsuite>
   </testsuites>

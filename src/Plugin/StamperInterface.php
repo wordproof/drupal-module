@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Plugin;
+namespace Drupal\wordproof\Plugin;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 

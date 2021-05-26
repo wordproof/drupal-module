@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\wordproof_timestamp\Form;
+namespace Drupal\wordproof\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
@@ -8,21 +8,21 @@ use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager;
-use Drupal\wordproof_timestamp\Plugin\StamperManager;
+use Drupal\wordproof\Plugin\BlockchainBackendManager;
+use Drupal\wordproof\Plugin\StamperManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WordProofSettingsForm extends ConfigFormBase {
 
-  const SETTINGS = 'wordproof_timestamp.settings';
+  const SETTINGS = 'wordproof.settings';
 
   /**
-   * @var \Drupal\wordproof_timestamp\Plugin\BlockchainBackendManager
+   * @var \Drupal\wordproof\Plugin\BlockchainBackendManager
    */
   protected $backendManager;
 
   /**
-   * @var \Drupal\wordproof_timestamp\Plugin\StamperManager
+   * @var \Drupal\wordproof\Plugin\StamperManager
    */
   protected $stamperManager;
 
@@ -134,7 +134,7 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
     $contentEntityBundleInfo = array_filter($this->entityTypeBundleInfo->getAllBundleInfo(), function ($key) use ($entityTypeDefinitions) {
-      return $entityTypeDefinitions[$key] instanceof ContentEntityTypeInterface && $key !== 'wordproof_timestamp';
+      return $entityTypeDefinitions[$key] instanceof ContentEntityTypeInterface && $key !== 'wordproof';
     }, ARRAY_FILTER_USE_KEY);
 
     foreach ($contentEntityBundleInfo as $entity_type => $bundleInfo) {

@@ -1,0 +1,28 @@
+services:
+  plugin.manager.wordproof_stamper:
+    class: Drupal\wordproof\Plugin\StamperManager
+    parent: default_plugin_manager
+
+  plugin.manager.wordproof_blockchain_backend:
+    class: Drupal\wordproof\Plugin\BlockchainBackendManager
+    parent: default_plugin_manager
+
+  wordproof.timestamp_builder_service:
+    class: Drupal\wordproof\TimestampBuilderService
+    arguments: [ '@plugin.manager.wordproof_stamper', '@plugin.manager.wordproof_blockchain_backend', '@wordproof.repository', '@config.factory', '@wordproof.entity_watch_list', '@entity_type.manager' ]
+
+  wordproof.wordproof_api_client:
+    class: Drupal\wordproof\WordProofApiClient
+    arguments: [ '@http_client', '@config.factory' ]
+
+  wordproof.repository:
+    class: Drupal\wordproof\TimestampRepository
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: backend_overridable }
+
+  wordproof.entity_watch_list:
+    class: Drupal\wordproof\EntityWatchListService
+    arguments: ['@entity_type.manager', '@entity_field.manager']
+    tags:
+      - { name: backend_overridable }

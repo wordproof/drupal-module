@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\wordproof_timestamp;
+namespace Drupal\wordproof;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\wordproof_timestamp\Timestamp\TimestampInterface;
+use Drupal\wordproof\Timestamp\TimestampInterface;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -24,7 +24,7 @@ class WordProofApiClient implements WordProofApiClientInterface {
    */
   public function __construct(Client $client, ConfigFactoryInterface $configFactory) {
     $this->client = $client;
-    $this->config = $configFactory->get('wordproof_timestamp.settings');
+    $this->config = $configFactory->get('wordproof.settings');
   }
 
   private function timestampRequestData(TimestampInterface $timestamp): array {
@@ -56,7 +56,7 @@ class WordProofApiClient implements WordProofApiClientInterface {
   }
 
   /**
-   * @param \Drupal\wordproof_timestamp\Timestamp\TimestampInterface[] $timestamps
+   * @param \Drupal\wordproof\Timestamp\TimestampInterface[] $timestamps
    *
    * @return \Psr\Http\Message\ResponseInterface[]
    */

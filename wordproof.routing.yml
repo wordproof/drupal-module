@@ -1,0 +1,26 @@
+wordproof.webhook:
+  path: '/wordproof/webhook'
+  defaults:
+    _controller: '\Drupal\wordproof\Controller\WebhookController::receive'
+    _title: 'WordProof timestamp webhook receiver'
+  requirements:
+    _permission: 'any'
+
+wordproof.hashinput:
+  path: '/wordproof/hashinput/{id}'
+  defaults:
+    _controller: '\Drupal\wordproof\Controller\HashInputController::get'
+    _title: 'Serve JSON-LD HashInput for Hash'
+  requirements:
+    # This route is the public verification url for the HashInput that generated the timestamp
+    _access: 'TRUE'
+
+wordproof.admin_settings_form:
+  path: '/admin/config/wordproof/settings'
+  defaults:
+    _form: '\Drupal\wordproof\Form\WordProofSettingsForm'
+    _title: 'WordProof timestamp settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
