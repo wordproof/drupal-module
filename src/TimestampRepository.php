@@ -52,7 +52,7 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $timestampRevisions = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadMultiple($ids);
     $revisions = [];
     foreach ($timestampRevisions as $revision) {
-      $revisions[] = $revision->getHashInputObject();
+      $revisions[] = $revision->toJsonLdArray();
     }
 
     return $revisions;

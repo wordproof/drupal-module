@@ -157,6 +157,9 @@ class TimestampRepositoryTest extends KernelTestBase {
         'content' => 'some contents',
         'date_created' => 1617709090 - 3600,
         'stamped_entity_type' => 'node',
+        'transaction_id' => 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+        'hash' => 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e90a',
+        'transaction_blockchain' => 'eos',
       ]
     );
     $timestampRevision2->save();
@@ -164,7 +167,6 @@ class TimestampRepositoryTest extends KernelTestBase {
     /** @var \Drupal\wordproof\TimestampRepository $repository */
     $repository = $this->container->get('wordproof.repository');
     $encoded = json_encode($repository->getHashInputRevisions($timestamp), JSON_UNESCAPED_SLASHES);
-    $this->assertEquals('[{"@context":"https://schema.org","@type":"HashInput","dateCreated":"2021-04-06T20:38:10+10:00","isBasedOn":"https://wordproof.dev/node/1","text":"some contents"}]', $encoded);
+    $this->assertEquals('[{"@type":"BlockchainTransaction","identifier":"aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906","hashLink":"https://example.com/json/?hl=8A258E516081C36B866812E49495628CBDC1DD4126DB321A28AE95EE55B83BA","recordedIn":{"@type":"Blockchain","name":"eos"}}]', $encoded);
   }
-
 }
