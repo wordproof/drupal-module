@@ -4,7 +4,7 @@ wordproof.settings:
   mapping:
     enableRevisions:
       type: boolean
-      label: 'Show revisions in HasInput'
+      label: 'Show revisions'
     blockchainBackend:
       type: mapping
       label: 'Blockchain backend'

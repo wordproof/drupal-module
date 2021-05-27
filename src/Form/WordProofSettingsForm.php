@@ -93,7 +93,7 @@ class WordProofSettingsForm extends ConfigFormBase {
 
     $form['enable_revisions'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show revisions in HasInput'),
+      '#title' => $this->t('Show revisions'),
       '#default_value' => $config->get('enable_revisions') ?: 0,
       '#required' => FALSE,
     ];
