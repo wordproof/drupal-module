@@ -47,7 +47,7 @@ function wordproof_entity_update(EntityInterface $entity) {
 function wordproof_theme($existing, $type, $theme, $path) {
   return [
     'wordproof_certificate' => [
-      'variables' => ['timestamp' => NULL],
+      'variables' => ['timestamp' => NULL, 'settings' => NULL],
     ],
   ];
 }
