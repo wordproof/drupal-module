@@ -50,7 +50,7 @@ Thats all, after saving content the module queues a job to fetch the blockchain 
 
 The module uses plugins for stamping content and publishing on a blockchain.
 
-`Plugin\<span class="token package">StamperInterface</span>`
+`Plugin\StamperInterface`
 
 Stampers receive a `ContentEntity` and create a `wordproof timestamp` entity. If you have custom conent entities where you need a different way to consolidate the content.
 
