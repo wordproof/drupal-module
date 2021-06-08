@@ -5,6 +5,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
@@ -127,7 +128,7 @@ function wordproof_tokens($type, $tokens, array $data, array $options, Bubbleabl
 /**
  * @see hook_help()
  */
-function wordproof_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+function wordproof_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.MYMODULE':
       $text = file_get_contents(__DIR__ . '/README.md');
