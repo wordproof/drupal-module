@@ -179,7 +179,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
   /**
    * Array with HashInput data. Encoding note: json_encode([], JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES).
    *
-   * @return object
+   * @return object Object containing HashInput information
    */
   public function getHashInputObject() {
     return (object) [

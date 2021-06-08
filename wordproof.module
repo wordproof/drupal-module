@@ -26,7 +26,10 @@ function wordproof_entity_insert(EntityInterface $entity) {
 
 }
 
-/* Start with new node support only */
+/**
+ * Start with new node support only
+ * @see hook_entity_update()
+ */
 function wordproof_entity_update(EntityInterface $entity) {
   if (!$entity instanceof ContentEntityInterface || $entity instanceof TimestampInterface) {
     return;
@@ -43,7 +46,7 @@ function wordproof_entity_update(EntityInterface $entity) {
 }
 
 /**
- * @see hook_theme().
+ * @see hook_theme()
  */
 function wordproof_theme($existing, $type, $theme, $path) {
   return [
@@ -54,7 +57,7 @@ function wordproof_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * @see hook_token_info_alter().
+ * @see hook_token_info_alter()
  */
 function wordproof_token_info_alter(&$info) {
   $definitions = \Drupal::entityTypeManager()->getDefinitions();
@@ -87,7 +90,7 @@ function wordproof_token_info_alter(&$info) {
 }
 
 /**
- * Implements hook_tokens().
+ * @see hook_tokens()
  */
 function wordproof_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = [];
@@ -122,7 +125,7 @@ function wordproof_tokens($type, $tokens, array $data, array $options, Bubbleabl
 }
 
 /**
- * Implements hook_help().
+ * @see hook_help()
  */
 function wordproof_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
   switch ($route_name) {
