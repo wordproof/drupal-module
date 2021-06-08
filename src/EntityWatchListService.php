@@ -8,6 +8,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
+/**
+ * Builds an array with entity references so if an entity is changed we can lookup referenced entities. With this information we can stamp content entities even.
+ */
 class EntityWatchListService {
 
   /**
@@ -33,6 +36,12 @@ class EntityWatchListService {
     $this->entityFieldManager = $entityFieldManager;
   }
 
+  /**
+   * Get target types and their dependents.
+   *
+   * @return array
+   *   Return watch list [target type][target entitiy type id] = fieldnames[]
+   */
   public function getWatchList(): array {
     if (isset($this->watchList)) {
       return $this->watchList;
@@ -44,6 +53,12 @@ class EntityWatchListService {
     return $this->watchList;
   }
 
+  /**
+   * Add fields that are stored in the field storage config.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   private function fromFieldStorageConfig() {
     /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface[] $entityReferenceFields */
     $entityReferenceFields = $this->entityTypeManager
@@ -55,6 +70,9 @@ class EntityWatchListService {
     }
   }
 
+  /**
+   * Find reference field in the entity base field.
+   */
   private function fromBaseFields() {
     $entityTypeDefinitions = $this->entityTypeManager->getDefinitions();
     /** @var \Drupal\Core\Entity\ContentEntityTypeInterface[] $fieldableEntityTypeDefinitions */
@@ -80,6 +98,11 @@ class EntityWatchListService {
     }
   }
 
+  /**
+   * Add field to the watchlist.
+   *
+   * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $field
+   */
   private function addField(FieldStorageDefinitionInterface $field) {
     $target_type = $field->getSetting('target_type');
     if (!isset($this->watchList[$target_type])) {

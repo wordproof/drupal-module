@@ -24,10 +24,32 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
    */
   private $client;
 
+  /**
+   * WordProofWebhook constructor.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   Container.
+   * @param array $configuration
+   *   Config.
+   * @param string $plugin_id
+   *   Plugin id.
+   * @param mixed $plugin_definition
+   *   Definition.
+   * @param \Drupal\wordproof\WordProofApiClientInterface $wordproofAPIClient
+   *   API client.
+   *
+   * @return void
+   *  Contructor
+   */
   public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient) {
     $this->client = $wordproofAPIClient;
   }
 
+  /**
+   * Send the timestamp to the api.
+   *
+   * @inheritdoc
+   */
   public function send(TimestampInterface $timestamp): TimestampInterface {
     $response = $this->client->post($timestamp);
 
@@ -41,6 +63,21 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
     }
   }
 
+  /**
+   * Create the plugin.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   Container.
+   * @param array $configuration
+   *   Configuration.
+   * @param string $plugin_id
+   *   The plugin id.
+   * @param mixed $plugin_definition
+   *   Plugin definition.
+   *
+   * @return \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\WordProofWebhook|static
+   *   The plugin
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $container,

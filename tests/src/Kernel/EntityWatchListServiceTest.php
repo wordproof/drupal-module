@@ -5,7 +5,7 @@ namespace Drupal\Tests\wordproof\Kernel;
 use Drupal\Tests\token\Kernel\KernelTestBase;
 
 /**
- * Class EntityWatchListServiceTest.
+ * Test the EntityWatchListService.
  *
  * @group wordproof
  * @coversDefaultClass \Drupal\wordproof\EntityWatchListService
@@ -24,6 +24,9 @@ class EntityWatchListServiceTest extends KernelTestBase {
     'user',
   ];
 
+  /**
+   * @covers \Drupal\wordproof\EntityWatchListService::getWatchList
+   */
   public function testGetWatchList() {
     /** @var \Drupal\wordproof\EntityWatchListService $watchListService */
     $watchListService = $this->container->get('wordproof.entity_watch_list');

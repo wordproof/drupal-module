@@ -12,6 +12,9 @@ use Drupal\wordproof\Plugin\BlockchainBackendManager;
 use Drupal\wordproof\Plugin\StamperManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Settings form for WordProof.
+ */
 class WordProofSettingsForm extends ConfigFormBase {
 
   const SETTINGS = 'wordproof.settings';
@@ -48,6 +51,15 @@ class WordProofSettingsForm extends ConfigFormBase {
     $this->entityTypeBundleInfo = $entityTypeBundleInfo;
   }
 
+  /**
+   * Create the form with correct services.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   Container.
+   *
+   * @return \Drupal\Core\Form\ConfigFormBase|\Drupal\wordproof\Form\WordProofSettingsForm|static
+   *   Return wordproof settings form
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),

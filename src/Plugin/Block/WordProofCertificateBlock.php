@@ -38,6 +38,22 @@ class WordProofCertificateBlock extends BlockBase implements ContainerFactoryPlu
    */
   private $config;
 
+  /**
+   * WordProofCertificateBlock constructor.
+   *
+   * @param array $configuration
+   *   Configuration.
+   * @param string $plugin_id
+   *   Plugin id.
+   * @param mixed $plugin_definition
+   *   Definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity typemanger.
+   * @param \Drupal\wordproof\TimestampRepositoryInterface $repository
+   *   Timestamp repository.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory.
+   */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, TimestampRepositoryInterface $repository, ConfigFactoryInterface $configFactory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;

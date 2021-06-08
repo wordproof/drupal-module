@@ -7,6 +7,9 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Client for the WordProof API.
+ */
 class WordProofApiClient implements WordProofApiClientInterface {
 
   /**
@@ -27,6 +30,15 @@ class WordProofApiClient implements WordProofApiClientInterface {
     $this->config = $configFactory->get('wordproof.settings');
   }
 
+  /**
+   * Builds the data needed for the API request.
+   *
+   * @param \Drupal\wordproof\Timestamp\TimestampInterface $timestamp
+   *   The timestamp that needs stamping.
+   *
+   * @return array
+   *   Array with the data that is expected by the API
+   */
   private function timestampRequestData(TimestampInterface $timestamp): array {
     $time = new \DateTime();
     $time->setTimestamp($timestamp->getModified());
@@ -44,21 +56,31 @@ class WordProofApiClient implements WordProofApiClientInterface {
     ];
   }
 
+  /**
+   * Post the timestamp to the API to save on the blockchain.
+   *
+   * @inheritdoc
+   */
   public function post(TimestampInterface $timestamp): ResponseInterface {
     $timestampRequestData = $this->timestampRequestData($timestamp);
     $uri = $this->config->get('blockchain_backend_url') . '/timestamps';
     return $this->client->post($uri, $timestampRequestData);
   }
 
+  /**
+   * Get the status of an stamp request.
+   *
+   * @inheritdoc
+   */
   public function get(int $id): ResponseInterface {
     $uri = $this->config->get('blockchain_backend_url') . '/timestamps/' . $id;
     return $this->client->get($uri, ['headers' => $this->headers()]);
   }
 
   /**
-   * @param \Drupal\wordproof\Timestamp\TimestampInterface[] $timestamps
+   * Send by bulk, slower but no rate limiting.
    *
-   * @return \Psr\Http\Message\ResponseInterface[]
+   * @inheritdoc
    */
   public function bulk(array $timestamps): array {
     // @todo Send bulk timestamps, @see self::get() but slower responses
@@ -70,6 +92,12 @@ class WordProofApiClient implements WordProofApiClientInterface {
     return $responses;
   }
 
+  /**
+   * Build the proper headers for the request.
+   *
+   * @return string[]
+   *   The request headers for the API
+   */
   private function headers(): array {
     return [
       "Accept" => "application/json",

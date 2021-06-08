@@ -9,6 +9,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 
 /**
+ * Stamp the configured entities on create.
+ *
  * @see hook_entity_create()
  */
 function wordproof_entity_insert(EntityInterface $entity) {
@@ -28,7 +30,8 @@ function wordproof_entity_insert(EntityInterface $entity) {
 }
 
 /**
- * Start with new node support only
+ * Stamp the configured entities on update.
+ *
  * @see hook_entity_update()
  */
 function wordproof_entity_update(EntityInterface $entity) {
@@ -47,6 +50,8 @@ function wordproof_entity_update(EntityInterface $entity) {
 }
 
 /**
+ * Add the wordproof certificate theme to display a certificate.
+ *
  * @see hook_theme()
  */
 function wordproof_theme($existing, $type, $theme, $path) {
@@ -58,6 +63,8 @@ function wordproof_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Add the [entity].wordproof-timestamp token.
+ *
  * @see hook_token_info_alter()
  */
 function wordproof_token_info_alter(&$info) {
@@ -91,6 +98,8 @@ function wordproof_token_info_alter(&$info) {
 }
 
 /**
+ * Add the [entity].wordproof-timestamp token.
+ *
  * @see hook_tokens()
  */
 function wordproof_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
@@ -126,6 +135,8 @@ function wordproof_tokens($type, $tokens, array $data, array $options, Bubbleabl
 }
 
 /**
+ * Add the help page for module.
+ *
  * @see hook_help()
  */
 function wordproof_help($route_name, RouteMatchInterface $route_match) {

@@ -7,6 +7,7 @@ use Drupal\Core\Queue\QueueFactory;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
 use Drupal\wordproof\WordProofApiClientInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,16 +25,44 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
    * @var \Drupal\wordproof\WordProofApiClientInterface
    */
   private $client;
+
   /**
    * @var \Drupal\Core\Queue\QueueFactory
    */
   private $queue;
 
+  /**
+   * WordProofQueued constructor.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   Container.
+   * @param array $configuration
+   *   Config.
+   * @param string $plugin_id
+   *   Plugin id.
+   * @param mixed $plugin_definition
+   *   Definition.
+   * @param \Drupal\wordproof\WordProofApiClientInterface $wordproofAPIClient
+   *   API client.
+   * @param \Drupal\Core\Queue\QueueFactory $queue
+   *   Queue factory.
+   *
+   * @return void
+   */
   public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient, QueueFactory $queue) {
     $this->client = $wordproofAPIClient;
     $this->queue = $queue;
   }
 
+  /**
+   * Send the timestamp.
+   *
+   * @param \Drupal\wordproof\Timestamp\TimestampInterface $timestamp
+   *   The timestamp data.
+   *
+   * @return \Drupal\wordproof\Timestamp\TimestampInterface
+   *   Return the timestamp with the info from the API
+   */
   public function send(TimestampInterface $timestamp): TimestampInterface {
     $response = $this->client->post($timestamp);
 
@@ -48,6 +77,21 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
     return $timestamp;
   }
 
+  /**
+   * Create the plugin.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   Container.
+   * @param array $configuration
+   *   Config.
+   * @param string $plugin_id
+   *   Plugin id.
+   * @param mixed $plugin_definition
+   *   Definition.
+   *
+   * @return \Drupal\wordproof\Plugin\wordproof\BlockchainBackend\WordProofQueued|static
+   *   The plugin instance
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $container,
@@ -59,7 +103,13 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
     );
   }
 
-  private function queueBlockchainInfoCron($response) {
+  /**
+   * Queue the blockchain info update check.
+   *
+   * @param \Psr\Http\Message\ResponseInterface $response
+   *   The api response.
+   */
+  private function queueBlockchainInfoCron(ResponseInterface $response) {
     $queue = $this->queue->get('wordproof_blockchain_backend_wordproof_queue');
     $queue->createItem($response);
   }

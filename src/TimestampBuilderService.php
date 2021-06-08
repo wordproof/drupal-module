@@ -13,6 +13,9 @@ use Drupal\wordproof\Plugin\BlockchainBackendManager;
 use Drupal\wordproof\Plugin\StamperInterface;
 use Drupal\wordproof\Plugin\StamperManager;
 
+/**
+ * This service builds timestamps.
+ */
 class TimestampBuilderService {
 
   /**
@@ -44,11 +47,28 @@ class TimestampBuilderService {
    * @var \Drupal\wordproof\EntityWatchListService
    */
   private $entityWatchListService;
+
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   private $entityTypeManager;
 
+  /**
+   * TimestampBuilderService constructor.
+   *
+   * @param \Drupal\wordproof\Plugin\StamperManager $stamperManager
+   *   Stampermanager.
+   * @param \Drupal\wordproof\Plugin\BlockchainBackendManager $blockchainBackendManager
+   *   The BlockchainBackend manager.
+   * @param \Drupal\wordproof\TimestampRepositoryInterface $timestampRepository
+   *   The timestamp repository.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
+   * @param \Drupal\wordproof\EntityWatchListService $entityWatchListService
+   *   The watchlist service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   */
   public function __construct(StamperManager $stamperManager, BlockchainBackendManager $blockchainBackendManager, TimestampRepositoryInterface $timestampRepository, ConfigFactoryInterface $configFactory, EntityWatchListService $entityWatchListService, EntityTypeManagerInterface $entityTypeManager) {
     $this->timestampRepository = $timestampRepository;
     $this->stamperManager = $stamperManager;
@@ -60,9 +80,14 @@ class TimestampBuilderService {
   }
 
   /**
+   * Get the relevant stamper plugin.
+   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   Entity to stamp.
    *
    * @return \Drupal\wordproof\Plugin\StamperInterface
+   *   The stamper
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   private function getStamperPlugin(ContentEntityInterface $entity): StamperInterface {
@@ -71,9 +96,14 @@ class TimestampBuilderService {
   }
 
   /**
+   * Stamp an entity.
+   *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to stamp.
    *
    * @return bool
+   *   Returns success/fail
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function stamp(ContentEntityInterface $entity) {
@@ -106,18 +136,41 @@ class TimestampBuilderService {
   }
 
   /**
+   * Get the configured blockchainbackend.
+   *
    * @return \Drupal\wordproof\Plugin\BlockchainBackendInterface
+   *   The configured blockchain backend
+   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function getBlockchainBackend(): BlockchainBackendInterface {
     return $this->blockchainBackendManager->createInstance($this->config->get('blockchain_backend_id'));
   }
 
+  /**
+   * Check if the entity is stampable.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to check.
+   *
+   * @return bool
+   *   Is the entity stampable.
+   */
   private function isStampable(ContentEntityInterface $entity): bool {
     $isEnabled = $this->config->get('stamper.' . $entity->getEntityTypeId() . '-' . $entity->bundle() . '.enabled');
     return $isEnabled === '1';
   }
 
+  /**
+   * Stamp all watched entities referencing the given entity.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity that was changed.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function stampWatchedEntities(ContentEntityInterface $entity) {
     $watchList = $this->entityWatchListService->getWatchList();
     $entityTypeId = $entity->getEntityTypeId();

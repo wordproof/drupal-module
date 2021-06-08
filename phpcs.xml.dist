@@ -7,7 +7,6 @@
   <arg name="extensions" value="css,inc,install,js,module,php,profile,theme,yml"/>
 
   <rule ref="Drupal">
-    <!-- Way to much work to maintain useful documentation for custom code. -->
     <exclude name="Drupal.Commenting.FileComment"/>
     <exclude name="Drupal.Commenting.ClassComment"/>
     <exclude name="Drupal.Commenting.FunctionComment"/>
@@ -34,3 +33,4 @@
   </rule>
 
 </ruleset>
+

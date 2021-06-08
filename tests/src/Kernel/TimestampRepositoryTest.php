@@ -8,7 +8,7 @@ use Drupal\node\Entity\NodeType;
 use Drupal\wordproof\Entity\Timestamp;
 
 /**
- * Class TimestampRepositoryTest.
+ * Test the TimestampRepository.
  *
  * @coversDefaultClass \Drupal\wordproof\TimestampRepository
  * @covers \Drupal\wordproof\TimestampRepository
@@ -46,6 +46,9 @@ class TimestampRepositoryTest extends KernelTestBase {
 
   }
 
+  /**
+   * @covers \Drupal\wordproof\TimestampRepository::get
+   */
   public function testGet() {
     $node = Node::create(
           [
@@ -82,6 +85,9 @@ class TimestampRepositoryTest extends KernelTestBase {
     $this->assertEquals($timestamp->toArray(), $foundTimestamp->toArray());
   }
 
+  /**
+   * @covers \Drupal\wordproof\TimestampRepository::isStamped
+   */
   public function testIsStamped() {
     $node = Node::create(
           [
@@ -116,6 +122,9 @@ class TimestampRepositoryTest extends KernelTestBase {
     $this->assertEquals(TRUE, $repository->isStamped($nodeStamped));
   }
 
+  /**
+   * @covers \Drupal\wordproof\TimestampRepository::getHashInput
+   */
   public function testGetHashInput() {
     $timestamp = Timestamp::create(
           [
@@ -134,6 +143,9 @@ class TimestampRepositoryTest extends KernelTestBase {
     $this->assertEquals('hash_input_data', $repository->getHashInput($timestamp->id()));
   }
 
+  /**
+   * @covers \Drupal\wordproof\TimestampRepository::getHashInputRevisions
+   */
   public function testGetHashInputWithRevision() {
     $timestamp = Timestamp::create(
           [

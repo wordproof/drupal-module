@@ -17,6 +17,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $this->entityTypeManager = $entityTypeManager;
   }
 
+  /**
+   * Check if the entity is stamped already.
+   *
+   * @inheritdoc
+   */
   public function isStamped(ContentEntityInterface $entity): bool {
     $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
     $entities = $entityStorage->loadByProperties([
@@ -26,10 +31,27 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return (count($entities) > 0);
   }
 
+  /**
+   * Get a timestamp by entity.
+   *
+   * @inheritdoc
+   */
   public function get(ContentEntityInterface $entity) {
     return $this->find($entity->getEntityTypeId(), $entity->id());
   }
 
+  /**
+   * Get the HashInput by id.
+   *
+   * @param string|int $id
+   *   Id of the timestamp.
+   *
+   * @return string
+   *   HashInput json as string.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function getHashInput($id) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
     $entity = $this->entityTypeManager->getStorage('wordproof_timestamp')->load($id);
@@ -37,6 +59,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return $entity->getHashInput();
   }
 
+  /**
+   * Get the revision information for the timestamp to enable showing revisions.
+   *
+   * @inheritdoc
+   */
   public function getHashInputRevisions(TimestampInterface $timestamp): array {
     $query = $this->entityTypeManager->getStorage('wordproof_timestamp')->getQuery()
       ->condition('entity_id', $timestamp->getReferenceId())
@@ -58,6 +85,20 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return $revisions;
   }
 
+  /**
+   * Find an timestamp by entity type and id.
+   *
+   * @param string $entity_type
+   *   Entity type.
+   * @param mixed $entity_id
+   *   Entity id.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   Returns if found
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function find($entity_type, $entity_id) {
     $entityStorage = $this->entityTypeManager->getStorage('wordproof_timestamp');
     $entities = $entityStorage->loadByProperties([
@@ -67,6 +108,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
     return array_pop($entities);
   }
 
+  /**
+   * Create the timestamp entity.
+   *
+   * @inheritdoc
+   */
   public function create(TimestampInterface $timestamp) {
     $entity = $this->entityTypeManager->getStorage('wordproof_timestamp')->create(
       [
@@ -82,6 +128,11 @@ class TimestampRepository implements TimestampRepositoryInterface {
     $entity->save();
   }
 
+  /**
+   * Update blockchain information of the timestamp.
+   *
+   * @inheritdoc
+   */
   public function updateBlockchainInfo(string $remote_id, string $address, string $blockchain, string $transactionId, string $transactionLink) {
     /** @var \Drupal\wordproof\Entity\Timestamp $entity */
     $entities = $this->entityTypeManager->getStorage('wordproof_timestamp')->loadByProperties(['remote_id' => (int) $remote_id]);

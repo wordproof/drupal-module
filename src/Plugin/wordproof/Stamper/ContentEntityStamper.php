@@ -19,6 +19,19 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  */
 class ContentEntityStamper implements StamperInterface {
 
+  /**
+   * Stamp the entity.
+   *
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to stamp.
+   *
+   * @return \Drupal\wordproof\Timestamp\TimestampInterface
+   *   The created timestamp
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   */
   public function timestamp(ContentEntityInterface $entity): TimestampInterface {
     $entityTypeManager = \Drupal::entityTypeManager();
 

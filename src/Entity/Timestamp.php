@@ -29,6 +29,9 @@ use Drupal\wordproof\Timestamp\TimestampInterface;
  */
 class Timestamp extends ContentEntityBase implements ContentEntityInterface, TimestampInterface {
 
+  /**
+   * @inheritdoc
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 
     // Standard field, used as unique if primary index.
@@ -158,6 +161,9 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     return $fields;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function toJsonLdArray(): array {
     if ($this->getTransactionBlockchain() === NULL) {
       return [];
@@ -179,7 +185,8 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
   /**
    * Array with HashInput data. Encoding note: json_encode([], JSON_FORCE_OBJECT + JSON_UNESCAPED_SLASHES).
    *
-   * @return object Object containing HashInput information
+   * @return object
+   *   Object containing HashInput information
    */
   public function getHashInputObject() {
     return (object) [
@@ -191,6 +198,9 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     ];
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getCacheTagsToInvalidate() {
     $cacheTagsToInvalidate = parent::getCacheTagsToInvalidate();
     $cacheTagsToInvalidate[] = $this->getReferenceEntityType() . ':' . $this->getReferenceId();
@@ -201,114 +211,198 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     return $cacheTagsToInvalidate;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getHash(): string {
     return $this->get('hash')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getContent(): string {
     return $this->get('content')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getModified(): int {
     return $this->get('date_created')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getUrl(): string {
     return $this->get('url')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getTitle(): string {
     return $this->get('title')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getReferenceId(): int {
     return $this->get('entity_id')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getHashInput(): string {
     return $this->get('hash_input')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getReferenceRevisionId(): int {
     return $this->get('revision_id')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getRemoteId(): string {
     return $this->get('remote_id')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getTransactionBlockchain() {
     return $this->get('transaction_blockchain')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getTransactionAddress() {
     return $this->get('transaction_address')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getTransactionId() {
     return $this->get('transaction_id')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getTransactionLink() {
     return $this->get('transaction_link')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function getReferenceEntityType(): string {
     return $this->get('stamped_entity_type')->value;
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setModified(int $date): TimestampInterface {
     return $this->set('date_created', $date);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setTitle(string $title): TimestampInterface {
     return $this->set('title', $title);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setReferenceId(int $entity_id): TimestampInterface {
     return $this->set('entity_id', $entity_id);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setUrl(string $url): TimestampInterface {
     return $this->set('url', $url);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setHash(string $hash): TimestampInterface {
     return $this->set('hash', $hash);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setContent(string $content): TimestampInterface {
     return $this->set('content', $content);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setReferenceRevisionId(int $revision_id): TimestampInterface {
     return $this->set('revision_id', $revision_id);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setHashInput(string $hash_input): TimestampInterface {
     return $this->set('hash_input', $hash_input);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setRemoteId(string $remote_id): TimestampInterface {
     return $this->set('remote_id', $remote_id);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setTransactionBlockchain(string $transaction_blockchain): TimestampInterface {
     return $this->set('transaction_blockchain', $transaction_blockchain);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setTransactionAddress(string $transaction_address): TimestampInterface {
     return $this->set('transaction_address', $transaction_address);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setTransactionId(string $transaction_id): TimestampInterface {
     return $this->set('transaction_id', $transaction_id);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setTransactionLink(string $transaction_link): TimestampInterface {
     return $this->set('transaction_link', $transaction_link);
   }
 
+  /**
+   * @inheritdoc
+   */
   public function setReferenceEntityType(string $entity_type): TimestampInterface {
     return $this->set('stamped_entity_type', $entity_type);
   }

@@ -5,6 +5,9 @@ namespace Drupal\wordproof\Entity;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorageSchema;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
+/**
+ * Custom storage schema for Timestamps so we can define indexes for the proper field.
+ */
 class TimestampStorageSchema extends SqlContentEntityStorageSchema {
 
   /**
