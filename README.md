@@ -1,3 +1,6 @@
+INTRODUCTION
+------------
+
 ## WordProof: Timestamp your content on the blockchain
 
 With WordProof, you can timestamp your content on any EOSIO blockchain from the comfort of your site. No prior blockchain experience necessary. After the set-up, everything is taken care of automatically!
@@ -32,21 +35,49 @@ This hash is added to the blockchain with a date and time. Because you (the webs
 *   [Building the trusted Web together](https://thetrustedweb.org/)
 *   [WordProof.com](https://wordproof.com/)
 
-## Getting started
+REQUIREMENTS
+------------
+
+This module requires the following modules:
+
+* Schema.org Metatag (https://www.drupal.org/project/schema_metatag)
+
+RECOMMENDED MODULES
+-------------------
+
+* Markdown filter (https://www.drupal.org/project/markdown):
+  When enabled, display of the project's README.md help will be rendered
+  with markdown.
+
+
+INSTALLATION
+------------
 
 **under contruction**
 
 1.  Install and enable the module.
 2.  Sign up for an free account on WordProof.com
-3.  Configure your API information
-4.  Configure the `schema_metatag` module. Most importantly add the timestamp token. (for example for nodes: `node<span class="token punctuation">:</span>wordproof<span class="token operator">-</span>timestamp`).
+3.  Configure your WordProof API information.
+4.  Configure the `schema_metatag` module. Most importantly add the timestamp token. (for example for nodes: `node:wordproof-timestamp`).
 5.  Enable timestamping for the proper entity type in the WordProof configuration.
 6.  Place the `wordproof certificate block` on the proper pages. This displays the certificate though a webcomponent.
 7.  Optional: Configure the `wordproof_content` viewmode. The module uses this view to generate a rendered representation of the content.
 
 Thats all, after saving content the module queues a job to fetch the blockchain data from the WordProof API.
 
-## Extending
+CONFIGURATION
+-------------
+
+* Configure the JSON-LD tag in Settings -> Metatag as mentioned in the installtion.
+
+* Configure which content you would like stamped in Settings -> WordProof timestamp settings.
+
+* Configure the blockchain backend in Settings -> Wordproof timestamp settings.
+
+* Enable the WordProof certificate block in the blocklayout.
+
+EXZTENDING: NEW STAMPERS AND BLOCKCHAIN BACKENDS 
+-------------
 
 The module uses plugins for stamping content and publishing on a blockchain.
 
