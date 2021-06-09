@@ -6,3 +6,28 @@
 function wordproof_uninstall() {
   \Drupal::configFactory()->getEditable('core.entity_view_mode.node.wordproof_content')->delete();
 }
+
+/**
+ * Create timestamp created field and fill empty created values in timestamp.
+ */
+function wordproof_update_8001() {
+  $field_spec = [
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'size' => 'normal',
+    'not null' => TRUE,
+    'default' => 0,
+  ];
+  $schema = \Drupal::database()->schema();
+  $schema->addField('wordproof_timestamp', 'created', $field_spec);
+  $schema->addIndex('wordproof_timestamp', 'wordproof_timestamp_created', ['created'], [
+    'fields' => [
+      'created' => $field_spec,
+    ],
+    'indexes' => [
+      'created' => ['created'],
+    ],
+  ]);
+
+  \Drupal::database()->query('UPDATE wordproof_timestamp SET created = date_created WHERE created = 0');
+}

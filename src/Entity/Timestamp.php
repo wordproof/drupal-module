@@ -158,6 +158,12 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
       ->setDefaultValue(0)
       ->setDescription(t('The HashInput on which the hash is based.'));
 
+    // Standard field, unique outside of the scope of the current project.
+    $fields['created'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Unix timestamp'))
+      ->setDefaultValue(0)
+      ->setDescription(t('The date on which the timestamp is created.'));
+
     return $fields;
   }
 
@@ -192,7 +198,7 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
     return (object) [
       "@context"    => "https://schema.org",
       "@type"       => "HashInput",
-      "dateCreated" => date('c', $this->getModified()),
+      "dateCreated" => date('c', $this->getCreated()),
       "isBasedOn"   => $this->getUrl(),
       "text"        => trim($this->getContent()),
     ];
@@ -223,6 +229,10 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
    */
   public function getContent(): string {
     return $this->get('content')->value;
+  }
+
+  public function getCreated(): string {
+    return $this->get('created')->value;
   }
 
   /**
@@ -314,6 +324,10 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
    */
   public function setModified(int $date): TimestampInterface {
     return $this->set('date_created', $date);
+  }
+
+  public function setCreated(int $created): TimestampInterface {
+    return $this->set('created', $created);
   }
 
   /**

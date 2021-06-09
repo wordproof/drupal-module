@@ -2,6 +2,7 @@
 
 namespace Drupal\wordproof\Plugin\wordproof\BlockchainBackend;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
@@ -32,6 +33,11 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
   private $queue;
 
   /**
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  private $timeservice;
+
+  /**
    * WordProofQueued constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
@@ -49,9 +55,10 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
    *
    * @return void
    */
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient, QueueFactory $queue) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient, QueueFactory $queue, TimeInterface $timeservice) {
     $this->client = $wordproofAPIClient;
     $this->queue = $queue;
+    $this->timeservice = $timeservice;
   }
 
   /**
@@ -71,6 +78,7 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $timestamp->setHashInput($response->hash_input);
       $timestamp->setHash($response->hash);
       $timestamp->setRemoteId($response->id);
+      $timestamp->setCreated($this->timeservice->getCurrentTime());
       $this->queueBlockchainInfoCron($response);
     }
 
@@ -99,7 +107,8 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $plugin_id,
       $plugin_definition,
       $container->get('wordproof.wordproof_api_client'),
-      $container->get('queue')
+      $container->get('queue'),
+      $container->get('datetime.time')
     );
   }
 

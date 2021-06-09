@@ -152,6 +152,25 @@ interface TimestampInterface {
   public function getUrl(): string;
 
   /**
+   * Return when the timestamp was created.
+   *
+   * @return string
+   *   Created unix timestamp
+   */
+  public function getCreated(): string;
+
+  /**
+   * Set when the timestamp was created.
+   *
+   * @param int $created
+   *   The unix timestamp.
+   *
+   * @return \Drupal\wordproof\Timestamp\TimestampInterface
+   *   Return the timestamp
+   */
+  public function setCreated(int $created): TimestampInterface;
+
+  /**
    * Set the content.
    *
    * @param string $content

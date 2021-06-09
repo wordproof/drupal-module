@@ -2,6 +2,7 @@
 
 namespace Drupal\wordproof\Plugin\wordproof\BlockchainBackend;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\wordproof\Plugin\BlockchainBackendInterface;
 use Drupal\wordproof\Timestamp\TimestampInterface;
@@ -25,6 +26,11 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
   private $client;
 
   /**
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  private $timeservice;
+
+  /**
    * WordProofWebhook constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
@@ -41,8 +47,10 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
    * @return void
    *  Contructor
    */
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, WordProofApiClientInterface $wordproofAPIClient, TimeInterface $timeservice) {
     $this->client = $wordproofAPIClient;
+    $this->timeservice = $timeservice;
+
   }
 
   /**
@@ -58,7 +66,7 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
       $timestamp->setHashInput($response->hash_input);
       $timestamp->setHash($response->hash);
       $timestamp->setRemoteId($response->id);
-
+      $timestamp->setCreated($this->timeservice->getCurrentTime());
       return $timestamp;
     }
   }
@@ -84,7 +92,8 @@ class WordProofWebhook implements ContainerFactoryPluginInterface, BlockchainBac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('wordproof.wordproof_api_client')
+      $container->get('wordproof.wordproof_api_client'),
+        $container->get('datetime.time')
     );
   }
 
