@@ -48,6 +48,9 @@ class ContentEntityStamper implements StamperInterface {
     $timestamp->setReferenceRevisionId($revisionId);
 
     $modified = time();
+    if ($entity instanceof EntityChangedInterface) {
+      $modified = $entity->getChangedTime();
+    }
     $timestamp->setModified($modified);
 
     $view_builder = $entityTypeManager->getViewBuilder($entity->getEntityTypeId());

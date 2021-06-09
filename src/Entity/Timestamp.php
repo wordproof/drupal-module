@@ -150,13 +150,13 @@ class Timestamp extends ContentEntityBase implements ContentEntityInterface, Tim
           'size' => 'medium',
         ]
       )
-      ->setDescription(t('The content on which the hash is based.'));
+      ->setDescription(t('The HashInput on which the hash is based.'));
 
     // Standard field, unique outside of the scope of the current project.
     $fields['date_created'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Unix timestamp'))
       ->setDefaultValue(0)
-      ->setDescription(t('The date the has was generated.'));
+      ->setDescription(t('The HashInput on which the hash is based.'));
 
     return $fields;
   }
