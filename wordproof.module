@@ -21,12 +21,13 @@ function wordproof_entity_insert(EntityInterface $entity) {
     return FALSE;
   }
 
-  \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
-
   $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
-  $timestampBuilder->stamp($entity);
+  $isStamped = $timestampBuilder->stamp($entity);
   $timestampBuilder->stampWatchedEntities($entity);
 
+  if ($isStamped) {
+    \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
+  }
 }
 
 /**
@@ -42,11 +43,14 @@ function wordproof_entity_update(EntityInterface $entity) {
   if ($entity instanceof EntityPublishedInterface && $entity->isPublished() === FALSE) {
     return;
   }
-  \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
 
   $timestampBuilder = \Drupal::service('wordproof.timestamp_builder_service');
-  $timestampBuilder->stamp($entity);
+  $isStamped = $timestampBuilder->stamp($entity);
   $timestampBuilder->stampWatchedEntities($entity);
+
+  if ($isStamped) {
+    \Drupal::messenger()->addMessage(t('WordProof timestamp for ":title" is queued and the timestamp will appear after approval on the blockchain.', [':title' => $entity->label()]), 'status');
+  }
 }
 
 /**
