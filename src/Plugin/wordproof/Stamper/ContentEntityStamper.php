@@ -42,7 +42,8 @@ class ContentEntityStamper implements StamperInterface {
     $timestamp->setReferenceEntityType($entity->getEntityTypeId());
 
     $revisionId = 0;
-    if ($entity instanceof RevisionableInterface) {
+    if ($entity->getEntityType()->isRevisionable()) {
+
       $revisionId = $entity->getRevisionId() ?: 0;
     }
     $timestamp->setReferenceRevisionId($revisionId);
