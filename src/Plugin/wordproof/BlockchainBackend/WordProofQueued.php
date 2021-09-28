@@ -74,10 +74,10 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
     $response = $this->client->post($timestamp);
 
     if ($response->getStatusCode() >= 200 && $response->getStatusCode() <= 299) {
-      $response = json_decode($response->getBody());
-      $timestamp->setHashInput($response->hash_input);
-      $timestamp->setHash($response->hash);
-      $timestamp->setRemoteId($response->id);
+      $responseBody = json_decode($response->getBody());
+      $timestamp->setHashInput($responseBody->hash_input);
+      $timestamp->setHash($responseBody->hash);
+      $timestamp->setRemoteId($responseBody->id);
       $timestamp->setCreated($this->timeservice->getCurrentTime());
       $this->queueBlockchainInfoCron($response);
     }
