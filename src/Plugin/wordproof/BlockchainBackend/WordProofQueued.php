@@ -79,7 +79,7 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
       $timestamp->setHash($responseBody->hash);
       $timestamp->setRemoteId($responseBody->id);
       $timestamp->setCreated($this->timeservice->getCurrentTime());
-      $this->queueBlockchainInfoCron($response);
+      $this->queueBlockchainInfoCron($responseBody);
     }
 
     return $timestamp;
@@ -115,12 +115,12 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
   /**
    * Queue the blockchain info update check.
    *
-   * @param \Psr\Http\Message\ResponseInterface $response
+   * @param array $responseData
    *   The api response.
    */
-  private function queueBlockchainInfoCron(ResponseInterface $response) {
+  private function queueBlockchainInfoCron(array $responseData) {
     $queue = $this->queue->get('wordproof_blockchain_backend_wordproof_queue');
-    $queue->createItem($response);
+    $queue->createItem($responseData);
   }
 
 }
