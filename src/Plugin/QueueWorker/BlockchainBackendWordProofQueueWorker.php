@@ -88,6 +88,10 @@ class BlockchainBackendWordProofQueueWorker extends QueueWorkerBase implements C
    * @throws \Exception
    */
   public function processItem($data) {
+    if(!isset($data) || !isset($data->id)){
+      return;
+    }
+
     $response = $this->apiClient->get($data->id);
     $responseObject = json_decode($response->getBody());
 
