@@ -115,10 +115,10 @@ class WordProofQueued implements ContainerFactoryPluginInterface, BlockchainBack
   /**
    * Queue the blockchain info update check.
    *
-   * @param array $responseData
+   * @param $responseData
    *   The api response.
    */
-  private function queueBlockchainInfoCron(array $responseData) {
+  private function queueBlockchainInfoCron($responseData) {
     $queue = $this->queue->get('wordproof_blockchain_backend_wordproof_queue');
     $queue->createItem($responseData);
   }
